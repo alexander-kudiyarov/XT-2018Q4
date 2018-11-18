@@ -28,7 +28,7 @@ namespace EPAM.Task0.Square
     }
     class SquareDemo
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Square ob = new Square();
             for (int i = -1; i <= 10; i++)
