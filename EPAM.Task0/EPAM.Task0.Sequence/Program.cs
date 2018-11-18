@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace EPAM.Task0.Sequence
 {
@@ -8,26 +9,17 @@ namespace EPAM.Task0.Sequence
         {
             if (n > 0)
             {
-                int[] nums = new int[n];
-                string div = ", ";
-                for (int i = 0; i < nums.Length; i++)
+                StringBuilder str = new StringBuilder();
+                for (int i = 1; i <= n; i++)
                 {
-                    nums[i] = i + 1;
-                }
-                string[] strTmp = new string[n * 2 - 1];
-                for (int i = 0; i < strTmp.Length; i++)
-                {
-                    if ((i % 2) == 0)
+                    if (i != n)
                     {
-                        strTmp[i] = nums[i / 2].ToString();
+                        str.AppendFormat("{0}, ", i);
                     }
                     else
-                    {
-                        strTmp[i] = div;
-                    }
+                        str.AppendFormat("{0}", i);
                 }
-                string str = string.Join("", strTmp);
-                return str;
+                return str.ToString();
             }
             else
             {
@@ -42,9 +34,9 @@ namespace EPAM.Task0.Sequence
         static void Main()
         {
             Sequence ob = new Sequence();
-            Console.WriteLine(ob.Build(100));
+            Console.WriteLine(ob.Build(1000));
             Console.WriteLine(ob.Build(0));
-            Console.WriteLine(ob.Build(-100));
+            Console.WriteLine(ob.Build(-1000));
         }
     }
 }
