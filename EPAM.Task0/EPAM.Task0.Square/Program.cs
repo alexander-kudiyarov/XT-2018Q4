@@ -31,10 +31,8 @@ namespace EPAM.Task0.Square
         static void Main()
         {
             Square ob = new Square();
-            for (int i = -1; i <= 10; i++)
-            {
-                ob.Draw(i);
-            }
+            Console.WriteLine("Please, enter value for N (N must be odd and greater than one)");
+            ob.Draw(Int32.Parse(Console.ReadLine()));
         }
     }
 }

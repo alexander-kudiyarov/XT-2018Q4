@@ -34,9 +34,8 @@ namespace EPAM.Task0.Sequence
         static void Main()
         {
             Sequence ob = new Sequence();
-            Console.WriteLine(ob.Build(1000));
-            Console.WriteLine(ob.Build(0));
-            Console.WriteLine(ob.Build(-1000));
+            Console.WriteLine("Please, enter value for N (N must be greater than 0)");
+            Console.WriteLine(ob.Build(Int32.Parse(Console.ReadLine())));
         }
     }
 }

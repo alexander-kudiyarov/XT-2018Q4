@@ -30,16 +30,15 @@ namespace EPAM.Task0.Simple
         static void Main()
         {
             Simple ob = new Simple();
-            for (int i = -1; i <= 100; i++)
+            Console.WriteLine("Please, enter value for N");
+            int i = Int32.Parse(Console.ReadLine());
+            if (ob.Check(i))
             {
-                if (ob.Check(i))
-                {
-                    Console.WriteLine("{0}: prime number", i);
-                }
-                else
-                {
-                    Console.WriteLine("{0}: non prime number", i);
-                }
+                Console.WriteLine("{0}: prime number", i);
+            }
+            else
+            {
+                Console.WriteLine("{0}: non prime number", i);
             }
         }
     }
