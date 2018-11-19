@@ -26,7 +26,6 @@ namespace EPAM.Task0.Sequence
                 string err = "N must be greater than 0";
                 return err;
             }
-
         }
     }
     class SequenceDemo
