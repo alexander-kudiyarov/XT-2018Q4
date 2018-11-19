@@ -12,7 +12,7 @@ namespace EPAM.Task0.Square
                 {
                     for (int j = 0; j < n; j++)
                     {
-                        if (i == n / 2 & j == n / 2)
+                        if (i == n / 2 && j == n / 2)
                         {
                             Console.Write(' ');
                         }
