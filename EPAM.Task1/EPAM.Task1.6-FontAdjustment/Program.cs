@@ -32,16 +32,18 @@ namespace EPAM.Task1._6_FontAdjustment
             {
                 case 1:
                     bold = !bold;
+                    Format();
                     break;
                 case 2:
                     italic = !italic;
+                    Format();
                     break;
                 case 3:
                     underline = !underline;
+                    Format();
                     break;
                 default:
                     break;
-
             }
 
         }
@@ -52,10 +54,7 @@ namespace EPAM.Task1._6_FontAdjustment
         static void Main()
         {
             FontAdjustment ob = new FontAdjustment();
-            for (int i = 0; i < 10; i++)
-            {
-                ob.Format();
-            }
+            ob.Format();
         }
     }
 }
