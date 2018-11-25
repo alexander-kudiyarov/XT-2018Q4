@@ -34,6 +34,13 @@ class AnotherTraingleDemo
     {
         AnotherTraingle ob = new AnotherTraingle();
         Console.WriteLine("Please, enter value  of N (N must be greater than 0)");
-        ob.Draw(Int32.Parse(Console.ReadLine()));
+        try
+        {
+            ob.Draw(Int32.Parse(Console.ReadLine()));
+        }
+        catch(FormatException exc)
+        {
+            Console.WriteLine(exc.Message);
+        }
     }
 }

@@ -12,13 +12,13 @@ namespace EPAM.Task1._8_NoPositive
             Console.WriteLine("Before:");
             for (int i = 0; i < arr.GetLength(0); i++)
             {
-                Console.WriteLine("Layer: {0}", i + 1);
+                Console.WriteLine($"Layer: {i + 1}");
                 for (int j = 0; j < arr.GetLength(1); j++)
                 {
                     for (int k = 0; k < arr.GetLength(2); k++)
                     {
                         arr[i, j, k] = r.Next(-99, 99);
-                        Console.Write("{0}\t", arr[i, j, k]);
+                        Console.Write($"{arr[i, j, k]}\t");
                     }
                     Console.WriteLine();
                 }
@@ -26,7 +26,7 @@ namespace EPAM.Task1._8_NoPositive
             Console.WriteLine("\nAfter:");
             for (int i = 0; i < arr.GetLength(0); i++)
             {
-                Console.WriteLine("Layer: {0}", i + 1);
+                Console.WriteLine($"Layer: {i + 1}");
                 for (int j = 0; j < arr.GetLength(1); j++)
                 {
                     for (int k = 0; k < arr.GetLength(2); k++)
@@ -35,7 +35,7 @@ namespace EPAM.Task1._8_NoPositive
                         {
                             arr[i, j, k] = 0;
                         }
-                        Console.Write("{0}\t", arr[i, j, k]);
+                        Console.Write($"{arr[i, j, k]}\t");
                     }
                     Console.WriteLine();
                 }

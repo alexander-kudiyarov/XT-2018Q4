@@ -10,7 +10,7 @@ namespace EPAM.Task1._6_FontAdjustment
 
         public void Format()
         {
-            Console.Write("Параметры надписи: ");
+            Console.Write("Font property: ");
             if (bold)
             {
                 Console.Write("Bold ");
@@ -27,25 +27,32 @@ namespace EPAM.Task1._6_FontAdjustment
             {
                 Console.Write("None");
             }
-            Console.WriteLine("\nВведите:\n\t1: bold\n\t2: italic\n\t3: underine");
-            switch (Int32.Parse(Console.ReadLine()))
+            Console.WriteLine("{0}Enter:{0}\t1: bold{0}\t2: italic{0}\t3: underine{0}\tAnother value for exit", Environment.NewLine);
+            try
             {
-                case 1:
-                    bold = !bold;
-                    Format();
-                    break;
-                case 2:
-                    italic = !italic;
-                    Format();
-                    break;
-                case 3:
-                    underline = !underline;
-                    Format();
-                    break;
-                default:
-                    break;
+                switch (Int32.Parse(Console.ReadLine()))
+                {
+                    case 1:
+                        bold = !bold;
+                        Format();
+                        break;
+                    case 2:
+                        italic = !italic;
+                        Format();
+                        break;
+                    case 3:
+                        underline = !underline;
+                        Format();
+                        break;
+                    default:
+                        Console.WriteLine("Exit");
+                        break;
+                }
             }
-
+            catch(FormatException exc)
+            {
+                Console.WriteLine("Exit");
+            }
         }
 
     }

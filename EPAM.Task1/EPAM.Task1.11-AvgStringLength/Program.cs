@@ -9,6 +9,7 @@ namespace EPAM.Task1._11_AvgStringLength
             bool word = false;
             int chars = 0;
             int count = 1;
+            Console.WriteLine("Please, enter the string");
             string input = Console.ReadLine();
             if (input != null)
             {
@@ -32,7 +33,7 @@ namespace EPAM.Task1._11_AvgStringLength
                 {
                     count--;
                 }
-                Console.WriteLine("Average word length: {0}", (double) chars / count);
+                Console.WriteLine($"Average word length: {(double) chars / count:#.##}");
             }
         }
     }

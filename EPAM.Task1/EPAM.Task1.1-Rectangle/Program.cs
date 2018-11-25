@@ -12,7 +12,7 @@ namespace EPAM.Task1.Rectangle
             }
             else
             {
-                Console.WriteLine("Area of rectangle: {0}", a * b);
+                Console.WriteLine($"Area of rectangle: {a * b}");
             }
         }
     }
@@ -21,11 +21,18 @@ namespace EPAM.Task1.Rectangle
         static void Main()
         {
             Rectangle ob = new Rectangle();
-            Console.WriteLine("Please, enter value of A side (must be greater than 0)");
-            int a = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Please, enter value of B side (must be greater than 0)");
-            int b = Int32.Parse(Console.ReadLine());
-            ob.Calc(a, b);
+            try
+            {
+                Console.WriteLine("Please, enter value of A side (must be greater than 0)");
+                int a = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Please, enter value of B side (must be greater than 0)");
+                int b = Int32.Parse(Console.ReadLine());
+                ob.Calc(a, b);
+            }
+            catch(FormatException exc)
+            {
+                Console.WriteLine(exc.Message);
+            }
         }
     }
 }

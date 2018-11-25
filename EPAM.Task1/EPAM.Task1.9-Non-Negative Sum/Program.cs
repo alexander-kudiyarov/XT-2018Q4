@@ -15,7 +15,7 @@ namespace EPAM.Task1._9_NonNegativeSum
             }
             foreach (int x in arr)
             {
-                Console.Write("{0} ", x);
+                Console.Write($"{x} ");
             }
             int sum = 0;
             for (int i = 0; i < arr.Length; i++)
@@ -25,7 +25,7 @@ namespace EPAM.Task1._9_NonNegativeSum
                     sum += arr[i];
                 }
             }
-            Console.WriteLine("\nSum equal {0}", sum);
+            Console.WriteLine($"{Environment.NewLine}Sum: {sum}");
         }
 
     }

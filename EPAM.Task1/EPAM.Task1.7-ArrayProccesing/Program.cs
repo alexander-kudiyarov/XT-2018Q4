@@ -1,10 +1,8 @@
 ﻿using System;
-
 namespace EPAM.Task1._7_ArrayProccesing
 {
     class ArrayProccesing
     {
-
         public void Sort()
         {
             Random r = new Random();
@@ -17,7 +15,7 @@ namespace EPAM.Task1._7_ArrayProccesing
             Console.WriteLine("Unsorted array:");
             foreach (int x in arr)
             {
-                Console.Write("{0} ", x);
+                Console.Write($"{x} ");
             }
             Console.WriteLine();
             for (int i = 0; i < arr.Length - 1; i++)
@@ -37,9 +35,8 @@ namespace EPAM.Task1._7_ArrayProccesing
             {
                 Console.Write("{0} ", x);
             }
-            Console.WriteLine("\nMin: {0}\nMax: {1}", arr[0], arr[arr.Length - 1]);
+            Console.WriteLine($"{Environment.NewLine}Min: {arr[0]}{Environment.NewLine}Max: {arr[arr.Length - 1]}");
         }
-
     }
     class ArrayProccesingDemo
     {
