@@ -23,9 +23,9 @@ namespace EPAM.Task1.Rectangle
             Rectangle ob = new Rectangle();
             try
             {
-                Console.WriteLine("Please, enter value of A side (must be greater than 0)");
+                Console.WriteLine("Enter value of A side (must be greater than 0)");
                 int a = Int32.Parse(Console.ReadLine());
-                Console.WriteLine("Please, enter value of B side (must be greater than 0)");
+                Console.WriteLine("Enter value of B side (must be greater than 0)");
                 int b = Int32.Parse(Console.ReadLine());
                 ob.Calc(a, b);
             }

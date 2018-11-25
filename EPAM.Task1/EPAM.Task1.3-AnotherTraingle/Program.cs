@@ -33,7 +33,7 @@ class AnotherTraingleDemo
     static void Main()
     {
         AnotherTraingle ob = new AnotherTraingle();
-        Console.WriteLine("Please, enter value  of N (N must be greater than 0)");
+        Console.WriteLine("Enter value  of N (N must be greater than 0)");
         try
         {
             ob.Draw(Int32.Parse(Console.ReadLine()));

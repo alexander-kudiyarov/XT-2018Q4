@@ -9,9 +9,9 @@ namespace EPAM.Task1._11_AvgStringLength
             bool word = false;
             int chars = 0;
             int count = 1;
-            Console.WriteLine("Please, enter the string");
+            Console.WriteLine("Enter the string");
             string input = Console.ReadLine();
-            if (input != null)
+            try
             {
                 for (int i = 0; i < input.Length; i++)
                 {
@@ -33,7 +33,11 @@ namespace EPAM.Task1._11_AvgStringLength
                 {
                     count--;
                 }
-                Console.WriteLine($"Average word length: {(double) chars / count:#.##}");
+                Console.WriteLine($"Average word length: {(double)chars / count:#.##}");
+            }
+            catch(ArgumentOutOfRangeException exc)
+            {
+                Console.WriteLine(exc.Message);
             }
         }
     }

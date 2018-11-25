@@ -14,7 +14,7 @@ namespace EPAM.Task1._5_SumOfNumbers
                     sum += i;
                 }
             }
-            Console.WriteLine($"Sum of multiples of three and five from 1 to a {n}: {sum}");
+            Console.WriteLine($"Sum of multiples of three and five from 1 to {n}: {sum}");
         }
     }
     class SumOfNumbersDemo

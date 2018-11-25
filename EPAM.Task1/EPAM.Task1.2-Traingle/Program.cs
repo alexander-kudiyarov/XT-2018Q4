@@ -26,7 +26,7 @@ class TraingleDemo
     static void Main()
     {
         Traingle ob = new Traingle();
-        Console.WriteLine("Please, enter value  of N (N must be greater than 0)");
+        Console.WriteLine("Enter value  of N (N must be greater than 0)");
         try
         {
             ob.Draw(Int32.Parse(Console.ReadLine()));

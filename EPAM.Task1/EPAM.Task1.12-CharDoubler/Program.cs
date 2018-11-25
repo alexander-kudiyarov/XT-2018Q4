@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace EPAM.Task1._12_CharDoubler
+namespace Epam.Task1_1._12_CharDoubler
 {
     class CharDoubler
     {
-        string str1 = "написать программу, которая";
-        string str2 = "описание";
         public void Build()
         {
-            StringBuilder chars = new StringBuilder();
-            for (int i = 0; i < str2.Length; i++)
+            Console.Write("Please, enter the first string:\t\t");
+            string str1 = Console.ReadLine();
+            Console.Write("Please, enter the second string:\t");
+            string str2 = Console.ReadLine();
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < str1.Length; i++)
             {
-                for (int j = 0; j < str2.Length; j++)
+                result.Append(str1[i]);
+                if (str2.Contains(str1[i]))
                 {
-                    if (str2[i] != chars[j])
-                    {
-                        chars.Append(str2[i]);
-                    }
+                    result.Append(str1[i]);
                 }
             }
-            Console.WriteLine(chars);
-        }
-
+            Console.WriteLine($"Result string:\t\t\t\t{result}");
+        } 
     }
     class CharDoublerDemo
     {
