@@ -50,15 +50,8 @@ namespace EPAM.Task2._04_MyString
 
         private char this[int index]
         {
-            get
-            {
-                return this.Array[index];
-            }
-
-            set
-            {
-                this.Array[index] = value;
-            }
+            get => this.Array[index];
+            set => this.Array[index] = value;
         }
 
         public static void Show(MyString str)
@@ -112,8 +105,10 @@ namespace EPAM.Task2._04_MyString
 
         public static MyString operator +(MyString str1, MyString str2)
         {
-            MyString result = new MyString();
-            result.Array = new char[str1.Length + str2.Length];
+            MyString result = new MyString
+            {
+                Array = new char[str1.Length + str2.Length]
+            };
             for (int i = 0; i < str1.Length; i++)
             {
                 result[i] = str1[i];
