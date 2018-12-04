@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._03_User
 {
-    internal class User
+    public class User
     {
-        internal User(string surname, string name, string patronymic, string birthday)
+        public User(string surname, string name, string patronymic, string birthday)
         {
             this.Surname = surname;
             this.Name = name;
@@ -16,20 +16,20 @@ namespace EPAM.Task2._03_User
             this.Birthday = DateTime.Parse(birthday);
         }
 
-        internal string Surname { get; }
+        public string Surname { get; }
 
-        internal string Name { get; }
+        public string Name { get; }
 
-        internal string Patronymic { get; }
+        public string Patronymic { get; }
 
-        internal DateTime Birthday { get; }
+        public DateTime Birthday { get; }
 
-        internal double Age
+        public double Age
         {
             get => (DateTime.Now - this.Birthday).TotalDays / 365.25;
         }
 
-        internal static void Check(string str)
+        public static void Check(string str)
         {
             int div = 0;
             if (string.IsNullOrEmpty(str))
