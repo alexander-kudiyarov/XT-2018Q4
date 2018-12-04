@@ -12,9 +12,9 @@ namespace EPAM.Task2._01_Round
         {
             try
             {
-                Console.WriteLine("Enter X coor");
+                Console.WriteLine("Enter X coordinate");
                 int x = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Y coor");
+                Console.WriteLine("Enter Y coordinate");
                 int y = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Radius");
                 int r = int.Parse(Console.ReadLine());
