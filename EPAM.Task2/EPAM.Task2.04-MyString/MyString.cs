@@ -8,7 +8,7 @@ namespace EPAM.Task2._04_MyString
 {
     internal class MyString
     {
-        public MyString(string input)
+        internal MyString(string input)
         {
             this.Array = new char[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -17,7 +17,7 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        public MyString(char[] input)
+        internal MyString(char[] input)
         {
             this.Array = new char[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -26,7 +26,7 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        public MyString(int input)
+        internal MyString(int input)
         {
             string temp = input.ToString();
             this.Array = new char[temp.Length];
@@ -36,7 +36,7 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        public MyString()
+        internal MyString()
         {
             this.Array = null;
         }
@@ -122,7 +122,7 @@ namespace EPAM.Task2._04_MyString
             return result;
         }
 
-        public int IndexOf(char value)
+        internal int IndexOf(char value)
         {
             for (int i = 0; i < this.Array.Length; i++)
             {
@@ -135,12 +135,12 @@ namespace EPAM.Task2._04_MyString
             return -1;
         }
 
-        public char[] ToCharArray()
+        internal char[] ToCharArray()
         {
             return this.Array;
         }
 
-        public MyString ToMyString(char[] input)
+        internal MyString ToMyString(char[] input)
         {
             MyString result = new MyString(input);
             return result;
