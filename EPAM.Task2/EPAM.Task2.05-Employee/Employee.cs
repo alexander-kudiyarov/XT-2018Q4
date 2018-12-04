@@ -15,7 +15,21 @@ namespace EPAM.Task2._05_Employee
             this.Position = position;
         }
 
-        internal double WorkExperience { get; }
+        internal double WorkExperience
+        {
+            get => this.WorkExperience;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Work experience must be 0 or greater");
+                }
+                else
+                {
+                    this.WorkExperience = value;
+                }
+            }
+        }
 
         internal string Position { get; }
     }
