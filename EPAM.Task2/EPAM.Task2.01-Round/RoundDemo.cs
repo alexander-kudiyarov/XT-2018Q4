@@ -13,17 +13,17 @@ namespace EPAM.Task2._01_Round
             try
             {
                 Console.WriteLine("Enter X coordinate");
-                int x = int.Parse(Console.ReadLine());
+                double x = double.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Y coordinate");
-                int y = int.Parse(Console.ReadLine());
+                double y = double.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Radius");
-                int r = int.Parse(Console.ReadLine());
+                double r = double.Parse(Console.ReadLine());
                 Round ob = new Round(x, y, r);
                 Console.WriteLine($"Round parameters" +
-                    $"{Environment.NewLine}Сoordonates: \tx: {ob.X}, y: {ob.Y}" +
-                    $"{Environment.NewLine}Radius:\t\t{ob.R}" +
-                    $"{Environment.NewLine}Length:\t\t{ob.Length:#.##}" +
-                    $"{Environment.NewLine}Area:\t\t{ob.Area:#.##}");
+                    $"{Environment.NewLine}Center:\tx: {ob.X}, y: {ob.Y}" +
+                    $"{Environment.NewLine}Radius:\t{ob.R}" +
+                    $"{Environment.NewLine}Length:\t{ob.Length:#.##}" +
+                    $"{Environment.NewLine}Area:\t{ob.Area:#.##}");
             }
             catch (ArgumentException exc)
             {

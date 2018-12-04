@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._01_Round
 {
-    internal class Round
+    public class Round
     {
         private double r;
 
-        internal Round(double x, double y, double r)
+        public Round(double x, double y, double r)
         {
             this.X = x;
             this.Y = y;
             this.R = r;
         }
 
-        internal double X { get; }
+        public double X { get; }
 
-        internal double Y { get; }
+        public double Y { get; }
 
-        internal double R
+        public double R
         {
             get => this.r;
             private set
@@ -37,12 +37,12 @@ namespace EPAM.Task2._01_Round
             }
         }
 
-        internal double Length
+        public double Length
         {
             get => 2 * Math.PI * this.R;
         }
 
-        internal double Area
+        public double Area
         {
             get => Math.PI * (this.R * this.R);
         }

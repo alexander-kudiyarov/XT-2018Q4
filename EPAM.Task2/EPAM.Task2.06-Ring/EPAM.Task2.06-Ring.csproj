@@ -7,7 +7,7 @@
     <ProjectGuid>{723CC615-48D3-4108-BC24-3F698CB7470F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>EPAM.Task2._06_Ring</RootNamespace>
-    <AssemblyName>EPAM.Task2._06_Ring</AssemblyName>
+    <AssemblyName>EPAM.Task2.06-Ring</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,11 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ring.cs" />
+    <Compile Include="RingDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EPAM.Task2.01-Round\EPAM.Task2.01-Round.csproj">
+      <Project>{17072e05-0c64-400d-99a0-f2f6ad722907}</Project>
+      <Name>EPAM.Task2.01-Round</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
