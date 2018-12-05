@@ -16,7 +16,8 @@ namespace EPAM.Task2._02_Traingle
             this.B = b;
             this.C = c;
         }
-        public Traingle()
+
+        internal Traingle()
             : this(1, 1, 1)
         {
         }

@@ -20,6 +20,7 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
                 this.B = new Line(x, y, b);
             }
         }
+
         public Rectangle()
             : this(1, 1, 1, 1)
         {

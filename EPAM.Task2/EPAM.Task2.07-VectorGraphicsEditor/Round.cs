@@ -11,6 +11,7 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
         public Round(double x, double y, double r) : base(x, y, r)
         {
         }
+
         public Round()
             : this(1, 1, 1)
         {
