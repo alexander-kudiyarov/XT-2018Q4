@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._08_Game
 {
-    class Program
+    public class Obj
     {
-        static void Main(string[] args)
-        {
-        }
+        public string Title { get; set; }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
     }
 }

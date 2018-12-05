@@ -12,7 +12,7 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
         {
             if (a <= 0 || b <= 0)
             {
-                throw new ArgumentException("Sides must be greater than 0");
+                throw new ArgumentException("Sides should be positive");
             }
             else
             {

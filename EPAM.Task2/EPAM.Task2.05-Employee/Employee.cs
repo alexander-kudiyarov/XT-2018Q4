@@ -28,7 +28,7 @@ namespace EPAM.Task2._05_Employee
                 }
                 else
                 {
-                    throw new ArgumentException("Work Experience shoul be positive");
+                    throw new ArgumentException("Work experience should be positive");
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace EPAM.Task2._05_Employee
                 $"{Environment.NewLine}Name:\t\t{this.Surname} {this.Name} {this.Patronymic}" +
                 $"{Environment.NewLine}Birth date:\t{this.Birthday:D}" +
                 $"{Environment.NewLine}Age:\t\t{this.Age:#}" +
-                $"{Environment.NewLine}work experience:{this.WorkExperience}" +
+                $"{Environment.NewLine}Work experience:{this.WorkExperience}" +
                 $"{Environment.NewLine}Position:\t{this.Position}");
         }
     }

@@ -34,7 +34,7 @@ namespace EPAM.Task2._03_User
             int div = 0;
             if (string.IsNullOrEmpty(str))
             {
-                throw new ArgumentException("String can't be empty");
+                throw new ArgumentException("This string can't be empty");
             }
             else
             {
@@ -50,14 +50,14 @@ namespace EPAM.Task2._03_User
                         {
                             if (!char.IsLetter(str[i]) || div > 1)
                             {
-                                throw new ArgumentException("Error input format");
+                                throw new ArgumentException("Error string format");
                             }
                         }
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("Error input format");
+                    throw new ArgumentException("Error string format");
                 }
             }
         }

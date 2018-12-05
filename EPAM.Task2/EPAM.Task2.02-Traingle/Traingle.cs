@@ -33,7 +33,7 @@ namespace EPAM.Task2._02_Traingle
             {
                 if (value >= this.A + this.B)
                 {
-                    throw new ArgumentException("Each side of a triangle must be less than sum of other sides");
+                    throw new ArgumentException("Each side of a triangle should be less than sum of other sides");
                 }
                 else
                 {

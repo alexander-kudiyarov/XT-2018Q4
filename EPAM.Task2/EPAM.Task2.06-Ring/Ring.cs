@@ -13,7 +13,7 @@ namespace EPAM.Task2._06_Ring
         {
             if (outR <= inR)
             {
-                throw new ArgumentException("Outer radius must be greater than inner radius");
+                throw new ArgumentException("Outer radius should be greater than inner radius");
             }
             else
             {
