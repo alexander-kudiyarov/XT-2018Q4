@@ -9,8 +9,7 @@ namespace EPAM.Task2._05_Employee
 {
     internal class Employee : User
     {
-        private double workExperience;
-
+        double workExperience;
         internal Employee(string surname, string name, string patronymic, string birthday, double workExperience, string position) : base(surname, name, patronymic, birthday)
         {
             this.WorkExperience = workExperience;

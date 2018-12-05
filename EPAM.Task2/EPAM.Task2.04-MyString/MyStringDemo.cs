@@ -34,6 +34,7 @@ namespace EPAM.Task2._04_MyString
             {
                 Console.Write(c);
             }
+
             Console.WriteLine();
 
             Console.Write("Convert char[] to MyString:\t");
