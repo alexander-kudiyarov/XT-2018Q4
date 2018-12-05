@@ -122,6 +122,32 @@ namespace EPAM.Task2._04_MyString
             return result;
         }
 
+        public static bool operator ==(MyString str1, MyString str2)
+        {
+            if (Compare(str1, str2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(MyString str1, MyString str2)
+        {
+            {
+                if (Compare(str1, str2) != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         internal int IndexOf(char value)
         {
             for (int i = 0; i < this.Array.Length; i++)

@@ -19,6 +19,9 @@ namespace EPAM.Task2._04_MyString
             Console.Write("ob2:\t\t\t\t");
             MyString.Show(ob2);
 
+            Console.WriteLine($"ob1 == ob2:\t\t\t{ob1 == ob2}");
+            Console.WriteLine($"ob1 != ob2:\t\t\t{ob1 != ob2}");
+
             Console.Write("Compare(ob1, ob2):\t\t");
             Console.WriteLine(MyString.Compare(ob1, ob2));
 
