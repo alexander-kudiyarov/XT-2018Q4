@@ -61,5 +61,13 @@ namespace EPAM.Task2._03_User
                 }
             }
         }
+
+        public virtual void Show()
+        {
+            Console.WriteLine($"User:" +
+                $"{Environment.NewLine}Name:\t\t{this.Surname} {this.Name} {this.Patronymic}" +
+                $"{Environment.NewLine}Birth date:\t{this.Birthday:D}" +
+                $"{Environment.NewLine}Age:\t\t{this.Age:#}");
+        }
     }
 }

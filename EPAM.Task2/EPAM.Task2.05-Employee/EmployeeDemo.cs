@@ -42,6 +42,10 @@ namespace EPAM.Task2._05_Employee
             {
                 Console.WriteLine(exc.Message);
             }
+            catch (StackOverflowException exc)
+            {
+                Console.WriteLine(exc);
+            }
         }
     }
 }

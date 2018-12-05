@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task2.05-Employee", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task2.06-Ring", "EPAM.Task2.06-Ring\EPAM.Task2.06-Ring.csproj", "{723CC615-48D3-4108-BC24-3F698CB7470F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task2.07-VectorGraphicsEditor", "EPAM.Task2.07-VectorGraphicsEditor\EPAM.Task2.07-VectorGraphicsEditor.csproj", "{7C2C7FB7-5B3A-4C64-A6AC-905B9814D07D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{723CC615-48D3-4108-BC24-3F698CB7470F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{723CC615-48D3-4108-BC24-3F698CB7470F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{723CC615-48D3-4108-BC24-3F698CB7470F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2C7FB7-5B3A-4C64-A6AC-905B9814D07D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2C7FB7-5B3A-4C64-A6AC-905B9814D07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2C7FB7-5B3A-4C64-A6AC-905B9814D07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2C7FB7-5B3A-4C64-A6AC-905B9814D07D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

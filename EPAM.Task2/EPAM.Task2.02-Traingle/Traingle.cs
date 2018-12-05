@@ -51,5 +51,15 @@ namespace EPAM.Task2._02_Traingle
         {
             get => Math.Sqrt(this.Semiperimeter * (this.Semiperimeter - this.A) * (this.Semiperimeter - this.B) * (this.Semiperimeter - this.C));
         }
+
+        internal void Show()
+        {
+            Console.WriteLine($"Traingle parameters:" +
+                $"{Environment.NewLine}A side:\t\t{this.A}" +
+                $"{Environment.NewLine}B side:\t\t{this.B}" +
+                $"{Environment.NewLine}C side:\t\t{this.C}" +
+                $"{Environment.NewLine}Perimeter:\t{this.Perimeter}" +
+                $"{Environment.NewLine}Area:\t\t{this.Area:#.##}");
+        }
     }
 }

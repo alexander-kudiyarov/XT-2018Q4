@@ -46,5 +46,14 @@ namespace EPAM.Task2._01_Round
         {
             get => Math.PI * (this.R * this.R);
         }
+
+        public virtual void Show()
+        {
+            Console.WriteLine($"Round parameters" +
+                $"{Environment.NewLine}Center:\tx: {this.X}, y: {this.Y}" +
+                $"{Environment.NewLine}Radius:\t{this.R}" +
+                $"{Environment.NewLine}Length:\t{this.Length:#.##}" +
+                $"{Environment.NewLine}Area:\t{this.Area:#.##}");
+        }
     }
 }
