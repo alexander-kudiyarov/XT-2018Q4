@@ -15,6 +15,11 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
             this.R = r;
         }
 
+        public Circle()
+            : this(1, 1, 1)
+        {
+        }
+
         public double Length
         {
             get => 2 * Math.PI * this.R;

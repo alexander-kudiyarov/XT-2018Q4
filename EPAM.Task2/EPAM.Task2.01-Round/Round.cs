@@ -16,6 +16,10 @@ namespace EPAM.Task2._01_Round
             this.Y = y;
             this.R = r;
         }
+        public Round()
+            : this(1, 1, 1)
+        {
+        }
 
         public double X { get; }
 

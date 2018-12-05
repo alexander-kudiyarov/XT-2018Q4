@@ -20,6 +20,10 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
                 this.Outer = new Round(x, y, outR);
             }
         }
+        public Ring()
+            : this(1, 1, 1, 1.1)
+        {
+        }
 
         internal Round Inner { get; }
 
