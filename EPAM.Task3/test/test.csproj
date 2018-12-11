@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6B448FEE-52D7-45B8-BD72-E624903F9EB2}</ProjectGuid>
+    <ProjectGuid>{6BA3E3E2-BA3B-4CA1-95D9-5316FF86E572}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>EPAM.Task3._04_DynamicArray</RootNamespace>
-    <AssemblyName>EPAM.Task3.04-DynamicArray</AssemblyName>
+    <RootNamespace>test</RootNamespace>
+    <AssemblyName>test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,14 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicArray.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
