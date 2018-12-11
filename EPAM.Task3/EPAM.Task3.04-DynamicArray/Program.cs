@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task3._04_DynamicArray
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             try
             {
@@ -19,6 +19,7 @@ namespace EPAM.Task3._04_DynamicArray
                 {
                     ob.Add(i);
                 }
+
                 ob.DynamicArrayShow();
 
                 Console.WriteLine("Using AddRange()");
@@ -34,8 +35,27 @@ namespace EPAM.Task3._04_DynamicArray
                 ob.Insert(0, 7);
                 ob.DynamicArrayShow();
 
+                Console.WriteLine("Use negative index");
+                Console.WriteLine($"ob[-1]: {ob[-1]}" +
+                    $"{Environment.NewLine}ob[-4]: {ob[-4]}");
+                Console.WriteLine();
+
+                Console.WriteLine("Manual change Capacity");
+
+                ob.Capacity = 4;
+                ob.DynamicArrayShow();
+
+                Console.WriteLine("Using Clone()");
+                DynamicArray<int> clone = (DynamicArray<int>)ob.Clone();
+                clone.DynamicArrayShow();
+
+                Console.WriteLine("Using ToArray()");
+                foreach (var item in ob.ToArray())
+                {
+                    Console.Write($"{item} ");
+                }
             }
-            catch(ArgumentOutOfRangeException exc)
+            catch (ArgumentOutOfRangeException exc)
             {
                 Console.WriteLine(exc.Message);
             }
