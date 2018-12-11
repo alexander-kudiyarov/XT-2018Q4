@@ -2,7 +2,7 @@
 
 namespace EPAM.Task1._5_SumOfNumbers
 {
-    class SumOfNumbers
+    public class SumOfNumbers
     {
         public void Calc(int n)
         {
@@ -14,12 +14,14 @@ namespace EPAM.Task1._5_SumOfNumbers
                     sum += i;
                 }
             }
+
             Console.WriteLine($"Sum of multiples of three and five from 1 to {n}: {sum}");
         }
     }
-    class SumOfNumbersDemo
+
+    public class SumOfNumbersDemo
     {
-        static void Main()
+        public static void Main()
         {
             SumOfNumbers ob = new SumOfNumbers();
             ob.Calc(1000);

@@ -2,9 +2,8 @@
 
 namespace EPAM.Task1._8_NoPositive
 {
-    class ArrayProccesing
+    public class ArrayProccesing
     {
-
         public void Sort()
         {
             Random r = new Random();
@@ -20,9 +19,11 @@ namespace EPAM.Task1._8_NoPositive
                         arr[i, j, k] = r.Next(-99, 99);
                         Console.Write($"{arr[i, j, k]}\t");
                     }
+
                     Console.WriteLine();
                 }
             }
+
             Console.WriteLine("\nAfter:");
             for (int i = 0; i < arr.GetLength(0); i++)
             {
@@ -35,17 +36,19 @@ namespace EPAM.Task1._8_NoPositive
                         {
                             arr[i, j, k] = 0;
                         }
+
                         Console.Write($"{arr[i, j, k]}\t");
                     }
+
                     Console.WriteLine();
                 }
             }
         }
-
     }
-    class ArrayProccesingDemo
+
+    public class ArrayProccesingDemo
     {
-        static void Main()
+        public static void Main()
         {
             ArrayProccesing ob = new ArrayProccesing();
             ob.Sort();

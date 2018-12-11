@@ -2,63 +2,67 @@
 
 namespace EPAM.Task1._6_FontAdjustment
 {
-    class FontAdjustment
+    public class FontAdjustment
     {
-        bool bold = false;
-        bool italic = false;
-        bool underline = false;
+        private bool bold = false;
+        private bool italic = false;
+        private bool underline = false;
 
         public void Format()
         {
             Console.Write("Font property: ");
-            if (bold)
+            if (this.bold)
             {
                 Console.Write("Bold ");
             }
-            if (italic)
+
+            if (this.italic)
             {
                 Console.Write("Italic ");
             }
-            if (underline)
+
+            if (this.underline)
             {
                 Console.Write("Underline ");
             }
-            if (!bold && !italic && !underline)
+
+            if (!this.bold && !this.italic && !this.underline)
             {
                 Console.Write("None");
             }
+
             Console.WriteLine("{0}Enter:{0}\t1: bold{0}\t2: italic{0}\t3: underine{0}\tAnother value for exit", Environment.NewLine);
             try
             {
-                switch (Int32.Parse(Console.ReadLine()))
+                switch (int.Parse(Console.ReadLine()))
                 {
                     case 1:
-                        bold = !bold;
-                        Format();
+                        this.bold = !this.bold;
+                        this.Format();
                         break;
                     case 2:
-                        italic = !italic;
-                        Format();
+                        this.italic = !this.italic;
+                        this.Format();
                         break;
                     case 3:
-                        underline = !underline;
-                        Format();
+                        this.underline = !this.underline;
+                        this.Format();
                         break;
                     default:
                         Console.WriteLine("Exit");
                         break;
                 }
             }
-            catch(FormatException exc)
+            catch (FormatException)
             {
                 Console.WriteLine("Exit");
             }
         }
-
     }
-    class FontAdjustmentDemo
+
+    public class FontAdjustmentDemo
     {
-        static void Main()
+        public static void Main()
         {
             FontAdjustment ob = new FontAdjustment();
             ob.Format();

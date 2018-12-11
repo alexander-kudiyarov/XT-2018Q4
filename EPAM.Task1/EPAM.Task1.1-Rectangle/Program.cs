@@ -2,7 +2,7 @@
 
 namespace EPAM.Task1.Rectangle
 {
-    class Rectangle
+    public class Rectangle
     {
         public void Calc(int a, int b)
         {
@@ -16,20 +16,21 @@ namespace EPAM.Task1.Rectangle
             }
         }
     }
-    class RectangleDemo
+
+    public class RectangleDemo
     {
-        static void Main()
+        public static void Main()
         {
             Rectangle ob = new Rectangle();
             try
             {
                 Console.WriteLine("Enter value of A side (must be greater than 0)");
-                int a = Int32.Parse(Console.ReadLine());
+                int a = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter value of B side (must be greater than 0)");
-                int b = Int32.Parse(Console.ReadLine());
+                int b = int.Parse(Console.ReadLine());
                 ob.Calc(a, b);
             }
-            catch(FormatException exc)
+            catch (FormatException exc)
             {
                 Console.WriteLine(exc.Message);
             }

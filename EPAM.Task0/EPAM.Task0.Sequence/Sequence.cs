@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EPAM.Task0.Sequence
 {
-    class Sequence
+    public class Sequence
     {
-        public void Build(int n)
+        public void Show(int n)
         {
             if (n > 0)
             {
@@ -13,21 +16,13 @@ namespace EPAM.Task0.Sequence
                 {
                     Console.Write("{0}, ", i);
                 }
+
                 Console.WriteLine(n);
             }
             else
             {
                 Console.WriteLine("N must be greater than 0");
             }
-        }
-    }
-    class SequenceDemo
-    {
-        static void Main()
-        {
-            Sequence ob = new Sequence();
-            Console.WriteLine("Please, enter value for N (N must be greater than 0)");
-            ob.Build(Int32.Parse(Console.ReadLine()));
         }
     }
 }

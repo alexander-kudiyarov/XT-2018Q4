@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Traingle
+public class Traingle
 {
     public void Draw(int n)
     {
@@ -12,6 +12,7 @@ class Traingle
                 {
                     Console.Write('*');
                 }
+
                 Console.WriteLine();
             }
         }
@@ -21,17 +22,18 @@ class Traingle
         }
     }
 }
-class TraingleDemo
+
+public class TraingleDemo
 {
-    static void Main()
+    public static void Main()
     {
         Traingle ob = new Traingle();
         Console.WriteLine("Enter value  of N (N must be greater than 0)");
         try
         {
-            ob.Draw(Int32.Parse(Console.ReadLine()));
+            ob.Draw(int.Parse(Console.ReadLine()));
         }
-        catch(FormatException exc)
+        catch (FormatException exc)
         {
             Console.WriteLine(exc.Message);
         }

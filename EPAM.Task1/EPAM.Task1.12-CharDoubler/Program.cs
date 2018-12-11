@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Epam.Task1_1._12_CharDoubler
 {
-    class CharDoubler
+    public class CharDoubler
     {
         public void Build()
         {
@@ -21,12 +21,14 @@ namespace Epam.Task1_1._12_CharDoubler
                     result.Append(str1[i]);
                 }
             }
+
             Console.WriteLine($"Result string:\t\t\t\t{result}");
-        } 
+        }
     }
-    class CharDoublerDemo
+
+    public class CharDoublerDemo
     {
-        static void Main()
+        public static void Main()
         {
             CharDoubler ob = new CharDoubler();
             ob.Build();

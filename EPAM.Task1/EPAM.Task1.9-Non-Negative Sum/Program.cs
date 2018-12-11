@@ -2,9 +2,8 @@
 
 namespace EPAM.Task1._9_NonNegativeSum
 {
-    class NonNegativeSum
+    public class NonNegativeSum
     {
-
         public void Sort()
         {
             Random r = new Random();
@@ -13,10 +12,12 @@ namespace EPAM.Task1._9_NonNegativeSum
             {
                 arr[i] = r.Next(-99, 99);
             }
+
             foreach (int x in arr)
             {
                 Console.Write($"{x} ");
             }
+
             int sum = 0;
             for (int i = 0; i < arr.Length; i++)
             {
@@ -25,13 +26,14 @@ namespace EPAM.Task1._9_NonNegativeSum
                     sum += arr[i];
                 }
             }
+
             Console.WriteLine($"{Environment.NewLine}Sum: {sum}");
         }
-
     }
-    class NonNegativeSumDemo
+
+    public class NonNegativeSumDemo
     {
-        static void Main()
+        public static void Main()
         {
             NonNegativeSum ob = new NonNegativeSum();
             ob.Sort();

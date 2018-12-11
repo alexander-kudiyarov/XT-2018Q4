@@ -2,7 +2,7 @@
 
 namespace EPAM.Task1._10_TwoDArray
 {
-    class TwoDArray
+    public class TwoDArray
     {
         public void Sum()
         {
@@ -20,14 +20,17 @@ namespace EPAM.Task1._10_TwoDArray
                         sum += arr[i, j];
                     }
                 }
+
                 Console.WriteLine();
             }
+
             Console.WriteLine($"Sum: {sum}");
         }
     }
-    class TwoDArrayDemo
+
+    public class TwoDArrayDemo
     {
-        static void Main()
+        public static void Main()
         {
             TwoDArray ob = new TwoDArray();
             ob.Sum();

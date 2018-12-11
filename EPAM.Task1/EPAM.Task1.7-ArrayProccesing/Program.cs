@@ -1,7 +1,8 @@
 ﻿using System;
+
 namespace EPAM.Task1._7_ArrayProccesing
 {
-    class ArrayProccesing
+    public class ArrayProccesing
     {
         public void Sort()
         {
@@ -12,11 +13,13 @@ namespace EPAM.Task1._7_ArrayProccesing
             {
                 arr[i] = r.Next(-99, 99);
             }
+
             Console.WriteLine("Unsorted array:");
             foreach (int x in arr)
             {
                 Console.Write($"{x} ");
             }
+
             Console.WriteLine();
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -30,17 +33,20 @@ namespace EPAM.Task1._7_ArrayProccesing
                     }
                 }
             }
+
             Console.WriteLine("Sorted array:");
             foreach (int x in arr)
             {
                 Console.Write("{0} ", x);
             }
+
             Console.WriteLine($"{Environment.NewLine}Min: {arr[0]}{Environment.NewLine}Max: {arr[arr.Length - 1]}");
         }
     }
-    class ArrayProccesingDemo
+
+    public class ArrayProccesingDemo
     {
-        static void Main()
+        public static void Main()
         {
             ArrayProccesing ob = new ArrayProccesing();
             ob.Sort();
