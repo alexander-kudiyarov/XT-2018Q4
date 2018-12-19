@@ -9,7 +9,7 @@ namespace Examples.Sort
 {
     public class Program
     {
-        private static int length = 1000000;
+        private static int length = 10000000;
         private static int[] array = new int[length];
         private static int cycles = 10;
         private static Random r = new Random();
@@ -22,7 +22,7 @@ namespace Examples.Sort
             {
                 FillArray();
                 stopwatch.Restart();
-                for (int j = 0; j < 500; j++)
+                for (int j = 0; j < 50; j++)
                 {
                     SimpleSearch(Array.BinarySearch(array, r.Next(0, 1000000)));
                 }
@@ -32,6 +32,7 @@ namespace Examples.Sort
             }
 
             Console.WriteLine($"SimpleSearch:\t{time.Average():0.###} ms");
+            double a = time.Average();
             time.Clear();
 
             for (int i = 0; i < cycles; i++)
@@ -39,7 +40,7 @@ namespace Examples.Sort
                 FillArray();
                 stopwatch.Restart();
                 Array.Sort(array);
-                for (int j = 0; j < 500; j++)
+                for (int j = 0; j < 50; j++)
                 {
                     Array.BinarySearch(array, r.Next(0, 1000000));
                 }
@@ -49,7 +50,9 @@ namespace Examples.Sort
             }
 
             Console.WriteLine($"SortNBinSearch:\t{time.Average():0.###} ms");
+            double b = time.Average();
             time.Clear();
+            Console.WriteLine($"differ : {a / b}");
         }
 
         private static void SimpleSearch(int n)
