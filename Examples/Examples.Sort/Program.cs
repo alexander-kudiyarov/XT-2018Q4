@@ -9,10 +9,9 @@ namespace Examples.Sort
 {
     public class Program
     {
-        private static int length = 500000000;
+        private static int length = 1000000;
         private static int[] array = new int[length];
         private static int cycles = 10;
-        private static int peek = 700;
         private static Random r = new Random();
         private static Stopwatch stopwatch = new Stopwatch();
         private static List<double> time = new List<double>();
@@ -23,42 +22,45 @@ namespace Examples.Sort
             {
                 FillArray();
                 stopwatch.Restart();
-                SimpleSearch();
+                for (int j = 0; j < 500; j++)
+                {
+                    SimpleSearch(Array.BinarySearch(array, r.Next(0, 1000000)));
+                }
+
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"SimpleSearch:\t{time.Average():0.#} ms");
+            Console.WriteLine($"SimpleSearch:\t{time.Average():0.###} ms");
             time.Clear();
 
             for (int i = 0; i < cycles; i++)
             {
                 FillArray();
                 stopwatch.Restart();
-                SortNBinSearch();
+                Array.Sort(array);
+                for (int j = 0; j < 500; j++)
+                {
+                    Array.BinarySearch(array, r.Next(0, 1000000));
+                }
+
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"SortNBinSearch:\t{time.Average():0.#} ms");
+            Console.WriteLine($"SortNBinSearch:\t{time.Average():0.###} ms");
             time.Clear();
         }
 
-        private static void SimpleSearch()
+        private static void SimpleSearch(int n)
         {
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i] == peek)
+                if (array[i] == n)
                 {
                     break;
                 }
             }
-        }
-
-        private static void SortNBinSearch()
-        {
-            Array.Sort(array);
-            Array.BinarySearch(array, peek);
         }
 
         private static void FillArray()
