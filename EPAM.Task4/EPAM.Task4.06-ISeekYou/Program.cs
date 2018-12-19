@@ -67,29 +67,29 @@ namespace EPAM.Task4._06_ISeekYou
 
             for (int i = 0; i < 100; i++)
             {
-                stopwatch.Start();
+                stopwatch.Restart();
                 Search();
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"Simple search:\t\t\t\t{time.Average():#} ms");
+            Console.WriteLine($"Simple search:\t\t\t\t{time.Average():0.###} ms");
             time.Clear();
 
             for (int i = 0; i < 100; i++)
             {
-                stopwatch.Start();
+                stopwatch.Restart();
                 Search(SearchFunc);
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"Search through delegate:\t\t{time.Average():#} ms");
+            Console.WriteLine($"Search through delegate:\t\t{time.Average():0.###} ms");
             time.Clear();
 
             for (int i = 0; i < 100; i++)
             {
-                stopwatch.Start();
+                stopwatch.Restart();
                 Search(
                     delegate(int arrItem)
                      {
@@ -99,29 +99,29 @@ namespace EPAM.Task4._06_ISeekYou
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"Search through anonymus method:\t\t{time.Average():#} ms");
+            Console.WriteLine($"Search through anonymus method:\t\t{time.Average():0.###} ms");
             time.Clear();
 
             for (int i = 0; i < 100; i++)
             {
-                stopwatch.Start();
+                stopwatch.Restart();
                 Search(arrItem => arrItem > 0);
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"Search through lambda expression:\t{time.Average():#} ms");
+            Console.WriteLine($"Search through lambda expression:\t{time.Average():0.###} ms");
             time.Clear();
 
             for (int i = 0; i < 100; i++)
             {
-                stopwatch.Start();
+                stopwatch.Restart();
                 LinqSearch();
                 stopwatch.Stop();
                 time.Add(stopwatch.Elapsed.TotalMilliseconds);
             }
 
-            Console.WriteLine($"Search through LINQ:\t\t\t{time.Average():#} ms");
+            Console.WriteLine($"Search through LINQ:\t\t\t{time.Average():0.###} ms");
             time.Clear();
         }
     }
