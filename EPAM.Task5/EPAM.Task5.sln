@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task5.01-BackupSystem", "EPAM.Task5.01-BackupSystem\EPAM.Task5.01-BackupSystem.csproj", "{CC8C9FD3-8C94-4826-8BB9-F0BC15380883}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC8C9FD3-8C94-4826-8BB9-F0BC15380883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8C9FD3-8C94-4826-8BB9-F0BC15380883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8C9FD3-8C94-4826-8BB9-F0BC15380883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8C9FD3-8C94-4826-8BB9-F0BC15380883}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2E673CD-48DB-4703-9E84-A3C4D5675273}
+	EndGlobalSection
+EndGlobal
