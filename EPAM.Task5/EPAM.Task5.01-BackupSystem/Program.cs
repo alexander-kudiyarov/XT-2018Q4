@@ -112,7 +112,7 @@ namespace EPAM.Task5._01_BackupSystem
 
         private static void Recovery()
         {
-            Console.WriteLine("Enter time of backup");
+            Console.WriteLine("Enter date and time of backup ('dd-MM-yyyy hh:mm:ss' for example)");
             DateTime point = DateTime.Parse(Console.ReadLine());
             DirectoryInfo sourceDirectory = new DirectoryInfo(sourcePath);
             if (sourceDirectory.Exists)
