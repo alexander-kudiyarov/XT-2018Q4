@@ -16,22 +16,32 @@ namespace EPAM.Task5._01_BackupSystem
 
         public static void Main()
         {
-            Console.WriteLine($"Very Simple Backup System" +
-                $"{Environment.NewLine}" +
-                $"{Environment.NewLine}Select mode:" +
-                $"{Environment.NewLine}Enter <1> for Watch mode" +
-                $"{Environment.NewLine}Enter <2> for Recovery mode" +
-                $"{Environment.NewLine}");
-            Console.WriteLine();
-            Console.WriteLine("Enter folder path fot watch or backup");
-            sourcePath = Console.ReadLine();
-            if (sourcePath[sourcePath.Length - 1] == '\\')
+            Console.WriteLine($"{Environment.NewLine}Very Simple Backup System{Environment.NewLine}");
+            Console.WriteLine("Enter folder path for watch or backup");
+            try
             {
-                sourcePath = sourcePath.Remove(sourcePath.Length - 1);
+                sourcePath = Console.ReadLine();
+                if (sourcePath[sourcePath.Length - 1] == '\\')
+                {
+                    sourcePath = sourcePath.Remove(sourcePath.Length - 1);
+                }
+
+                backupPath = sourcePath.Insert(sourcePath.Length, "Backup");
+            }
+            catch (IndexOutOfRangeException exc)
+            {
+                Console.WriteLine("Incorrect folder path");
+                return;
             }
 
-            Console.WriteLine(sourcePath);
-            backupPath = sourcePath.Insert(sourcePath.Length, "Backup");
+            Console.WriteLine($"{Environment.NewLine}Select mode:" +
+                $"{Environment.NewLine}" +
+                $"{Environment.NewLine}Enter <1> for Watch mode" +
+                $"{Environment.NewLine}Enter <2> for Recovery mode" +
+                $"{Environment.NewLine}Enter any other key for exit" +
+                $"{Environment.NewLine}");
+            Console.WriteLine();
+
             switch (Console.ReadLine())
             {
                 case "1":
@@ -57,6 +67,7 @@ namespace EPAM.Task5._01_BackupSystem
 
         private static void Watch()
         {
+            Console.WriteLine($"Watching started{Environment.NewLine}");
             DirectoryInfo sourceDirectory = new DirectoryInfo(sourcePath);
             if (!sourceDirectory.Exists)
             {
@@ -73,7 +84,7 @@ namespace EPAM.Task5._01_BackupSystem
             FileSystemWatcher watcher = new FileSystemWatcher(sourcePath, "*.txt");
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
-            watcher.InternalBufferSize = 655360;
+            watcher.InternalBufferSize = 10485760;
 
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             watcher.Changed += new FileSystemEventHandler(OnChanged);
@@ -81,17 +92,23 @@ namespace EPAM.Task5._01_BackupSystem
             watcher.Renamed += new RenamedEventHandler(OnRename);
             watcher.Deleted += new FileSystemEventHandler(OnDelete);
 
-            Console.WriteLine(@"Press 'q' to quit the sample.");
+            Console.WriteLine($"Press <q> to stop watching{Environment.NewLine}");
             while (Console.Read() != 'q')
             {
             }
 
-            Console.WriteLine("Watching stopped");
-            return;
+            Console.WriteLine($"Watching stopped{Environment.NewLine}");
+            Console.ReadLine();
         }
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            FileInfo fileInfo = new FileInfo(e.FullPath);
+            while (IsFileLocked(fileInfo))
+            {
+                Thread.Sleep(1);
+            }
+
             File.Copy(e.FullPath, e.FullPath.Insert(e.FullPath.Length, $@"\{DateTime.Now.ToString(dateFormat)}").Replace(sourcePath, backupPath), true);
         }
 
@@ -99,7 +116,6 @@ namespace EPAM.Task5._01_BackupSystem
         {
             Directory.CreateDirectory(e.FullPath.Replace(sourcePath, backupPath));
             OnChanged(source, e);
-            Thread.Sleep(3);
         }
 
         private static void OnRename(object source, RenamedEventArgs e)
@@ -113,10 +129,33 @@ namespace EPAM.Task5._01_BackupSystem
             File.Create(e.FullPath.Insert(e.FullPath.Length, $@"\{DateTime.Now.ToString(dateFormat)}-deleted").Replace(sourcePath, backupPath));
         }
 
+        private static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+
+            return false;
+        }
+
         private static void Recovery()
         {
-            Console.WriteLine("Enter date and time of backup ('dd-MM-yyyy hh:mm:ss' for example)");
-            DateTime point = DateTime.ParseExact(Console.ReadLine(), dateFormat, null);
+            Console.WriteLine($"Enter date and time of backup ('dd-MM-yyyy hh:mm:ss' for example){Environment.NewLine}");
+            DateTime point = DateTime.Parse(Console.ReadLine());
             DirectoryInfo sourceDirectory = new DirectoryInfo(sourcePath);
             if (sourceDirectory.Exists)
             {
@@ -130,7 +169,7 @@ namespace EPAM.Task5._01_BackupSystem
                 {
                     if (versions[i].Substring(versions[i].LastIndexOf('-')) == @"-deleted")
                     {
-                        break;
+                        continue;
                     }
                     else
                     {
@@ -147,7 +186,7 @@ namespace EPAM.Task5._01_BackupSystem
                 }
             }
 
-            Console.WriteLine("Backup successful");
+            Console.WriteLine($"Backup successful");
             return;
         }
     }
