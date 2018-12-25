@@ -92,13 +92,11 @@ namespace EPAM.Task5._01_BackupSystem
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            Console.WriteLine("OnChanged");
             File.Copy(e.FullPath, e.FullPath.Insert(e.FullPath.Length, $@"\{DateTime.Now.ToString(dateFormat)}").Replace(sourcePath, backupPath), true);
         }
 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            Console.WriteLine("OnCreated");
             Directory.CreateDirectory(e.FullPath.Replace(sourcePath, backupPath));
             OnChanged(source, e);
             Thread.Sleep(3);
