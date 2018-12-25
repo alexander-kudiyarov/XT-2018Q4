@@ -10,12 +10,19 @@ namespace EPAM.Task5._01_BackupSystem
 {
     public class Program
     {
-        private static string sourcePath = @"d:\test";
-        private static string backupPath = sourcePath.Insert(sourcePath.Length, "B");
+        private static string sourcePath;
+        private static string backupPath;
         private static string dateFormat = "yyyy-MM-dd HH-mm-ss";
 
         public static void Main()
         {
+            Console.WriteLine("Enter folder path:");
+            sourcePath = Console.ReadLine();
+            if (sourcePath[sourcePath.Length - 1] == '\\')
+            {
+                sourcePath = sourcePath.Remove(sourcePath.Length - 1);
+            }
+            backupPath = sourcePath.Insert(sourcePath.Length, "Backup");
             Console.WriteLine($"Very Simple Backup System" +
                 $"{Environment.NewLine}" +
                 $"{Environment.NewLine}Select mode:" +
@@ -57,7 +64,8 @@ namespace EPAM.Task5._01_BackupSystem
             {
                 FileInfo fi = new FileInfo(filePath);
                 Directory.CreateDirectory(filePath.Replace(sourcePath, backupPath));
-                File.Copy(filePath, filePath.Replace(sourcePath, backupPath).Insert(filePath.Length + 1, $@"\{fi.LastWriteTime.ToString(dateFormat)}"), true);
+                File.Copy(filePath, filePath.Insert(filePath.Length, $@"\{fi.LastWriteTime.ToString(dateFormat)}").Replace(sourcePath, backupPath), true);
+                Console.WriteLine(filePath.Insert(filePath.Length, $@"\{fi.LastWriteTime.ToString(dateFormat)}").Replace(sourcePath, backupPath));
             }
 
             FileSystemWatcher watcher = new FileSystemWatcher(sourcePath, "*.txt");
@@ -105,7 +113,7 @@ namespace EPAM.Task5._01_BackupSystem
         private static void Recovery()
         {
             Console.WriteLine("Enter point of backup");
-            DateTime point = DateTime.Parse(Console.ReadLine());
+            DateTime point = DateTime.Parse("2018-01-13 00:00:00");
             DirectoryInfo sourceDirectory = new DirectoryInfo(sourcePath);
             if (sourceDirectory.Exists)
             {
