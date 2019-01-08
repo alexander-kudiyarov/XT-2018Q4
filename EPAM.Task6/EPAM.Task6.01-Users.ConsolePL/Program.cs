@@ -145,7 +145,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
 
         private static void RemoveUser(IUserLogic userLogic)
         {
-            Console.WriteLine("id:");
+            Console.WriteLine("ID:");
             userLogic.Remove(int.Parse(Console.ReadLine()));
         }
 
