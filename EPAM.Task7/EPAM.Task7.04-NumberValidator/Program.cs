@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Task7._04_NumberValidator
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
+            Console.WriteLine($"Enter your number:{Environment.NewLine}");
+            string number = Console.ReadLine();
+            Console.WriteLine(NumberValidator.NumberForm(number));
         }
     }
 }
