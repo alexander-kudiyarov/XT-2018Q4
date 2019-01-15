@@ -12,8 +12,10 @@ namespace EPAM.Task0.Sequence
         {
             Sequence ob = new Sequence();
             Console.WriteLine("Please, enter value for N (N must be greater than 0)");
-            int n = int.Parse(Console.ReadLine());
-            ob.Show(n);
+            if (int.TryParse(Console.ReadLine(), out int n))
+            {
+                ob.Show(n);
+            }
         }
     }
 }
