@@ -6,10 +6,10 @@ namespace EPAM.Task6._01_DateExistance
     {
         private static void Main()
         {
-            DateExistance ob = new DateExistance();
-            Console.WriteLine("Enter your text with date:");
+            Console.WriteLine($"Enter your text with (or without) date:{Environment.NewLine}");
             string text = Console.ReadLine();
-            Console.WriteLine(ob.CheckForDate(text));
+            Console.WriteLine($"{Environment.NewLine}Result:{Environment.NewLine}");
+            Console.WriteLine(DateExistance.CheckForDate(text));
         }
     }
 }

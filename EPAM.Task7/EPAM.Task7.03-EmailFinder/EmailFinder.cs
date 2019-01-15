@@ -5,40 +5,40 @@ using System.Text.RegularExpressions;
 
 namespace EPAM.Task7._03_EmailFinder
 {
-    public class EmailFinder
+    public static class EmailFinder
     {
         private static string emailNotFound = "There is no emails";
+        private static List<string> emails = new List<string>();
         private static string emptyInput = "The entered string is empty";
         private static string ex = @"\b([a-zA_Z0-9]+[.\-_]?)*([a-zA_Z0-9])+@([a-z0-9]+[\-]?)*([a-z0-9])+(\.(([a-z0-9]+[\-]?)*([a-z0-9])+))*(\.[a-z]{2,6})\b";
         private static Regex regex = new Regex(ex);
-        private List<string> emails = new List<string>();
-        private string text;
+        private static string text;
 
-        public string FindAllEmails(string input)
+        public static string FindAllEmails(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
-                return "The entered string is empty";
+                return emptyInput;
             }
 
-            this.text = input;
-            while (this.IsMatchFounded())
+            text = input;
+            while (IsMatchFounded())
             {
-                this.IsMatchFounded();
+                IsMatchFounded();
             }
 
-            return this.ToString();
+            return ToString();
         }
 
-        public bool IsMatchFounded()
+        private static bool IsMatchFounded()
         {
-            Match match = regex.Match(this.text);
+            Match match = regex.Match(text);
 
             if (match.Success)
             {
                 string matchString = match.ToString();
-                this.emails.Add(matchString);
-                this.text = this.text.Replace(matchString, string.Empty);
+                emails.Add(matchString);
+                text = text.Replace(matchString, string.Empty);
                 return true;
             }
             else
@@ -47,16 +47,16 @@ namespace EPAM.Task7._03_EmailFinder
             }
         }
 
-        public override string ToString()
+        private static new string ToString()
         {
-            if (this.emails.Count == 0)
+            if (emails.Count == 0)
             {
                 return emailNotFound;
             }
             else
             {
                 StringBuilder tmp = new StringBuilder();
-                foreach (var item in this.emails)
+                foreach (var item in emails)
                 {
                     tmp.Append($"{item}{Environment.NewLine}");
                 }

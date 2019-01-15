@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.01-DateExistance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.03-EmailFinder", "EPAM.Task7.03-EmailFinder\EPAM.Task7.03-EmailFinder.csproj", "{3180BFB6-1FCA-458A-BD99-E9B1B93B8553}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.02-HTMLReplacer", "EPAM.Task7.02-HTMLReplacer\EPAM.Task7.02-HTMLReplacer.csproj", "{A3F3069B-F2DE-4BEB-85B5-57E68EDE483F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3180BFB6-1FCA-458A-BD99-E9B1B93B8553}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3180BFB6-1FCA-458A-BD99-E9B1B93B8553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3180BFB6-1FCA-458A-BD99-E9B1B93B8553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F3069B-F2DE-4BEB-85B5-57E68EDE483F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F3069B-F2DE-4BEB-85B5-57E68EDE483F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F3069B-F2DE-4BEB-85B5-57E68EDE483F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F3069B-F2DE-4BEB-85B5-57E68EDE483F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

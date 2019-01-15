@@ -6,11 +6,10 @@ namespace EPAM.Task7._03_EmailFinder
     {
         private static void Main()
         {
-            EmailFinder ob = new EmailFinder();
-            Console.WriteLine("Enter your text:");
+            Console.WriteLine($"Enter your text with (or without) emails:{Environment.NewLine}");
             string inputText = Console.ReadLine();
-            Console.WriteLine("Emails in your text:");
-            Console.WriteLine(ob.FindAllEmails(inputText));
+            Console.WriteLine($"{Environment.NewLine}Emails in your text:{Environment.NewLine}");
+            Console.WriteLine(EmailFinder.FindAllEmails(inputText));
         }
     }
 }
