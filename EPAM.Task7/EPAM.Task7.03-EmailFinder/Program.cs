@@ -7,9 +7,10 @@ namespace EPAM.Task7._03_EmailFinder
         private static void Main()
         {
             EmailFinder ob = new EmailFinder();
+            Console.WriteLine("Enter your text:");
             string inputText = Console.ReadLine();
-            ob.FindAllEmails(inputText);
-            Console.WriteLine(ob.ToString());
+            Console.WriteLine("Emails in your text:");
+            Console.WriteLine(ob.FindAllEmails(inputText));
         }
     }
 }
