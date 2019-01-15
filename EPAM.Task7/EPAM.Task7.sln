@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.02-HTMLReplacer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.04-NumberValidator", "EPAM.Task7.04-NumberValidator\EPAM.Task7.04-NumberValidator.csproj", "{1A4C68CB-32B6-41F5-986E-E657EAA07C33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Task7.05-TImeCounter", "EPAM.Task7.05-TImeCounter\EPAM.Task7.05-TImeCounter.csproj", "{DFCB1B04-2824-43B2-AC92-8A7A6A731CE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1A4C68CB-32B6-41F5-986E-E657EAA07C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A4C68CB-32B6-41F5-986E-E657EAA07C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A4C68CB-32B6-41F5-986E-E657EAA07C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCB1B04-2824-43B2-AC92-8A7A6A731CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCB1B04-2824-43B2-AC92-8A7A6A731CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCB1B04-2824-43B2-AC92-8A7A6A731CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCB1B04-2824-43B2-AC92-8A7A6A731CE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
