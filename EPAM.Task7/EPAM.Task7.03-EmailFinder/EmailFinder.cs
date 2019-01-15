@@ -15,13 +15,9 @@ namespace EPAM.Task7._03_EmailFinder
 
         private string text;
 
-        public EmailFinder(string input)
+        public void FindAllEmails(string input)
         {
             this.text = input;
-        }
-
-        public void FindAllEmails()
-        {
             while (this.IsMatchFounded())
             {
                 this.IsMatchFounded();

@@ -6,9 +6,9 @@ namespace EPAM.Task7._03_EmailFinder
     {
         private static void Main()
         {
-            string text = Console.ReadLine();
-            EmailFinder ob = new EmailFinder(text);
-            ob.FindAllEmails();
+            EmailFinder ob = new EmailFinder();
+            string inputText = Console.ReadLine();
+            ob.FindAllEmails(inputText);
             Console.WriteLine(ob.ToString());
         }
     }
