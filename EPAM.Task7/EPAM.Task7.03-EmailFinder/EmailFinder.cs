@@ -8,7 +8,6 @@ namespace EPAM.Task7._03_EmailFinder
     public static class EmailFinder
     {
         private static string emailNotFound = "There is no emails";
-        private static List<string> emails = new List<string>();
         private static string emptyInput = "The entered string is empty";
         private static string ex = @"\b([a-zA_Z0-9]+[.\-_]?)*([a-zA_Z0-9])+@([a-z0-9]+[\-]?)*([a-z0-9])+(\.(([a-z0-9]+[\-]?)*([a-z0-9])+))*(\.[a-z]{2,6})\b";
         private static Regex regex = new Regex(ex);
@@ -22,46 +21,20 @@ namespace EPAM.Task7._03_EmailFinder
             }
 
             text = input;
-            while (IsMatchFounded())
+            MatchCollection matches = regex.Matches(text);
+            if (matches.Count > 0)
             {
-                IsMatchFounded();
-            }
-
-            return ToString();
-        }
-
-        private static bool IsMatchFounded()
-        {
-            Match match = regex.Match(text);
-
-            if (match.Success)
-            {
-                string matchString = match.ToString();
-                emails.Add(matchString);
-                text = text.Replace(matchString, string.Empty);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private static new string ToString()
-        {
-            if (emails.Count == 0)
-            {
-                return emailNotFound;
-            }
-            else
-            {
-                StringBuilder tmp = new StringBuilder();
-                foreach (var item in emails)
+                StringBuilder emails = new StringBuilder();
+                foreach (var item in matches)
                 {
-                    tmp.Append($"{item}{Environment.NewLine}");
+                    emails.Append($"{item}{Environment.NewLine}");
                 }
 
-                return tmp.ToString();
+                return emails.ToString();
+            }
+            else
+            {
+                return emailNotFound;
             }
         }
     }

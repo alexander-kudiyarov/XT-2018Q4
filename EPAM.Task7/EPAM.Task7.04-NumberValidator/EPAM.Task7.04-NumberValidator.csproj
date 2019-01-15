@@ -7,7 +7,7 @@
     <ProjectGuid>{1A4C68CB-32B6-41F5-986E-E657EAA07C33}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>EPAM.Task7._04_NumberValidator</RootNamespace>
-    <AssemblyName>EPAM.Task7._04_NumberValidator</AssemblyName>
+    <AssemblyName>EPAM.Task7.04-NumberValidator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
