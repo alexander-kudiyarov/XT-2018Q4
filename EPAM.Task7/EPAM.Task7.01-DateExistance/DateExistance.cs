@@ -3,19 +3,24 @@ using System.Text.RegularExpressions;
 
 namespace EPAM.Task6._01_DateExistance
 {
-    public class DateExistance
+    public static class DateExistance
     {
-        private DateTime date;
+        private static DateTime date;
 
-        private Regex regex = new Regex(@"\b(0[1-9]|[12][\d]|3[0-1])-(0[1-9]|1[0-2])-(\d{4})\b");
+        private static Regex regex = new Regex(@"\b(0[1-9]|[12][\d]|3[0-1])-(0[1-9]|1[0-2])-([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3})\b");
 
-        public DateTime Date => this.date;
+        public static DateTime Date => date;
 
-        public bool CheckForDate(string input)
+        public static bool CheckForDate(string input)
         {
-            Match match = this.regex.Match(input);
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
 
-            return DateTime.TryParse(match.Value, out this.date);
+            Match match = regex.Match(input);
+
+            return DateTime.TryParse(match.Value, out date);
         }
     }
 }

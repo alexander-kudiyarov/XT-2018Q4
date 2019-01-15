@@ -12,11 +12,9 @@ namespace EPAM.Task6._01_DateExistance
 
             text = Console.ReadLine();
 
-            DateExistance ob = new DateExistance();
-
-            if (ob.CheckForDate(text))
+            if (DateExistance.CheckForDate(text))
             {
-                Console.WriteLine($"This text contain correct date: {ob.Date:D}");
+                Console.WriteLine($"This text contain correct date: {DateExistance.Date:D}");
             }
             else
             {
