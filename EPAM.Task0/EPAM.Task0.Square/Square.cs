@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Task0.Square
 {
-    public class Square
+    public static class Square
     {
-        public void Draw(int n)
+        public static void Draw(int n)
         {
             if (n % 2 != 0 & n > 1)
             {

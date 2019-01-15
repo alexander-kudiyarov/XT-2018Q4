@@ -1,32 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Task0.Simple
 {
-    public class Simple
+    public static class Simple
     {
-        public bool Check(int n)
+        public static bool IsPrime(int n)
         {
-            bool isPrime = true;
-            for (int i = 2; i <= (n / 2); i++)
+            for (int i = 2; i <= Math.Sqrt(n); i++)
             {
-                if ((n % i) == 0)
+                if (n % 2 == 0 || n % 10 == 0 || n % i == 0)
                 {
-                    isPrime = false;
-                    break;
+                    return false;
                 }
             }
 
-            if (isPrime & n > 1)
+            return true;
+        }
+
+        public static string Show(int n)
+        {
+            if (IsPrime(n))
             {
-                return true;
+                return $"{n} is prime number";
             }
             else
             {
-                return false;
+                return $"{n} is composite number";
             }
         }
     }

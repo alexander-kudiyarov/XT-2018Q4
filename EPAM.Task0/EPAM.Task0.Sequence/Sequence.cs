@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Task0.Sequence
 {
-    public class Sequence
+    public static class Sequence
     {
-        public void Show(int n)
+        public static void Show(int n)
         {
             if (n > 0)
             {

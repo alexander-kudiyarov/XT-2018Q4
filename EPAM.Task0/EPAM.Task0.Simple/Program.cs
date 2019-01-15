@@ -6,16 +6,10 @@ namespace EPAM.Task0.Simple
     {
         public static void Main()
         {
-            Simple ob = new Simple();
-            Console.WriteLine("Please, enter value for N");
-            int n = int.Parse(Console.ReadLine());
-            if (ob.Check(n))
+            Console.WriteLine("Enter value for N");
+            if (int.TryParse(Console.ReadLine(), out int n))
             {
-                Console.WriteLine("{0}: prime number", n);
-            }
-            else
-            {
-                Console.WriteLine("{0}: non prime number", n);
+                Console.WriteLine(Simple.Show(n));
             }
         }
     }
