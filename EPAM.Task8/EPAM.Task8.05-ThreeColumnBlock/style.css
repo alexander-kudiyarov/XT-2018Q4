@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #4e6379;
+}
+
+.container {
+    width: 560px;
+    height: 160px;
+    margin: 20px auto;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 8px 64px 0 black;
+}
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    top: 5%;
+    width: 100%;
+    height: 90%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+td {
+    border-right: 2px solid #d9d9d9;
+    border-left: 2px solid #d9d9d9;
+}
+
+td:first-child {
+    border-left: none;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.virtual {
+    object-position: 0 0;
+}
+
+.cloud {
+    object-position: 0 -48px;
+}
+
+.server {
+    object-position: 0 -96px;
+}
+
+.product {
+    font-weight: bold;
+    color: #f46231;
+}
+
+button {
+    padding: 7px;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    background-color: #f46231;
+}

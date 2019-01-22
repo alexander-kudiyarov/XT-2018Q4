@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    background-color: #333;
+}
+
+.arrow_box {
+    font-size: 1.5em;
+    line-height: 100px;
+    position: relative;
+    top: 50%;
+    width: 90%;
+    height: 100px;
+    margin: auto;
+    text-align: center;
+    color: white;
+    border: 4px solid #c2e1f5;
+    background: #88b7d5;
+}
+
+.arrow_box:after,
+.arrow_box:before {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    content: '';
+    border: solid transparent;
+}
+
+.arrow_box:after {
+    margin-left: -30px;
+    border-width: 30px;
+    border-bottom-color: #88b7d5;
+}
+
+.arrow_box:before {
+    margin-left: -36px;
+    border-width: 36px;
+    border-bottom-color: #c2e1f5;
+}
