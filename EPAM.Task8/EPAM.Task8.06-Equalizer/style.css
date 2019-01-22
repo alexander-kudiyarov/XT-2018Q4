@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #323232;
+}
+
+.container {
+    width: 816px;
+}
+
+div {
+    position: relative;
+    display: inline-block;
+    width: 128px;
+    margin-right: 4px;
+    border-radius: 8px 8px 0 0;
+    background: repeating-linear-gradient(transparent, transparent 56px, #323232 56px, #323232 64px), linear-gradient( #ffd059,#ff8d02);
+}
+
+.column1 {
+    height: 320px;
+}
+
+.column2 {
+    height: 128px;
+}
+
+.column3 {
+    height: 512px;
+}
+
+.column4 {
+    height: 640px;
+}
+
+.column5 {
+    height: 320px;
+}
+
+.column6 {
+    height: 192px;
+}
