@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 480px;
+    margin: 10px auto;
+    background-color: black;
+}
+
+section {
+    border-radius: 0 0 10px 10px;
+    background: linear-gradient(white, #e4e4e4);
+}
+
+.layer1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: #ffb163;
+    background: linear-gradient(120deg, black 135px, transparent 136px);
+}
+
+.layer2 {
+    padding: 10px;
+    border-right: white solid 1px;
+    border-bottom: white solid 1px;
+    border-left: white solid 1px;
+    border-radius: 0 0 10px 10px;
+}
