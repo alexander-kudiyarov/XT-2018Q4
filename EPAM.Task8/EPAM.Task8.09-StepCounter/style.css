@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+select {
+    font-size: 3em;
+    overflow: hidden;
+    height: 70px;
+    text-align: left;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+option {
+    display: inline-block;
+    margin: 0 -1px;
+    padding: 6px 40px;
+    user-select: none;
+    background: linear-gradient(white, #bfbfbf, white);
+    page-break-after: auto;
+}
+
+option:checked {
+    background: linear-gradient(white, #64c51d, white);
+}
+
+div {
+    position: absolute;
+    width: 15px;
+    height: 42px;
+    background-color: white;
+}
+
+div.up {
+    top: -3px;
+    transform: rotate(-20deg);
+}
+
+div.down {
+    top: 31px;
+    transform: rotate(20deg);
+}
+
+div#one {
+    left: 209px;
+}
+
+div#two {
+    left: 425px;
+}
+
+div#three {
+    left: 641px;
+}
