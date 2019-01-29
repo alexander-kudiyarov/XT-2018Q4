@@ -22,7 +22,9 @@ function CharRemover(input) {
     });
 
     for(var i = 0; i < input.length; i++) {
-        input = input.replace(charsToRemove[0], '').replace(charsToRemove[1], '');
+        charsToRemove.forEach(function(element) {
+			input = input.replace(element, '');
+		});
     }
 
     console.log(input);
