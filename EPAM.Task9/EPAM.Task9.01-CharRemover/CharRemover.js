@@ -1,5 +1,4 @@
-function CharRemover() {
-	var input = "У попа была cобака и собака и собака и собака";
+function CharRemover(input) {
 	var splitInput;
 	var joinedSplitInput = input;
 	var sepators = [' ', '	', '?', '!', ':', ';', '.'];
