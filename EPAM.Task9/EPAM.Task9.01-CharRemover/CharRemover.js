@@ -23,8 +23,8 @@ function CharRemover(input) {
 
     for(var i = 0; i < input.length; i++) {
         charsToRemove.forEach(function(element) {
-			input = input.replace(element, '');
-		});
+            input = input.replace(element, '');
+        });
     }
 
     console.log(input);
