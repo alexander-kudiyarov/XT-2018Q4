@@ -1,7 +1,7 @@
 function CharRemover(input) {
     var splitInput;
     var joinedSplitInput = input;
-    var sepators = [' ', '    ', '?', '!', ':', ';', '.'];
+    var sepators = [' ', '	', '?', '!', ':', ';', '.'];
 
     sepators.forEach(function(element) {
         splitInput = joinedSplitInput.split(element);
