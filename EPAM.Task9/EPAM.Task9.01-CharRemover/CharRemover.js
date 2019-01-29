@@ -10,7 +10,7 @@ function CharRemover() {
 	});
 
 	splitInput = joinedSplitInput.split(',');
-    var charsToRemove = [];
+	var charsToRemove = [];
 		
 	splitInput.forEach(function(element) {
 		for(var i = 0; i < element.length - 1; i++) {
