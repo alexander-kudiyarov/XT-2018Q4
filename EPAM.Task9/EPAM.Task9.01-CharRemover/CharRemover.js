@@ -27,5 +27,5 @@ function CharRemover(input) {
         });
     }
 
-    console.log(input);
+    return input;
 }
