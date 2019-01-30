@@ -1,7 +1,7 @@
 function MathCalculator(input) {
     input = input.replace('=', '');
     var exForNumbers = /(-?\d+)(\.\d+)?/g;
-    var exForPairs = /(-?\d+)(\.\d+)?((\s)?[+\-*/](\s)?((-?\d+)(\.\d+)?))?/;
+    var exForPairs = /(-?\d+)(\.\d+)?((\s)*[+\-*/](\s)*((-?\d+)(\.\d+)?))?/;
     var pairs = input.match(exForNumbers).length - 1;
 
     function calcFirstMatch(numbers) {
