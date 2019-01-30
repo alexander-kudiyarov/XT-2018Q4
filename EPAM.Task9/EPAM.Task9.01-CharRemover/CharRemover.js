@@ -1,7 +1,7 @@
 function CharRemover(input) {
-    var splitInput;
-    var joinedSplitInput = input;
-    var sepators = [' ', '  ', '?', '!', ':', ';', '.'];
+    let splitInput;
+    let joinedSplitInput = input;
+    let sepators = [' ', '  ', '?', '!', ':', ';', '.'];
 
     sepators.forEach(function (element) {
         splitInput = joinedSplitInput.split(element);
@@ -9,11 +9,11 @@ function CharRemover(input) {
     });
 
     splitInput = joinedSplitInput.split(',');
-    var charsToRemove = [];
+    let charsToRemove = [];
 
     splitInput.forEach(function (element) {
-        for(var i = 0; i < element.length - 1; i++) {
-            for(var j = i + 1; j < element.length; j++) {
+        for(let i = 0; i < element.length - 1; i++) {
+            for(let j = i + 1; j < element.length; j++) {
                 if(element[i] == element[j]) {
                     charsToRemove.push(element[i]);
                 }
@@ -21,7 +21,7 @@ function CharRemover(input) {
         }
     });
 
-    for(var i = 0; i < input.length; i++) {
+    for(let i = 0; i < input.length; i++) {
         charsToRemove.forEach(function (element) {
             input = input.replace(element, '');
         });
