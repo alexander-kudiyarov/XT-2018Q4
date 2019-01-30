@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <title>Butterfly Control</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <select id="left" size="5" multiple>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+        </select>
+        <div class="buttons">
+            <input type="button" value=">>" onclick="moveAll('left','right')" />
+            <input type="button" value=">" onclick="move('left','right')" />
+            <input type="button" value="<" onclick="move('right','left')" />
+            <input type="button" value="<<" onclick="moveAll('right','left')" />
+        </div>
+        <select id="right" size="5" multiple>
+        </select>
+    </div>
+</body>

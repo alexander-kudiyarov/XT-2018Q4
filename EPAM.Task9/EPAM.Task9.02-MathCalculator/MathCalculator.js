@@ -12,7 +12,7 @@ function MathCalculator(input) {
         matches = input.match(exForPairs);
         input = input.replace(exForPairs, calcFirstMatch(matches[0]));
     }
-    
+
     input = parseFloat(input);
     return input.toFixed(2);
 }

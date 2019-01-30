@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 1960px;
+    margin: 20px;
+}
+
+select {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 82px;
+    height: 82px;
+}
+
+.buttons {
+    position: relative;
+    top: -5px;
+    display: inline-block;
+    width: 24px;
+}
+
+input {
+    width: 24px;
+}
