@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 95vh;
+}
+
+.container {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    height: 90%;
+    margin: 5vh auto 0;
+}
+
+.container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    transform: translate(-50%,-50%);
+    border-radius: 5px;
+}
+
+.control {
+    width: 200px;
+    margin: 16px auto 0;
+}
+
+button {
+    float: right;
+    width: 64px;
+    height: 64px;
+    border: none;
+}
+
+.previous {
+    background: url('https://img.icons8.com/windows/64/000000/rewind.png');
+}
+
+.next {
+    background: url('https://img.icons8.com/windows/64/000000/play.png');
+}
+
+.stop {
+    background: url('https://img.icons8.com/windows/64/000000/stop.png');
+}
