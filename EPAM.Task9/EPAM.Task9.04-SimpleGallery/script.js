@@ -51,7 +51,7 @@ function innerCounter() {
         if (isStoped) {
             i = delay / 100;
         }
-    }, 100)
+    }, 100);
 }
 
 function counter() {
