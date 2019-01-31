@@ -23,6 +23,7 @@ function move(path) {
 }
 
 function onEnd(path) {
+    isStoped = false;
     counter();
     timeout = setTimeout(() => {
         return onEndQuestion(path);
