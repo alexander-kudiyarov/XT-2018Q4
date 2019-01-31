@@ -8,7 +8,7 @@ function MathCalculator(input) {
         return new Function("return " + numbers);
     }
 
-    for(let i = 0; i < pairs; i++) {
+    for (let i = 0; i < pairs; i++) {
         matches = input.match(exForPairs);
         input = input.replace(exForPairs, calcFirstMatch(matches[0]));
     }

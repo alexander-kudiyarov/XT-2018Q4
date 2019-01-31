@@ -1,6 +1,6 @@
 let timeout;
 let delay = 5000;
-let i = delay / 1000;
+let i = delay / 100;
 let isStoped = true;
 
 function start(path) {
@@ -32,6 +32,7 @@ function onEnd(path) {
 
 function onEndQuestion(path) {
     result = confirm("Show again?");
+    
     if (result) {
         move(path);
     } else {
@@ -41,19 +42,19 @@ function onEndQuestion(path) {
 
 function innerCounter() {
     setTimeout(function () {
-        document.getElementById("timer").innerHTML = i - 1;
+        document.getElementById("timer").innerHTML = Math.ceil((i - 1) / 10);
         i--;
+        
         if (i > 1 & !isStoped) {
             innerCounter();
         }
-        if (isStoped)
-        {
-            i = delay / 1000;
+        if (isStoped) {
+            i = delay / 100;
         }
-    }, 1000)
+    }, 100)
 }
 
 function counter() {
-    document.getElementById("timer").innerHTML = i;
+    document.getElementById("timer").innerHTML = Math.ceil(i / 10);
     innerCounter();
 }

@@ -12,16 +12,16 @@ function CharRemover(input) {
     let charsToRemove = [];
 
     splitInput.forEach((element) => {
-        for(let i = 0; i < element.length - 1; i++) {
-            for(let j = i + 1; j < element.length; j++) {
-                if(element[i] == element[j]) {
+        for (let i = 0; i < element.length - 1; i++) {
+            for (let j = i + 1; j < element.length; j++) {
+                if (element[i] == element[j]) {
                     charsToRemove.push(element[i]);
                 }
             }
         }
     });
 
-    for(let i = 0; i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
         charsToRemove.forEach((element) => {
             input = input.replace(element, '');
         });
