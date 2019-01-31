@@ -1,7 +1,9 @@
 let timeout;
 let delay = 5000;
+let i = delay / 1000;
 
 function start(path) {
+    counter();
     timeout = setTimeout(() => move(path), delay);
 }
 
@@ -14,6 +16,7 @@ function move(path) {
 }
 
 function onEnd(path) {
+    counter();
     timeout = setTimeout(() => {
         return onEndQuestion(path);
     }, delay);
@@ -27,8 +30,6 @@ function onEndQuestion(path) {
         close();
     }
 }
-
-let i = delay / 1000;
 
 function innerCounter() {
     setTimeout(function () {
