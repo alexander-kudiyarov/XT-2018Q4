@@ -35,10 +35,10 @@ function innerCounter() {
     setTimeout(function () {
         document.getElementById("timer").innerHTML = i - 1;
         i--;
-        if (i > 0) {
+        if (i > 1) {
             innerCounter();
         }
-    }, 1005)
+    }, 1000)
 }
 
 function counter() {
