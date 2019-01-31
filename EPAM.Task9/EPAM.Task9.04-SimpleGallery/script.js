@@ -12,8 +12,10 @@ function start(path) {
 }
 
 function stop() {
-    clearTimeout(timeout);
-    isStoped = true;
+    if (!isStoped) {
+        clearTimeout(timeout);
+        isStoped = true;
+    }
 }
 
 function move(path) {
