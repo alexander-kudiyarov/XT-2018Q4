@@ -51,7 +51,7 @@ button {
 }
 
 #timer {
-    background-color: transparent;
     font-family: 'Roboto', sans-serif;
     font-size: 48px;
+    background-color: transparent;
 }
