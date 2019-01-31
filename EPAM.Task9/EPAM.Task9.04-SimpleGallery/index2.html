@@ -3,15 +3,17 @@
     <title>Simple Gallery</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="script.js"></script>
-    <script>start('index3.html')</script>
+    <script src="script.js" async onload="start('index3.html')"></script>
+    <script src="script.js" async onload="counter()"></script>
 </head>
 <body>
     <div class="container">
         <img src="images/image2.jpg" alt="trees">
     </div>
     <div class="control">
-        <button class="stop" onclick="stop()"></button>
-        <button class="next" onclick="start('index3.html')"></button>
-        <button class="previous" onclick="move('index1.html')"></button>
+        <button id="timer"></button>
+        <button id="stop" onclick="stop()"></button>
+        <button id="next" onclick="start('index3.html')"></button>
+        <button id="previous" onclick="move('index1.html')"></button>
     </div>
 </body>

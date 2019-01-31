@@ -13,6 +13,7 @@ body {
     width: 90%;
     height: 90%;
     margin: 5vh auto 0;
+    border-radius: 10px;
 }
 
 .container img {
@@ -22,11 +23,11 @@ body {
     width: auto;
     height: 100%;
     transform: translate(-50%,-50%);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .control {
-    width: 200px;
+    width: 268px;
     margin: 16px auto 0;
 }
 
@@ -37,14 +38,20 @@ button {
     border: none;
 }
 
-.previous {
-    background: url('https://img.icons8.com/windows/64/000000/rewind.png');
+#previous {
+    background: url('https://img.icons8.com/material-rounded/64/000000/rewind.png');
 }
 
-.next {
-    background: url('https://img.icons8.com/windows/64/000000/play.png');
+#next {
+    background: url('https://img.icons8.com/material-rounded/64/000000/play.png');
 }
 
-.stop {
-    background: url('https://img.icons8.com/windows/64/000000/stop.png');
+#stop {
+    background: url('https://img.icons8.com/material-rounded/64/000000/stop.png');
+}
+
+#timer {
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
 }

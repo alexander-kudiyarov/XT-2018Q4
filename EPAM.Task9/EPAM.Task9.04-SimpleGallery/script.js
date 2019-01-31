@@ -1,5 +1,5 @@
 let timeout;
-let delay = 3000;
+let delay = 5000;
 
 function start(path) {
     timeout = setTimeout(() => move(path), delay);
@@ -14,15 +14,33 @@ function move(path) {
 }
 
 function onEnd(path) {
-    timeout = setTimeout(() => onEndQuestion(path), delay);
+    timeout = setTimeout(() => {
+        return onEndQuestion(path);
+    }, delay);
 }
 
 function onEndQuestion(path) {
     result = confirm("Show again?");
     if (result) {
         move(path);
-    }
-    else {
+    } else {
         close();
     }
+}
+
+let i = delay / 1000;
+
+function innerCounter() {
+    setTimeout(function () {
+        document.getElementById("timer").innerHTML = i - 1;
+        i--;
+        if (i > 0) {
+            innerCounter();
+        }
+    }, 1005)
+}
+
+function counter() {
+    document.getElementById("timer").innerHTML = i;
+    innerCounter();
 }
