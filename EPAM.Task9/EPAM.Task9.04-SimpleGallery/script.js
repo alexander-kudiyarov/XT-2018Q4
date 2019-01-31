@@ -1,17 +1,19 @@
 let timeout;
 let delay = 5000;
 let i = delay / 1000;
-let isStop = false;
+let isStoped = true;
 
 function start(path) {
-    counter();
-    timeout = setTimeout(() => move(path), delay);
-    isStop = false;
+    if (isStoped) {
+        counter();
+        timeout = setTimeout(() => move(path), delay);
+        isStoped = false;
+    }
 }
 
 function stop() {
     clearTimeout(timeout);
-    isStop = true;
+    isStoped = true;
 }
 
 function move(path) {
@@ -38,10 +40,10 @@ function innerCounter() {
     setTimeout(function () {
         document.getElementById("timer").innerHTML = i - 1;
         i--;
-        if (i > 1 & !isStop) {
+        if (i > 1 & !isStoped) {
             innerCounter();
         }
-        if (isStop)
+        if (isStoped)
         {
             i = delay / 1000;
         }
