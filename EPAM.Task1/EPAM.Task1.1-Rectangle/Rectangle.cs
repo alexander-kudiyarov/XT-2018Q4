@@ -19,7 +19,7 @@ namespace EPAM.Task1._1_Rectangle
             this.B = y;
         }
 
-        public int A
+        private int A
         {
             set
             {
@@ -34,7 +34,7 @@ namespace EPAM.Task1._1_Rectangle
             }
         }
 
-        public int B
+        private int B
         {
             set
             {
