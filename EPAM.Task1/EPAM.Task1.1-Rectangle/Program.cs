@@ -1,36 +1,25 @@
 ﻿using System;
 
-namespace EPAM.Task1.Rectangle
+namespace EPAM.Task1._1_Rectangle
 {
-    public class Rectangle
-    {
-        public void Calc(int a, int b)
-        {
-            if (a < 1 || b < 1)
-            {
-                Console.WriteLine("Values must be greater than 0");
-            }
-            else
-            {
-                Console.WriteLine($"Area of rectangle: {a * b}");
-            }
-        }
-    }
-
-    public class RectangleDemo
+    public class Program
     {
         public static void Main()
         {
-            Rectangle ob = new Rectangle();
             try
             {
-                Console.WriteLine("Enter value of A side (must be greater than 0)");
-                int a = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter value of B side (must be greater than 0)");
-                int b = int.Parse(Console.ReadLine());
-                ob.Calc(a, b);
+                Console.WriteLine("Enter value of A side, greater than 0:");
+                if (int.TryParse(Console.ReadLine(), out int a))
+                {
+                    Console.WriteLine("Enter value of B side, greater than 0:");
+                    if (int.TryParse(Console.ReadLine(), out int b))
+                    {
+                        var ob = new Rectangle(a, b);
+                        Console.WriteLine(ob.Area());
+                    }
+                }
             }
-            catch (FormatException exc)
+            catch (ArgumentException exc)
             {
                 Console.WriteLine(exc.Message);
             }

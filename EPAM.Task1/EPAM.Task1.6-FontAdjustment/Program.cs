@@ -40,14 +40,17 @@ namespace EPAM.Task1._6_FontAdjustment
                         this.bold = !this.bold;
                         this.Format();
                         break;
+
                     case 2:
                         this.italic = !this.italic;
                         this.Format();
                         break;
+
                     case 3:
                         this.underline = !this.underline;
                         this.Format();
                         break;
+
                     default:
                         Console.WriteLine("Exit");
                         break;

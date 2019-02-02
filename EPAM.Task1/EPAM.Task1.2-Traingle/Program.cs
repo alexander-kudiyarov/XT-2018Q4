@@ -1,41 +1,16 @@
 ﻿using System;
 
-public class Traingle
+namespace EPAM.Task1._2_Traingle
 {
-    public void Draw(int n)
+    public class Program
     {
-        if (n > 0)
+        public static void Main()
         {
-            for (int i = 1; i <= n; i++)
+            Console.WriteLine("Enter value of N (N must be greater than 0):");
+            if (int.TryParse(Console.ReadLine(), out int n))
             {
-                for (int j = 0; j < i; j++)
-                {
-                    Console.Write('*');
-                }
-
-                Console.WriteLine();
+                Traingle.Draw(n);
             }
-        }
-        else
-        {
-            Console.WriteLine("N must be greater than 0");
-        }
-    }
-}
-
-public class TraingleDemo
-{
-    public static void Main()
-    {
-        Traingle ob = new Traingle();
-        Console.WriteLine("Enter value  of N (N must be greater than 0)");
-        try
-        {
-            ob.Draw(int.Parse(Console.ReadLine()));
-        }
-        catch (FormatException exc)
-        {
-            Console.WriteLine(exc.Message);
         }
     }
 }
