@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EPAM.Task2._05_Employee
+namespace EPAM.Task2._03_User
 {
-    internal class EmployeeDemo
+    public class Program
     {
-        internal static void Main()
+        public static void Main()
         {
             try
             {
                 Console.WriteLine("Enter surname");
                 string surname = Console.ReadLine();
-                Employee.Check(surname);
+                User.Check(surname);
 
                 Console.WriteLine("Enter name");
                 string name = Console.ReadLine();
-                Employee.Check(name);
+                User.Check(name);
 
                 Console.WriteLine("Enter patronymic");
                 string patronymic = Console.ReadLine();
@@ -26,14 +26,8 @@ namespace EPAM.Task2._05_Employee
                 Console.WriteLine("Enter birth date");
                 string birthday = Console.ReadLine();
 
-                Console.WriteLine("Enter work experience");
-                double workExperience = double.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter position");
-                string position = Console.ReadLine();
-
-                Employee employee = new Employee(surname, name, patronymic, birthday, workExperience, position);
-                employee.Show();
+                User user = new User(surname, name, patronymic, birthday);
+                Console.WriteLine(user.ToString());
             }
             catch (ArgumentException exc)
             {
@@ -42,10 +36,6 @@ namespace EPAM.Task2._05_Employee
             catch (FormatException exc)
             {
                 Console.WriteLine(exc.Message);
-            }
-            catch (StackOverflowException exc)
-            {
-                Console.WriteLine(exc);
             }
         }
     }

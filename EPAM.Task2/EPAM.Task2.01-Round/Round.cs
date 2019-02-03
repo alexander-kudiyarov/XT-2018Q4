@@ -22,9 +22,15 @@ namespace EPAM.Task2._01_Round
         {
         }
 
-        public double X { get; }
+        public double Area
+        {
+            get => Math.PI * (this.R * this.R);
+        }
 
-        public double Y { get; }
+        public double Length
+        {
+            get => 2 * Math.PI * this.R;
+        }
 
         public double R
         {
@@ -42,23 +48,13 @@ namespace EPAM.Task2._01_Round
             }
         }
 
-        public double Length
-        {
-            get => 2 * Math.PI * this.R;
-        }
+        public double X { get; }
 
-        public double Area
-        {
-            get => Math.PI * (this.R * this.R);
-        }
+        public double Y { get; }
 
-        public virtual void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"Round parameters" +
-                $"{Environment.NewLine}Center:\tx: {this.X}, y: {this.Y}" +
-                $"{Environment.NewLine}Radius:\t{this.R}" +
-                $"{Environment.NewLine}Length:\t{this.Length:#.##}" +
-                $"{Environment.NewLine}Area:\t{this.Area:#.##}");
+            return $"Round parameters: Center: x = {this.X}, y = {this.Y} | Radius = {this.R} | Length = {this.Length:#.##} | Area = {this.Area:#.##}";
         }
     }
 }

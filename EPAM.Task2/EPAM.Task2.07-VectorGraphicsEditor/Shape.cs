@@ -22,7 +22,5 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
         public double X { get; }
 
         public double Y { get; }
-
-        public abstract void Show();
     }
 }

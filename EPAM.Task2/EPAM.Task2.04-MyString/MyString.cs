@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._04_MyString
 {
-    internal class MyString
+    public class MyString
     {
-        internal MyString(string input)
+        public MyString(string input)
         {
             this.Array = new char[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -17,7 +17,7 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        internal MyString(char[] input)
+        public MyString(char[] input)
         {
             this.Array = new char[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -26,7 +26,7 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        internal MyString(int input)
+        public MyString(int input)
         {
             string temp = input.ToString();
             this.Array = new char[temp.Length];
@@ -36,32 +36,22 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        internal MyString()
+        public MyString()
         {
             this.Array = null;
         }
 
-        private char[] Array { get; set; }
-
-        private int Length
+        public int Length
         {
             get => this.Array.Length;
         }
+
+        private char[] Array { get; set; }
 
         private char this[int index]
         {
             get => this.Array[index];
             set => this.Array[index] = value;
-        }
-
-        public static void Show(MyString str)
-        {
-            foreach (char ch in str.Array)
-            {
-                Console.Write(ch);
-            }
-
-            Console.WriteLine();
         }
 
         public static int Compare(MyString str1, MyString str2)
@@ -103,6 +93,20 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
+        public static bool operator !=(MyString str1, MyString str2)
+        {
+            {
+                if (Compare(str1, str2) != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public static MyString operator +(MyString str1, MyString str2)
         {
             MyString result = new MyString
@@ -134,18 +138,15 @@ namespace EPAM.Task2._04_MyString
             }
         }
 
-        public static bool operator !=(MyString str1, MyString str2)
+        public override string ToString()
         {
+            var temp = new StringBuilder();
+            foreach (var ch in this.Array)
             {
-                if (Compare(str1, str2) != 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                temp.Append(ch);
             }
+
+            return temp.ToString();
         }
 
         internal int IndexOf(char value)

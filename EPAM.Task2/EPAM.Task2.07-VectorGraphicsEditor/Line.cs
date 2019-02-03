@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._07_VectorGraphicsEditor
 {
-    internal class Line : Shape
+    public class Line : Shape
     {
         private double length;
 
@@ -36,11 +36,9 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
             }
         }
 
-        public override void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"Line parameters" +
-                    $"{Environment.NewLine}Start:\tx: {X}, y: {Y}" +
-                    $"{Environment.NewLine}Length:\t{Length}");
+            return $"Line parameters: Start: x = {X}, y = {Y} | Length: {Length}";
         }
     }
 }

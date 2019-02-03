@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._07_VectorGraphicsEditor
 {
-    internal class Ring
+    public class Ring
     {
         public Ring(double x, double y, double inR, double outR)
         {
@@ -26,28 +26,23 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
         {
         }
 
-        internal Round Inner { get; }
-
-        internal Round Outer { get; }
-
-        internal double Length
-        {
-            get => (2 * Math.PI * this.Inner.R) + (2 * Math.PI * this.Outer.R);
-        }
-
-        internal double Area
+        public double Area
         {
             get => this.Outer.Area - this.Inner.Area;
         }
 
-        public void Show()
+        public Round Inner { get; }
+
+        public double Length
         {
-            Console.WriteLine($"Ring parameters" +
-                $"{Environment.NewLine}Center:\t\tx: {this.Inner.X}, y: {this.Inner.Y}" +
-                $"{Environment.NewLine}Inner Radius:\t{this.Inner.R}" +
-                $"{Environment.NewLine}Outer Radius:\t{this.Outer.R}" +
-                $"{Environment.NewLine}Length:\t\t{this.Length:#.##}" +
-                $"{Environment.NewLine}Area:\t\t{this.Area:#.##}");
+            get => (2 * Math.PI * this.Inner.R) + (2 * Math.PI * this.Outer.R);
+        }
+
+        public Round Outer { get; }
+
+        public override string ToString()
+        {
+            return $"Ring parameters: Center: x = {this.Inner.X}, y = {this.Inner.Y} | Inner Radius: {this.Inner.R} | Outer Radius: {this.Outer.R} | Length: {this.Length:#.##} | Area: {this.Area:#.##}";
         }
     }
 }

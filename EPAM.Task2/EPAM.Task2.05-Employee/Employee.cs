@@ -7,20 +7,22 @@ using EPAM.Task2._03_User;
 
 namespace EPAM.Task2._05_Employee
 {
-    internal class Employee : User
+    public class Employee : User
     {
         private double workExperience;
 
-        internal Employee(string surname, string name, string patronymic, string birthday, double workExperience, string position) : base(surname, name, patronymic, birthday)
+        public Employee(string surname, string name, string patronymic, string birthday, double workExperience, string position) : base(surname, name, patronymic, birthday)
         {
             this.WorkExperience = workExperience;
             this.Position = position;
         }
 
-        internal double WorkExperience
+        public string Position { get; }
+
+        public double WorkExperience
         {
             get => this.workExperience;
-            set
+            private set
             {
                 if (value >= 0)
                 {
@@ -28,21 +30,14 @@ namespace EPAM.Task2._05_Employee
                 }
                 else
                 {
-                    throw new ArgumentException("Work experience should be positive");
+                    throw new ArgumentException("Work experience cannot be less than zero");
                 }
             }
         }
 
-        internal string Position { get; }
-
-        public override void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"User:" +
-                $"{Environment.NewLine}Name:\t\t{this.Surname} {this.Name} {this.Patronymic}" +
-                $"{Environment.NewLine}Birth date:\t{this.Birthday:D}" +
-                $"{Environment.NewLine}Age:\t\t{this.Age:#}" +
-                $"{Environment.NewLine}Work experience:{this.WorkExperience}" +
-                $"{Environment.NewLine}Position:\t{this.Position}");
+            return $"User: Name: {this.Surname} {this.Name} {this.Patronymic} | Birth date: {this.Birthday:D} | Age: {this.Age:#} | Work experience: {this.WorkExperience} | Position: {this.Position}";
         }
     }
 }

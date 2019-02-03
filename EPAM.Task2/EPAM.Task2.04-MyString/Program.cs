@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._04_MyString
 {
-    internal class MyStringDemo
+    public class Program
     {
-        internal static void Main()
+        public static void Main()
         {
             MyString ob1 = new MyString("First");
             MyString ob2 = new MyString("Second");
 
-            Console.Write("ob1:\t\t\t\t");
-            MyString.Show(ob1);
+            Console.WriteLine($"ob1:\t\t\t\t{ob1.ToString()}");
 
-            Console.Write("ob2:\t\t\t\t");
-            MyString.Show(ob2);
+            Console.WriteLine($"ob2:\t\t\t\t{ob2.ToString()}");
 
             Console.WriteLine($"ob1 == ob2:\t\t\t{ob1 == ob2}");
             Console.WriteLine($"ob1 != ob2:\t\t\t{ob1 != ob2}");
@@ -25,8 +23,7 @@ namespace EPAM.Task2._04_MyString
             Console.Write("Compare(ob1, ob2):\t\t");
             Console.WriteLine(MyString.Compare(ob1, ob2));
 
-            Console.Write("ob1 + ob2:\t\t\t");
-            MyString.Show(ob1 + ob2);
+            Console.WriteLine($"ob1 + ob2:\t\t\t{(ob1 + ob2).ToString()}");
 
             Console.Write("Search 's' in ob1:\t\t");
             Console.WriteLine(ob1.IndexOf('s'));
@@ -40,9 +37,8 @@ namespace EPAM.Task2._04_MyString
 
             Console.WriteLine();
 
-            Console.Write("Convert char[] to MyString:\t");
             MyString ob3 = new MyString(ch);
-            MyString.Show(ob3);
+            Console.WriteLine($"Convert char[] to MyString:\t{ob3.ToString()}");
         }
     }
 }

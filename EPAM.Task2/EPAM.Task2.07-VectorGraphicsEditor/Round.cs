@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._07_VectorGraphicsEditor
 {
-    internal class Round : Circle
+    public class Round : Circle
     {
         public Round(double x, double y, double r) : base(x, y, r)
         {
@@ -22,13 +22,9 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
             get => Math.PI * (this.R * this.R);
         }
 
-        public override void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"Round parameters" +
-                $"{Environment.NewLine}Center:\tx: {this.X}, y: {this.Y}" +
-                $"{Environment.NewLine}Radius:\t{this.R}" +
-                $"{Environment.NewLine}Length:\t{this.Length:#.##}" +
-                $"{Environment.NewLine}Area:\t{this.Area:#.##}");
+            return $"Round parameters: Center: x = {this.X}, y = {this.Y} | Radius: {this.R} | Length: {this.Length:#.##} | Area: {this.Area:#.##}";
         }
     }
 }

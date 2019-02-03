@@ -6,31 +6,71 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._02_Traingle
 {
-    internal class Traingle
+    public class Traingle
     {
+        private double a;
+        private double b;
         private double c;
 
-        internal Traingle(int a, int b, int c)
+        public Traingle(int a, int b, int c)
         {
             this.A = a;
             this.B = b;
             this.C = c;
         }
 
-        internal Traingle()
+        public Traingle()
             : this(1, 1, 1)
         {
         }
 
-        internal double A { get; }
+        public double A
+        {
+            get => this.a;
+            private set
+            {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Sides of a triangle must be more than zero");
+                }
+                else
+                {
+                    this.a = value;
+                }
+            }
+        }
 
-        internal double B { get; }
+        public double Area
+        {
+            get => Math.Sqrt(this.Semiperimeter * (this.Semiperimeter - this.A) * (this.Semiperimeter - this.B) * (this.Semiperimeter - this.C));
+        }
 
-        internal double C
+        public double B
+        {
+            get => this.b;
+            private set
+            {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Sides of a triangle must be more than zero");
+                }
+                else
+                {
+                    this.b = value;
+                }
+            }
+        }
+
+        public double C
         {
             get => this.c;
             private set
             {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Sides of a triangle must be more than zero");
+                }
+
                 if (value >= this.A + this.B)
                 {
                     throw new ArgumentException("Each side of a triangle should be less than sum of other sides");
@@ -42,29 +82,19 @@ namespace EPAM.Task2._02_Traingle
             }
         }
 
-        internal double Perimeter
+        public double Perimeter
         {
             get => this.A + this.B + this.C;
         }
 
-        internal double Semiperimeter
+        public double Semiperimeter
         {
             get => this.Perimeter / 2;
         }
 
-        internal double Area
+        public override string ToString()
         {
-            get => Math.Sqrt(this.Semiperimeter * (this.Semiperimeter - this.A) * (this.Semiperimeter - this.B) * (this.Semiperimeter - this.C));
-        }
-
-        internal void Show()
-        {
-            Console.WriteLine($"Traingle parameters:" +
-                $"{Environment.NewLine}A side:\t\t{this.A}" +
-                $"{Environment.NewLine}B side:\t\t{this.B}" +
-                $"{Environment.NewLine}C side:\t\t{this.C}" +
-                $"{Environment.NewLine}Perimeter:\t{this.Perimeter}" +
-                $"{Environment.NewLine}Area:\t\t{this.Area:#.##}");
+            return $"Traingle parameters: A side: {this.A} | B side: {this.B} | C side: {this.C} | Perimeter: {this.Perimeter} | Area: {this.Area:#.##}";
         }
     }
 }

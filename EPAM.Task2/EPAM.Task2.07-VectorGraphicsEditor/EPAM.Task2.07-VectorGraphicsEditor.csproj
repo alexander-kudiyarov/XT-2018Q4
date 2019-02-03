@@ -50,7 +50,7 @@
     <Compile Include="Ring.cs" />
     <Compile Include="Round.cs" />
     <Compile Include="Shape.cs" />
-    <Compile Include="VectorGraphicsEditorDemo.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

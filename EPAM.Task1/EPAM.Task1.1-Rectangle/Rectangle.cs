@@ -7,10 +7,8 @@ namespace EPAM.Task1._1_Rectangle
         private int a;
         private int b;
 
-        public Rectangle()
+        public Rectangle() : this(1, 1)
         {
-            this.A = 1;
-            this.B = 1;
         }
 
         public Rectangle(int x, int y)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPAM.Task2._07_VectorGraphicsEditor
 {
-    internal class Circle : Shape
+    public class Circle : Shape
     {
         private double r;
 
@@ -41,12 +41,9 @@ namespace EPAM.Task2._07_VectorGraphicsEditor
             }
         }
 
-        public override void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"Circle parameters" +
-                    $"{Environment.NewLine}Center:\tx: {X}, y: {Y}" +
-                    $"{Environment.NewLine}Radius:\t{R}" +
-                    $"{Environment.NewLine}Length:\t{Length:#.##}");
+            return $"Circle parameters: Center: x = {X}, y = {Y} | Radius: {R} | Length: {Length:#.##}";
         }
     }
 }

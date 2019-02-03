@@ -13,21 +13,39 @@ namespace EPAM.Task2._03_User
             this.Surname = surname;
             this.Name = name;
             this.Patronymic = patronymic;
-            this.Birthday = DateTime.Parse(birthday);
+
+            if (DateTime.Parse(birthday) > DateTime.Now)
+            {
+                throw new ArgumentException("User birthday cannot be in the future");
+            }
+            else
+            {
+                this.Birthday = DateTime.Parse(birthday);
+            }
         }
 
-        public string Surname { get; }
+        public double Age
+        {
+            get
+            {
+                var age = DateTime.Today.Year - this.Birthday.Year;
+
+                if (this.Birthday > DateTime.Today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
+
+        public DateTime Birthday { get; }
 
         public string Name { get; }
 
         public string Patronymic { get; }
 
-        public DateTime Birthday { get; }
-
-        public double Age
-        {
-            get => (DateTime.Now - this.Birthday).TotalDays / 365.25;
-        }
+        public string Surname { get; }
 
         public static void Check(string str)
         {
@@ -62,12 +80,9 @@ namespace EPAM.Task2._03_User
             }
         }
 
-        public virtual void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"User:" +
-                $"{Environment.NewLine}Name:\t\t{this.Surname} {this.Name} {this.Patronymic}" +
-                $"{Environment.NewLine}Birth date:\t{this.Birthday:D}" +
-                $"{Environment.NewLine}Age:\t\t{this.Age:#}");
+            return $"User: Name: {this.Surname} {this.Name} {this.Patronymic} | Birth date: {this.Birthday:D} | Age: {this.Age:#}";
         }
     }
 }
