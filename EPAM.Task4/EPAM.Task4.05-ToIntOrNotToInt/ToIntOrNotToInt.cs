@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace EPAM.Task4._05_ToIntOrNotToInt
 {
@@ -67,6 +63,37 @@ namespace EPAM.Task4._05_ToIntOrNotToInt
             {
                 return false;
             }
+        }
+
+        private static int ExpCalc(this string input)
+        {
+            int exp = 0;
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if ((input[i] == 'E' || input[i] == 'e') & input[i + 1] == '+')
+                {
+                    int multiplier = 1;
+                    for (int j = input.Length - 1; input[j] != '+'; j--)
+                    {
+                        exp += (int)char.GetNumericValue(input[j]) * multiplier;
+                        multiplier *= 10;
+                    }
+                }
+                else
+                {
+                    if ((input[i] == 'E' || input[i] == 'e') & input[i + 1] == '-')
+                    {
+                        int multiplier = -1;
+                        for (int j = input.Length - 1; input[j] != '-'; j--)
+                        {
+                            exp += (int)char.GetNumericValue(input[j]) * multiplier;
+                            multiplier *= 10;
+                        }
+                    }
+                }
+            }
+
+            return exp;
         }
 
         private static string ToDecimal(this string input)
@@ -174,37 +201,6 @@ namespace EPAM.Task4._05_ToIntOrNotToInt
             }
 
             return sb.ToString();
-        }
-
-        private static int ExpCalc(this string input)
-        {
-            int exp = 0;
-            for (int i = 0; i < input.Length - 1; i++)
-            {
-                if ((input[i] == 'E' || input[i] == 'e') & input[i + 1] == '+')
-                {
-                    int multiplier = 1;
-                    for (int j = input.Length - 1; input[j] != '+'; j--)
-                    {
-                        exp += (int)char.GetNumericValue(input[j]) * multiplier;
-                        multiplier *= 10;
-                    }
-                }
-                else
-                {
-                    if ((input[i] == 'E' || input[i] == 'e') & input[i + 1] == '-')
-                    {
-                        int multiplier = -1;
-                        for (int j = input.Length - 1; input[j] != '-'; j--)
-                        {
-                            exp += (int)char.GetNumericValue(input[j]) * multiplier;
-                            multiplier *= 10;
-                        }
-                    }
-                }
-            }
-
-            return exp;
         }
     }
 }

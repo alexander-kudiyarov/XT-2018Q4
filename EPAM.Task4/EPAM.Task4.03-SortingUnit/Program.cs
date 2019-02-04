@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Task4._03_SortingUnit
 {
     public class Program
     {
-        public static void EventHandler()
-        {
-            Console.WriteLine($"An array sotring complete{Environment.NewLine}");
-        }
-
         public static void Main()
         {
             string[] words = { "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog" };
@@ -21,8 +12,6 @@ namespace EPAM.Task4._03_SortingUnit
             Console.WriteLine();
 
             ob.DedicatedThreadQSort(CompareByLength);
-            ob.EndOfSotr += EventHandler;
-            ob.OnEndOfSort();
 
             Console.WriteLine($"Sorted words: {ob.ToString()}");
         }

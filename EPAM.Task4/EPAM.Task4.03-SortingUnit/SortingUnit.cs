@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EPAM.Task4._01_CustomSort___02_CustomSortDemo;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
-using EPAM.Task4._01_CustomSort___02_CustomSortDemo;
 
 namespace EPAM.Task4._03_SortingUnit
 {
@@ -16,12 +12,19 @@ namespace EPAM.Task4._03_SortingUnit
 
         public event Action EndOfSotr;
 
+        public static void EventHandler()
+        {
+            Console.WriteLine($"An array sotring complete{Environment.NewLine}");
+        }
+
         public void DedicatedThreadQSort(Func<T, T, int> compare)
         {
             ThreadStart ts = new ThreadStart(() => QSort(compare));
             Thread th = new Thread(ts);
             th.Start();
             th.Join();
+            this.EndOfSotr += EventHandler;
+            this.OnEndOfSort();
         }
 
         public void OnEndOfSort()
