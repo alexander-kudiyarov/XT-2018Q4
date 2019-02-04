@@ -13,13 +13,14 @@ namespace EPAM.Task3._01_Lost
             try
             {
                 Console.WriteLine($"Enter N, greater than one");
-                int n = int.Parse(Console.ReadLine());
-                Lost ob = new Lost(n);
-                Console.WriteLine($"Origin circle:");
-                ob.ShowCircle();
-                ob.ClearCircle();
-                Console.WriteLine($"Cleared circle:");
-                ob.ShowCircle();
+                if (int.TryParse(Console.ReadLine(), out int n))
+                {
+                    Lost circle = new Lost(n);
+                    Console.WriteLine($"Origin circle: {circle.ToString()}");
+
+                    circle.ClearCircle();
+                    Console.WriteLine($"Cleared circle: {circle.ToString()}");
+                }
             }
             catch (FormatException exc)
             {

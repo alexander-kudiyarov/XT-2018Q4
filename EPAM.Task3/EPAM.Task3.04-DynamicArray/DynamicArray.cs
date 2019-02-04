@@ -44,8 +44,6 @@ namespace EPAM.Task3._04_DynamicArray
 
         public T[] Array { get; private set; }
 
-        public int Length { get; private set; } = 0;
-
         public int Capacity
         {
             get
@@ -69,6 +67,8 @@ namespace EPAM.Task3._04_DynamicArray
                 }
             }
         }
+
+        public int Length { get; private set; } = 0;
 
         public T this[int index]
         {
@@ -118,24 +118,19 @@ namespace EPAM.Task3._04_DynamicArray
             }
         }
 
-        public bool Remove(T obj)
+        public object Clone()
         {
-            for (int i = 0; i < this.Array.Length; i++)
-            {
-                if (this.Array[i].Equals(obj))
-                {
-                    for (int j = i; j < this.Length - 1; j++)
-                    {
-                        this.Array[j] = this.Array[j + 1];
-                    }
+            return new DynamicArray<T>(this.Array, this.Capacity, this.Length);
+        }
 
-                    this.Array[this.Length - 1] = default(T);
-                    this.Length--;
-                    return true;
-                }
-            }
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)this.GetEnumerator();
+        }
 
-            return false;
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            return (IEnumerator<T>)this.GetEnumerator();
         }
 
         public bool Insert(int index, T obj)
@@ -167,30 +162,24 @@ namespace EPAM.Task3._04_DynamicArray
             }
         }
 
-        public void DynamicArrayShow()
+        public bool Remove(T obj)
         {
-            for (int i = 0; i < this.Length; i++)
+            for (int i = 0; i < this.Array.Length; i++)
             {
-                Console.Write($"{Array[i]} ");
+                if (this.Array[i].Equals(obj))
+                {
+                    for (int j = i; j < this.Length - 1; j++)
+                    {
+                        this.Array[j] = this.Array[j + 1];
+                    }
+
+                    this.Array[this.Length - 1] = default(T);
+                    this.Length--;
+                    return true;
+                }
             }
 
-            Console.WriteLine($"{Environment.NewLine}Capacity: {Capacity}" +
-                $"{Environment.NewLine}Length:   {Length}{Environment.NewLine}");
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)this.GetEnumerator();
-        }
-
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
-        {
-            return (IEnumerator<T>)this.GetEnumerator();
-        }
-
-        public object Clone()
-        {
-            return new DynamicArray<T>(this.Array, this.Capacity, this.Length);
+            return false;
         }
 
         public T[] ToArray()
@@ -202,6 +191,20 @@ namespace EPAM.Task3._04_DynamicArray
             }
 
             return simpleArray;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder temp = new StringBuilder();
+            for (int i = 0; i < this.Length; i++)
+            {
+                temp.Append($"{Array[i]} ");
+            }
+
+            temp.Append($"{Environment.NewLine}Capacity: {Capacity}" +
+                $"{Environment.NewLine}Length: {Length}");
+
+            return temp.ToString();
         }
 
         private void Extension(int n)

@@ -20,7 +20,7 @@ namespace EPAM.Task3._02_WordFrequency
             }
             else
             {
-                this.Words = input.ToLower().Split(this.separators);
+                this.Words = input.ToUpper().Split(this.separators);
             }
         }
 
@@ -28,7 +28,7 @@ namespace EPAM.Task3._02_WordFrequency
 
         public void FillDictionary()
         {
-            foreach (string str in this.Words)
+            foreach (var str in this.Words)
             {
                 if (this.counter.ContainsKey(str))
                 {
@@ -44,14 +44,15 @@ namespace EPAM.Task3._02_WordFrequency
             }
         }
 
-        public void ShowDictionary()
+        public override string ToString()
         {
+            StringBuilder temp = new StringBuilder();
             foreach (var x in this.counter)
             {
-                Console.Write($"Word:  {x.Key}{Environment.NewLine}" +
-                              $"Count: {x.Value}{Environment.NewLine}");
-                Console.WriteLine();
+                temp.Append($"Word: {x.Key}, Count: {x.Value}{Environment.NewLine}");
             }
+
+            return temp.ToString();
         }
     }
 }

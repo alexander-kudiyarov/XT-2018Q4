@@ -25,16 +25,6 @@ namespace EPAM.Task3._01_Lost
             }
         }
 
-        public void ShowCircle()
-        {
-            foreach (int x in this.circle)
-            {
-                Console.Write($"{x} ");
-            }
-
-            Console.WriteLine($"{Environment.NewLine}");
-        }
-
         public void ClearCircle()
         {
             LinkedListNode<int> current = this.circle.First;
@@ -43,6 +33,17 @@ namespace EPAM.Task3._01_Lost
                 this.circle.Remove(current.Next ?? this.circle.First);
                 current = current.Next ?? this.circle.First;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder temp = new StringBuilder();
+            foreach (var n in this.circle)
+            {
+                temp.Append($"{n} ");
+            }
+
+            return temp.ToString().Trim();
         }
     }
 }

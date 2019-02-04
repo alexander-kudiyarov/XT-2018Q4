@@ -20,20 +20,24 @@ namespace EPAM.Task3._04_DynamicArray
                     ob.Add(i);
                 }
 
-                ob.DynamicArrayShow();
+                Console.WriteLine(ob.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Using AddRange()");
                 int[] tmp = { 6, 6, 6 };
                 ob.AddRange(tmp);
-                ob.DynamicArrayShow();
+                Console.WriteLine(ob.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Using Remove()");
                 ob.Remove(7);
-                ob.DynamicArrayShow();
+                Console.WriteLine(ob.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Using Insert()");
                 ob.Insert(0, 7);
-                ob.DynamicArrayShow();
+                Console.WriteLine(ob.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Use negative index");
                 Console.WriteLine($"ob[-1]: {ob[-1]}" +
@@ -43,17 +47,21 @@ namespace EPAM.Task3._04_DynamicArray
                 Console.WriteLine("Manual change Capacity");
 
                 ob.Capacity = 4;
-                ob.DynamicArrayShow();
+                Console.WriteLine(ob.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Using Clone()");
                 DynamicArray<int> clone = (DynamicArray<int>)ob.Clone();
-                clone.DynamicArrayShow();
+                Console.WriteLine(clone.ToString());
+                Console.WriteLine();
 
                 Console.WriteLine("Using ToArray()");
                 foreach (var item in ob.ToArray())
                 {
                     Console.Write($"{item} ");
                 }
+
+                Console.WriteLine();
             }
             catch (ArgumentOutOfRangeException exc)
             {

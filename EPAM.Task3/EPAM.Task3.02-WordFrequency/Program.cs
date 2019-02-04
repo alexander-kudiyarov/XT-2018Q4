@@ -16,7 +16,7 @@ namespace EPAM.Task3._02_WordFrequency
                 Console.WriteLine(text);
                 WordFrequency ob = new WordFrequency(text);
                 ob.FillDictionary();
-                ob.ShowDictionary();
+                Console.WriteLine(ob.ToString());
             }
             catch (ArgumentException exc)
             {
