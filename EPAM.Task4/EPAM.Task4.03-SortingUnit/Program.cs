@@ -16,17 +16,15 @@ namespace EPAM.Task4._03_SortingUnit
         public static void Main()
         {
             string[] words = { "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog" };
-            SortingUnit<string> ob = new SortingUnit<string>(words);
-            Console.WriteLine($"Unsorted words:");
-            ob.Show();
+            var ob = new SortingUnit<string>(words);
+            Console.WriteLine($"Unsorted words: {ob.ToString()}");
             Console.WriteLine();
 
             ob.DedicatedThreadQSort(CompareByLength);
             ob.EndOfSotr += EventHandler;
             ob.OnEndOfSort();
 
-            Console.WriteLine($"Sorted words:");
-            ob.Show();
+            Console.WriteLine($"Sorted words: {ob.ToString()}");
         }
 
         private static int CompareByLength(string str1, string str2)

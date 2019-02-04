@@ -20,14 +20,15 @@ namespace EPAM.Task4._01_CustomSort___02_CustomSortDemo
             this.QSort(0, this.Array.Length - 1, compare);
         }
 
-        public void Show()
+        public override string ToString()
         {
+            StringBuilder temp = new StringBuilder();
             foreach (var item in this.Array)
             {
-                Console.Write($"{item} ");
+                temp.Append($"{item} ");
             }
 
-            Console.WriteLine();
+            return temp.ToString().Trim();
         }
 
         private void QSort(int b, int e, Func<T, T, int> compare)

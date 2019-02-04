@@ -12,13 +12,11 @@ namespace EPAM.Task4._01_CustomSort___02_CustomSortDemo
         {
             string[] words = { "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog" };
             CustomSort<string> ob = new CustomSort<string>(words);
-            Console.WriteLine("Unsorted words:");
-            ob.Show();
+            Console.WriteLine($"Unsorted words: {ob.ToString()}");
 
             Console.WriteLine();
             ob.QSort(CompareByLength);
-            Console.WriteLine("Sorted words:");
-            ob.Show();
+            Console.WriteLine($"Sorted words: {ob.ToString()}");
         }
 
         private static int CompareByLength(string str1, string str2)
