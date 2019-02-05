@@ -118,9 +118,17 @@ namespace EPAM.Task6._01_Users.ConsolePL
 
         private static void AddUser(IUserLogic userLogic)
         {
-            Console.WriteLine("Name:");
-            string name = Console.ReadLine();
-            if (string.IsNullOrEmpty(name))
+            Console.WriteLine("First Name:");
+            string f_name = Console.ReadLine();
+            if (string.IsNullOrEmpty(f_name))
+            {
+                Console.WriteLine("Name cannot be empty");
+                return;
+            }
+
+            Console.WriteLine("Last Name:");
+            string l_name = Console.ReadLine();
+            if (string.IsNullOrEmpty(l_name))
             {
                 Console.WriteLine("Name cannot be empty");
                 return;
@@ -132,7 +140,8 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 DateTime dateOfBirth = DateTime.Parse(Console.ReadLine());
                 var newUser = new User
                 {
-                    Name = name,
+                    FirstName = f_name,
+                    LastName = l_name,
                     DateOfBirth = dateOfBirth,
                 };
                 userLogic.AddUser(newUser);
@@ -154,7 +163,6 @@ namespace EPAM.Task6._01_Users.ConsolePL
             foreach (var user in userLogic.GetAll())
             {
                 Console.WriteLine(user.ToString());
-                Console.WriteLine(user.ShowAwards());
             }
         }
     }

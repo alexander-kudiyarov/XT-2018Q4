@@ -28,24 +28,24 @@ namespace EPAM.Task6._01_Users.Entities
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
-        public string ShowAwards()
-        {
-            StringBuilder awards = new StringBuilder();
-            awards.Append("Awards:\t");
-            foreach (Award award in this.AwardsList)
-            {
-                awards.Append($"{award.Title}, ");
-            }
-
-            awards.Remove(awards.Length - 2, 2);
-            return awards.ToString();
-        }
+        public string LastName { get; set; }
 
         public override string ToString()
         {
-            return $"{Environment.NewLine}User:\tid: {Id} | Name: {Name} | Date of birth: {DateOfBirth:D} | Age: {Age}";
+            StringBuilder temp = new StringBuilder();
+            temp.Append($"User: id: {Id}, Name: {FirstName} {LastName}, Date of birth: {DateOfBirth:D}, Age: {Age}");
+            if(AwardsList.Count > 0)
+            {
+                temp.Append($"{Environment.NewLine}Awards: ");
+                foreach (Award award in this.AwardsList)
+                {
+                    temp.Append($"{award.Title}, ");
+                }
+                temp.Remove(temp.Length - 2, 2);
+            }
+            return temp.ToString();
         }
     }
 }
