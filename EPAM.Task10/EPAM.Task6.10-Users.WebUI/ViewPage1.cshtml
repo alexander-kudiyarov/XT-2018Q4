@@ -1,0 +1,87 @@
+﻿@{
+    var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
+    userLogic.LoadUserList();
+    userLogic.LoadAwardList();
+    var users = userLogic.GetAll();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Style.css" />
+    <script src="~/JavaScript.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <div class="userList">
+            <h2>Users and Awards</h2>
+            <ul>
+                @foreach (var user in users)
+                {
+                    <li>@user.ToString()</li>
+                }
+            </ul>
+        </div>
+        <div class="buttons">
+            <button id="add_user" type="submit" onclick="AddUserMenu()">Add User</button>
+            <button id="add_award" type="submit" onclick="AwardsUserMenu()">Add Award</button>
+            <button id="remove" type="submit" onclick="RemoveUserMenu()">Remove</button>
+        </div>
+        <div class="forms">
+            <form id="addUser" action="~/ViewPage1.cshtml" method="post">
+                @if (IsPost && !Request.Params["f_name"].IsEmpty())
+                {
+                    string f_name = Request.Params["f_name"];
+                    string l_name = Request.Params["l_name"];
+                    DateTime b_date;
+
+                    if (DateTime.TryParse(Request.Params["b_date"], out b_date))
+                    {
+                        var newUser = new EPAM.Task6._01_Users.Entities.User
+                        {
+                            FirstName = f_name,
+                            LastName = l_name,
+                            DateOfBirth = b_date,
+                        };
+                        userLogic.AddUser(newUser);
+                        @:<script>window.location.replace("/ViewPage1.cshtml")</script>
+                    }
+                }
+            </form>
+            <form id="removeUser" action="~/ViewPage1.cshtml" method="post">
+                @if (IsPost && !Request.Params["id"].IsEmpty())
+                {
+                    char[] div = { '.', ',', ' ' };
+                    string[] idList = Request.Params["id"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var id in idList)
+                    {
+                        userLogic.Remove(Convert.ToInt32(id));
+                    }
+                    @:<script>window.location.replace("/ViewPage1.cshtml")</script>
+                }
+            </form>
+            <form id="addAwards" action="~/ViewPage1.cshtml" method="post">
+                @if (IsPost && !Request.Params["title"].IsEmpty())
+                {
+                    string title = Request.Params["title"];
+                    {
+                        var newAward = new EPAM.Task6._01_Users.Entities.Award
+                        {
+                            Title = title,
+                        };
+                        userLogic.AddAward(newAward);
+                        char[] div = { '.', ',', ' ' };
+                        string[] idList = Request.Params["users"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var id in idList)
+                        {
+                            userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                        }
+                        @:<script>window.location.replace("/ViewPage1.cshtml")</script>
+                    }
+                }
+            </form>
+        </div>
+    </div>
+</body>
+</html>
