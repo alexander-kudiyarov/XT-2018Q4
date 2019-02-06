@@ -105,7 +105,7 @@ function AwardsUserMenu() {
 }
 
 function Clear(form) {
-    var myNode = document.getElementById(form);
+    let myNode = document.getElementById(form);
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
