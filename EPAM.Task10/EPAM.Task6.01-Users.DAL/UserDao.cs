@@ -73,6 +73,32 @@ namespace EPAM.Task6._01_Users.DAL
             File.Delete(userListPath);
         }
 
+        public void EditUser(int id, string f_name, string l_name, string b_date)
+        {
+            if (userList.ContainsKey(id))
+            {
+                if (!string.IsNullOrWhiteSpace(f_name))
+                {
+                    userList[id].FirstName = f_name;
+                }
+
+                if (!string.IsNullOrWhiteSpace(l_name))
+                {
+                    userList[id].LastName = l_name;
+                }
+
+                if (!string.IsNullOrWhiteSpace(b_date))
+                {
+                    if (DateTime.TryParse(b_date, out DateTime temp))
+                    {
+                        userList[id].DateOfBirth = temp;
+                    }
+                }
+
+                this.WriteToBinaryFile(userListPath, userList, false);
+            }
+        }
+
         public IEnumerable<User> GetAll()
         {
             return userList.Values;

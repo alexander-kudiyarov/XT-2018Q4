@@ -10,7 +10,7 @@ body {
 
 .container {
     width: 60%;
-    min-width: 488px;
+    min-width: 520px;
     margin: 64px auto;
     border-radius: 5px;
     background-color: white;
@@ -34,14 +34,14 @@ li {
 }
 
 .buttons {
-    width: 488px;
-    margin: 14px 0 0;
+    width: 520px;
+    margin: 14px 27px;
 }
 
 button {
     font-weight: bold;
     width: 100px;
-    margin: 0 0 14px 27px;
+    margin: 0 27px 14px 0;
     padding: 5px;
     color: black;
     border: none;
@@ -54,18 +54,13 @@ button#remove {
 }
 
 form {
-    width: 350px;
-}
-
-label {
-    display: inline-block;
-    width: 90px;
-    margin: 14px 0 14px 27px;
+    width: 240px;
+    margin: -14px 0 14px 27px;
 }
 
 input {
     display: inline-block;
-    margin: 14px 27px;
+    margin: 0 0 14px 0;
     padding: 5px;
     border: none;
     border-radius: 5px;

@@ -40,6 +40,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
             Console.WriteLine($"{Environment.NewLine}" +
                 $"Enter:" +
                 $"{Environment.NewLine}<add user>\tto add new user" +
+                $"{Environment.NewLine}<edit user>\tto edit user" +
                 $"{Environment.NewLine}<remove>\tto remove user" +
                 $"{Environment.NewLine}<show>\t\tto show list of users and their awards" +
                 $"{Environment.NewLine}<add award>\tto add awards for users" +
@@ -51,6 +52,12 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 case "add user":
                     {
                         AddUser(userLogic);
+                        goto default;
+                    }
+
+                case "edit":
+                    {
+                        EditUser(userLogic);
                         goto default;
                     }
 
@@ -103,7 +110,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 };
                 userLogic.AddAward(newAward);
                 Console.WriteLine("Enter ID of users to give them awards");
-                char[] div = { '.', ',', ' ' };
+                char[] div = { ',', ' ' };
                 string[] idList = Console.ReadLine().Split(div, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var id in idList)
                 {
@@ -149,6 +156,21 @@ namespace EPAM.Task6._01_Users.ConsolePL
             catch (FormatException exc)
             {
                 Console.WriteLine(exc.Message);
+            }
+        }
+
+        private static void EditUser(IUserLogic userLogic)
+        {
+            Console.WriteLine("Enter ID to change");
+            if (int.TryParse(Console.ReadLine(), out int editId))
+            {
+                Console.WriteLine("Enter First Name");
+                string editFirstName = Console.ReadLine();
+                Console.WriteLine("Enter Last Name");
+                string editLastName = Console.ReadLine();
+                Console.WriteLine("Enter Birth Date");
+                string editBirthDate = Console.ReadLine();
+                userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
             }
         }
 

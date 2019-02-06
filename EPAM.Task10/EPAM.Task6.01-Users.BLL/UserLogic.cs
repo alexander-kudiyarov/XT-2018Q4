@@ -29,6 +29,11 @@ namespace EPAM.Task6._01_Users.BLL
             this.userDaoOb.AddUser(user);
         }
 
+        public void EditUser(int id, string f_name, string l_name, string b_date)
+        {
+            this.userDaoOb.EditUser(id, f_name, l_name, b_date);
+        }
+
         public IEnumerable<User> GetAll()
         {
             return this.userDaoOb.GetAll();

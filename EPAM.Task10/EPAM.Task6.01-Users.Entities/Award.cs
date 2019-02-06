@@ -8,10 +8,5 @@ namespace EPAM.Task6._01_Users.Entities
         public int Id { get; set; }
 
         public string Title { get; set; }
-
-        public override string ToString()
-        {
-            return $"id: {Id} | Title: {Title}";
-        }
     }
 }

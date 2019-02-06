@@ -35,7 +35,7 @@ namespace EPAM.Task6._01_Users.Entities
         public override string ToString()
         {
             StringBuilder temp = new StringBuilder();
-            temp.Append($"id: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
+            temp.Append($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
             if (this.AwardsList.Count > 0)
             {
                 temp.Append($" | Awards: ");

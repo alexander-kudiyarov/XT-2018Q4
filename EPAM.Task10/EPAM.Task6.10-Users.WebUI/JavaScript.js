@@ -1,106 +1,129 @@
 ﻿let isAddUserMenuOpen = false;
+let isEditUserMenuOpen = false;
 let isRemoveUserMenuOpen = false;
-let isAwardsMenuOpen = false;
+let isAddAwardsMenuOpen = false;
+
+let allMenu = [ "addUserMenu" , "editUserMenu", "removeUserMenu" , "addAwardsMenu"];
 
 function AddUserMenu() {
     if (!isAddUserMenuOpen) {
-        Clear('removeUser');
-        Clear('addAwards');
+        ClearAll();
+        ResetAllBool();
 
         isAddUserMenuOpen = true;
-        isRemoveUserMenuOpen = false;
-        isAwardsMenuOpen = false;
-
-        let firstName = document.createElement('label');
-        firstName.innerHTML = 'First Name';
-        document.getElementById('addUser').appendChild(firstName);
 
         let firstNameInput = document.createElement('input');
+        firstNameInput.placeholder = 'First Name';
         firstNameInput.type = "text";
-        firstNameInput.name = "f_name";
-        document.getElementById('addUser').appendChild(firstNameInput);
-
-        let lastName = document.createElement('label');
-        lastName.innerHTML = 'Last Name';
-        document.getElementById('addUser').appendChild(lastName);
+        firstNameInput.name = "addFirstName";
+        document.getElementById('addUserMenu').appendChild(firstNameInput);
 
         let lastNameInput = document.createElement('input');
+        lastNameInput.placeholder = "Last Name (optional)";
         lastNameInput.type = "text";
-        lastNameInput.name = "l_name";
-        document.getElementById('addUser').appendChild(lastNameInput);
-
-        let birthDate = document.createElement('label');
-        birthDate.innerHTML = 'Birth Date';
-        document.getElementById('addUser').appendChild(birthDate);
+        lastNameInput.name = "addLastName";
+        document.getElementById('addUserMenu').appendChild(lastNameInput);
 
         let birthDateInput = document.createElement('input');
+        birthDateInput.placeholder = "Birth Date";
         birthDateInput.type = "text";
-        birthDateInput.name = "b_date";
-        document.getElementById('addUser').appendChild(birthDateInput);
+        birthDateInput.setAttribute('onfocus', '(this.type="date")');
+        birthDateInput.setAttribute('onfocusout', '(this.type="text")');
+        birthDateInput.name = "addBirthDate";
+        document.getElementById('addUserMenu').appendChild(birthDateInput);
 
         let submit = document.createElement('button');
         submit.innerHTML = 'Submit';
         submit.type = "submit";
-        document.getElementById('addUser').appendChild(submit);
+        document.getElementById('addUserMenu').appendChild(submit);
+    }
+}
+
+function EditUserMenu() {
+    if (!isEditUserMenuOpen) {
+        ClearAll();
+        ResetAllBool();
+
+        isEditUserMenuOpen = true;
+
+        let idInput = document.createElement('input');
+        idInput.placeholder = "ID to edit";
+        idInput.type = "number";
+        idInput.setAttribute('min', '1')
+        idInput.name = "editId";
+        document.getElementById('editUserMenu').appendChild(idInput);
+
+        let firstNameInput = document.createElement('input');
+        firstNameInput.placeholder = "First Name (optional)";
+        firstNameInput.type = "text";
+        firstNameInput.name = "editFirstName";
+        document.getElementById('editUserMenu').appendChild(firstNameInput);
+
+        let lastNameInput = document.createElement('input');
+        lastNameInput.placeholder = "Last Name (optional)";
+        lastNameInput.type = "text";
+        lastNameInput.name = "editLastName";
+        document.getElementById('editUserMenu').appendChild(lastNameInput);
+
+        let birthDateInput = document.createElement('input');
+        birthDateInput.placeholder = "Birth Date (optional)";
+        birthDateInput.type = "text";
+        birthDateInput.setAttribute('onfocus', '(this.type="date")');
+        birthDateInput.setAttribute('onfocusout', '(this.type="text")');
+        birthDateInput.name = "editBirthDate";
+        document.getElementById('editUserMenu').appendChild(birthDateInput);
+
+        let submit = document.createElement('button');
+        submit.innerHTML = 'Submit';
+        submit.type = "submit";
+        document.getElementById('editUserMenu').appendChild(submit);
     }
 }
 
 function RemoveUserMenu() {
     if (!isRemoveUserMenuOpen) {
-        Clear('addUser');
-        Clear('addAwards');
+        ClearAll();
+        ResetAllBool();
 
-        isAddUserMenuOpen = false;
         isRemoveUserMenuOpen = true;
-        isAwardsMenuOpen = false;
-
-        let id = document.createElement('label');
-        id.innerHTML = 'ID to remove';
-        document.getElementById('removeUser').appendChild(id);
 
         let idInput = document.createElement('input');
+        idInput.placeholder = "ID\'s to remove";
         idInput.type = "text";
-        idInput.name = "id";
-        document.getElementById('removeUser').appendChild(idInput);
+        idInput.name = "removeId";
+        document.getElementById('removeUserMenu').appendChild(idInput);
 
         let submit = document.createElement('button');
+        submit.id = "remove";
         submit.innerHTML = 'Submit';
         submit.type = "submit";
-        document.getElementById('removeUser').appendChild(submit);
+        document.getElementById('removeUserMenu').appendChild(submit);
     }
 }
 
 function AwardsUserMenu() {
-    if (!isAwardsMenuOpen) {
-        Clear('addUser');
-        Clear('removeUser');
+    if (!isAddAwardsMenuOpen) {
+        ClearAll();
+        ResetAllBool();
 
-        isAddUserMenuOpen = false;
-        isRemoveUserMenuOpen = false;
-        isAwardsMenuOpen = true;
-
-        let title = document.createElement('label');
-        title.innerHTML = 'Title';
-        document.getElementById('addAwards').appendChild(title);
+        isAddAwardsMenuOpen = true;
 
         let titleInput = document.createElement('input');
+        titleInput.placeholder = "Award Title";
         titleInput.type = "text";
-        titleInput.name = "title";
-        document.getElementById('addAwards').appendChild(titleInput);
-
-        let users = document.createElement('label');
-        users.innerHTML = 'ID of users to awards';
-        document.getElementById('addAwards').appendChild(users);
+        titleInput.name = "awardTitle";
+        document.getElementById('addAwardsMenu').appendChild(titleInput);
 
         let usersInput = document.createElement('input');
+        usersInput.placeholder = "ID\'s to award";
         usersInput.type = "text";
-        usersInput.name = "users";
-        document.getElementById('addAwards').appendChild(usersInput);
+        usersInput.name = "addAwardsId";
+        document.getElementById('addAwardsMenu').appendChild(usersInput);
 
         let submit = document.createElement('button');
         submit.innerHTML = 'Submit';
         submit.type = "submit";
-        document.getElementById('addAwards').appendChild(submit);
+        document.getElementById('addAwardsMenu').appendChild(submit);
     }
 }
 
@@ -109,4 +132,17 @@ function Clear(form) {
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
+}
+
+function ClearAll() {
+    allMenu.forEach((element) => {
+        Clear(element);
+    })
+}
+
+function ResetAllBool() {
+    isAddUserMenuOpen = false;
+    isEditUserMenuOpen = false;
+    isRemoveUserMenuOpen = false;
+    isAddAwardsMenuOpen = false;
 }

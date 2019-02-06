@@ -11,6 +11,8 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
 
         void AddUser(User user);
 
+        void EditUser(int id, string f_name, string l_name, string b_date);
+
         IEnumerable<User> GetAll();
 
         void LoadAwardList();

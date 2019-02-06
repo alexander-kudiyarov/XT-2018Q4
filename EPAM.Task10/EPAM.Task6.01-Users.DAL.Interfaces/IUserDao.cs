@@ -15,6 +15,8 @@ namespace EPAM.Task6._01_Users.DAL
 
         void CreateNewUserList();
 
+        void EditUser(int id, string f_name, string l_name, string b_date);
+
         IEnumerable<User> GetAll();
 
         void LoadAwardList();
