@@ -49,7 +49,7 @@ function EditUserMenu() {
         let idInput = document.createElement('input');
         idInput.placeholder = "ID to edit";
         idInput.type = "number";
-        idInput.setAttribute('min', '1')
+        idInput.setAttribute('min', '1');
         idInput.name = "editId";
         document.getElementById('editUserMenu').appendChild(idInput);
 
