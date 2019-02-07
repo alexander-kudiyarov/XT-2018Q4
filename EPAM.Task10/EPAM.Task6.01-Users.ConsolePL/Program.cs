@@ -108,13 +108,20 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 {
                     Title = title,
                 };
-                userLogic.AddAward(newAward);
-                Console.WriteLine("Enter ID of users to give them awards");
-                char[] div = { ',', ' ' };
-                string[] idList = Console.ReadLine().Split(div, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var id in idList)
+                try
                 {
-                    userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                    userLogic.AddAward(newAward);
+                    Console.WriteLine("Enter ID of users to give them awards");
+                    char[] div = { ',', ' ' };
+                    string[] idList = Console.ReadLine().Split(div, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var id in idList)
+                    {
+                        userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                    }
+                }
+                catch(ArgumentException exc)
+                {
+                    Console.WriteLine(exc.Message);
                 }
             }
             catch (KeyNotFoundException exc)

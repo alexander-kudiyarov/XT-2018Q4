@@ -8,7 +8,7 @@ namespace EPAM.Task6._01_Users.DAL
 {
     public class UserDao : IUserDao
     {
-        private static Dictionary<int, Award> awardList;
+        private static Dictionary<string, Award> awardList;
         private static string awardListPath = @"D:\AwardList.bin";
         private static Dictionary<int, User> userList;
         private static string userListPath = @"D:\UserList.bin";
@@ -37,13 +37,8 @@ namespace EPAM.Task6._01_Users.DAL
 
         public void AddAward(Award award)
         {
-            int lastId = awardList.Any()
-                ? awardList.Keys.Max()
-                : 0;
-
-            award.Id = ++lastId;
-            awardList.Add(award.Id, award);
-            this.WriteToBinaryFile(awardListPath, awardList, false);
+                awardList.Add(award.Title, award);
+                this.WriteToBinaryFile(awardListPath, awardList, false);
         }
 
         public void AddAwardToUser(int id, Award award)
@@ -108,11 +103,11 @@ namespace EPAM.Task6._01_Users.DAL
         {
             if (File.Exists(awardListPath))
             {
-                awardList = ReadFromBinaryFile<Dictionary<int, Award>>(awardListPath);
+                awardList = ReadFromBinaryFile<Dictionary<string, Award>>(awardListPath);
             }
             else
             {
-                awardList = new Dictionary<int, Award>();
+                awardList = new Dictionary<string, Award>();
             }
         }
 

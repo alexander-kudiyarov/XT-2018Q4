@@ -85,14 +85,22 @@
                         {
                             Title = awardTitle,
                         };
-                        userLogic.AddAward(newAward);
-                        char[] div = { '.', ',', ' ' };
-                        string[] addAwardIdList = Request.Params["addAwardsId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
-                        foreach (var id in addAwardIdList)
+                        try
                         {
-                            userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                            userLogic.AddAward(newAward);
+                            char[] div = { '.', ',', ' ' };
+                            string[] addAwardIdList = Request.Params["addAwardsId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (var id in addAwardIdList)
+                            {
+                                userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                            }
+                            @:<script>window.location.replace("/ViewPage1.cshtml")</script>
                         }
-                        @:<script>window.location.replace("/ViewPage1.cshtml")</script>
+                        catch (ArgumentException)
+                        {
+                            @:<script>alert("This award already exist")</script>
+                        }
+
                     }
                 }
             </form>
