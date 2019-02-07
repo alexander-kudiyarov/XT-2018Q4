@@ -104,7 +104,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
             try
             {
                 Console.WriteLine("Title:");
-                string title = Console.ReadLine();
+                string title = Console.ReadLine().ToLower();
                 if (string.IsNullOrEmpty(title))
                 {
                     Console.WriteLine("Title cannot be empty");
@@ -126,7 +126,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
                         userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
                     }
                 }
-                catch(ArgumentException exc)
+                catch (ArgumentException exc)
                 {
                     Console.WriteLine(exc.Message);
                 }
@@ -140,7 +140,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
         private static void AddUser(IUserLogic userLogic)
         {
             Console.WriteLine("First Name:");
-            string f_name = Console.ReadLine();
+            string f_name = Console.ReadLine().ToLower();
             if (string.IsNullOrEmpty(f_name))
             {
                 Console.WriteLine("Name cannot be empty");
@@ -148,7 +148,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
             }
 
             Console.WriteLine("Last Name:");
-            string l_name = Console.ReadLine();
+            string l_name = Console.ReadLine().ToLower();
             if (string.IsNullOrEmpty(l_name))
             {
                 Console.WriteLine("Name cannot be empty");
@@ -179,13 +179,21 @@ namespace EPAM.Task6._01_Users.ConsolePL
             if (int.TryParse(Console.ReadLine(), out int editId))
             {
                 Console.WriteLine("Enter First Name");
-                string editFirstName = Console.ReadLine();
+                string editFirstName = Console.ReadLine().ToLower();
                 Console.WriteLine("Enter Last Name");
-                string editLastName = Console.ReadLine();
+                string editLastName = Console.ReadLine().ToLower();
                 Console.WriteLine("Enter Birth Date");
                 string editBirthDate = Console.ReadLine();
                 userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
             }
+        }
+
+        private static void RemoveAward(IUserLogic userLogic)
+        {
+            Console.WriteLine("Enter title of award to remove");
+            string title = Console.ReadLine().ToLower();
+
+            userLogic.RemoveAward(title);
         }
 
         private static void RemoveUser(IUserLogic userLogic)
@@ -205,14 +213,6 @@ namespace EPAM.Task6._01_Users.ConsolePL
             {
                 Console.WriteLine(user.ToString());
             }
-        }
-
-        private static void RemoveAward(IUserLogic userLogic)
-        {
-            Console.WriteLine("Enter title of award to remove");
-            string title = Console.ReadLine();
-
-            userLogic.RemoveAward(title);
         }
     }
 }

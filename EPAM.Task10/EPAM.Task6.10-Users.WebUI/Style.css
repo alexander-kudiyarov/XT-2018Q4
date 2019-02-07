@@ -10,7 +10,7 @@ body {
 
 .container {
     width: 60%;
-    min-width: 520px;
+    min-width: 732px;
     margin: 64px auto;
     border-radius: 5px;
     background-color: white;
@@ -34,13 +34,14 @@ li {
 }
 
 .buttons {
-    width: 520px;
+    width: 705px;
     margin: 14px 27px;
 }
 
 button {
     font-weight: bold;
-    width: 100px;
+    width: 110px;
+    height: 25px;
     margin: 0 27px 14px 0;
     padding: 5px;
     color: black;

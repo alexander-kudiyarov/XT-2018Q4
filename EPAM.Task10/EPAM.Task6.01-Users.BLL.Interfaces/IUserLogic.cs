@@ -9,8 +9,6 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
 
         void AddAwardToUser(int id, Award award);
 
-        void RemoveAward(string award);
-
         void AddUser(User user);
 
         void EditUser(int id, string f_name, string l_name, string b_date);
@@ -26,5 +24,7 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
         void OwerwriteUserList();
 
         void Remove(int id);
+
+        void RemoveAward(string award);
     }
 }

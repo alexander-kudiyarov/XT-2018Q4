@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace EPAM.Task6._01_Users.Entities
@@ -7,6 +8,8 @@ namespace EPAM.Task6._01_Users.Entities
     [Serializable]
     public class User
     {
+        private TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
         public int Age
         {
             get
@@ -47,7 +50,7 @@ namespace EPAM.Task6._01_Users.Entities
                 temp.Remove(temp.Length - 2, 2);
             }
 
-            return temp.ToString();
+            return this.textInfo.ToTitleCase(temp.ToString());
         }
     }
 }

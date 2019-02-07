@@ -24,17 +24,18 @@
             </ul>
         </div>
         <div class="buttons">
-            <button id="add_user" type="submit" onclick="AddUserMenu()">Add User</button>
-            <button id="edit_user" type="submit" onclick="EditUserMenu()">Edit User</button>
-            <button id="add_award" type="submit" onclick="AwardsUserMenu()">Add Award</button>
-            <button id="remove_user" type="submit" onclick="RemoveUserMenu()">Remove User</button>
+            <button id="addUser" type="submit" onclick="AddUserMenu()">Add User</button>
+            <button id="editUser" type="submit" onclick="EditUserMenu()">Edit User</button>
+            <button id="addAward" type="submit" onclick="AddAwardMenu()">Add Award</button>
+            <button id="removeAward" type="submit" onclick="RemoveAwardMenu()">Remove Award</button>
+            <button id="removeUser" type="submit" onclick="RemoveUserMenu()">Remove User</button>
         </div>
         <div class="forms">
             <form id="addUserMenu" action="~/ViewPage1.cshtml" method="post">
                 @if (IsPost && !Request.Params["addFirstName"].IsEmpty())
                 {
-                    string addFirstName = Request.Params["addFirstName"];
-                    string addLastName = Request.Params["addLastName"];
+                    string addFirstName = Request.Params["addFirstName"].ToLower();
+                    string addLastName = Request.Params["addLastName"].ToLower();
                     DateTime addBirthDate;
 
                     if (DateTime.TryParse(Request.Params["addBirthDate"], out addBirthDate))
@@ -56,8 +57,8 @@
 
                     if (int.TryParse(Request.Params["editId"], out int editId))
                     {
-                        string editFirstName = Request.Params["editFirstName"];
-                        string editLastName = Request.Params["editLastName"];
+                        string editFirstName = Request.Params["editFirstName"].ToLower();
+                        string editLastName = Request.Params["editLastName"].ToLower();
                         string editBirthDate = Request.Params["editBirthDate"];
                         userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
                         @:<script>window.location.replace("/ViewPage1.cshtml")</script>
@@ -77,9 +78,9 @@
                 }
             </form>
             <form id="addAwardsMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && !Request.Params["awardTitle"].IsEmpty())
+                @if (IsPost && !Request.Params["addAwardTitle"].IsEmpty())
                 {
-                    string awardTitle = Request.Params["awardTitle"];
+                    string awardTitle = Request.Params["addAwardTitle"].ToLower();
                     {
                         var newAward = new EPAM.Task6._01_Users.Entities.Award
                         {
@@ -89,7 +90,7 @@
                         {
                             userLogic.AddAward(newAward);
                             char[] div = { '.', ',', ' ' };
-                            string[] addAwardIdList = Request.Params["addAwardsId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                            string[] addAwardIdList = Request.Params["addAwardId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
                             foreach (var id in addAwardIdList)
                             {
                                 userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
@@ -102,6 +103,14 @@
                         }
 
                     }
+                }
+            </form>
+            <form id="removeAwardsMenu" action="~/ViewPage1.cshtml" method="post">
+                @if (IsPost && !Request.Params["removeAwardTitle"].IsEmpty())
+                {
+                    string removeAwardTitle = Request.Params["removeAwardTitle"];
+                    userLogic.RemoveAward(removeAwardTitle);
+                    @:<script>window.location.replace("/ViewPage1.cshtml")</script>
                 }
             </form>
         </div>

@@ -37,37 +37,14 @@ namespace EPAM.Task6._01_Users.DAL
 
         public void AddAward(Award award)
         {
-                awardList.Add(award.Title, award);
-                this.WriteToBinaryFile(awardListPath, awardList, false);
+            awardList.Add(award.Title, award);
+            this.WriteToBinaryFile(awardListPath, awardList, false);
         }
 
         public void AddAwardToUser(int id, Award award)
         {
             userList[id].AwardsList.AddLast(award);
             this.WriteToBinaryFile(userListPath, userList, false);
-        }
-
-        public void RemoveAward(string award)
-        {
-            if (awardList.ContainsKey(award))
-            {
-                if (awardList.Remove(award))
-                {
-                    this.WriteToBinaryFile(awardListPath, awardList, false);
-                }
-                foreach(var user in userList)
-                {
-                    foreach(var userAward in user.Value.AwardsList)
-                    {
-                        if (userAward.Title == award)
-                        {
-                            user.Value.AwardsList.Remove(userAward);
-                            break;
-                        }
-                    }
-                }
-                this.WriteToBinaryFile(userListPath, userList, false);
-            }
         }
 
         public void AddUser(User user)
@@ -150,6 +127,31 @@ namespace EPAM.Task6._01_Users.DAL
         {
             userList.Remove(id);
             this.WriteToBinaryFile(userListPath, userList, false);
+        }
+
+        public void RemoveAward(string award)
+        {
+            if (awardList.ContainsKey(award))
+            {
+                if (awardList.Remove(award))
+                {
+                    this.WriteToBinaryFile(awardListPath, awardList, false);
+                }
+
+                foreach (var user in userList)
+                {
+                    foreach (var userAward in user.Value.AwardsList)
+                    {
+                        if (userAward.Title == award)
+                        {
+                            user.Value.AwardsList.Remove(userAward);
+                            break;
+                        }
+                    }
+                }
+
+                this.WriteToBinaryFile(userListPath, userList, false);
+            }
         }
 
         public void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)

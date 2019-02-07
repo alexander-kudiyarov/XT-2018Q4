@@ -7,8 +7,6 @@ namespace EPAM.Task6._01_Users.DAL
     {
         void AddAward(Award award);
 
-        void RemoveAward(string award);
-
         void AddAwardToUser(int id, Award award);
 
         void AddUser(User user);
@@ -26,5 +24,7 @@ namespace EPAM.Task6._01_Users.DAL
         void LoadUserList();
 
         void Remove(int id);
+
+        void RemoveAward(string award);
     }
 }

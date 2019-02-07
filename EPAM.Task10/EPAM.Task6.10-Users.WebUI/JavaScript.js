@@ -2,8 +2,9 @@
 let isEditUserMenuOpen = false;
 let isRemoveUserMenuOpen = false;
 let isAddAwardsMenuOpen = false;
+let isRemoveAwardsMenuOpen = false;
 
-let allMenu = [ "addUserMenu" , "editUserMenu", "removeUserMenu" , "addAwardsMenu"];
+let allMenu = [ "addUserMenu" , "editUserMenu", "removeUserMenu" , "addAwardsMenu", "removeAwardsMenu"];
 
 function AddUserMenu() {
     if (!isAddUserMenuOpen) {
@@ -101,7 +102,7 @@ function RemoveUserMenu() {
     }
 }
 
-function AwardsUserMenu() {
+function AddAwardMenu() {
     if (!isAddAwardsMenuOpen) {
         ClearAll();
         ResetAllBool();
@@ -111,19 +112,40 @@ function AwardsUserMenu() {
         let titleInput = document.createElement('input');
         titleInput.placeholder = "Award Title";
         titleInput.type = "text";
-        titleInput.name = "awardTitle";
+        titleInput.name = "addAwardTitle";
         document.getElementById('addAwardsMenu').appendChild(titleInput);
 
         let usersInput = document.createElement('input');
         usersInput.placeholder = "ID\'s to award";
         usersInput.type = "text";
-        usersInput.name = "addAwardsId";
+        usersInput.name = "addAwardId";
         document.getElementById('addAwardsMenu').appendChild(usersInput);
 
         let submit = document.createElement('button');
         submit.innerHTML = 'Submit';
         submit.type = "submit";
         document.getElementById('addAwardsMenu').appendChild(submit);
+    }
+}
+
+function RemoveAwardMenu() {
+    if (!isRemoveAwardsMenuOpen) {
+        ClearAll();
+        ResetAllBool();
+
+        isRemoveAwardsMenuOpen = true;
+
+        let titleInput = document.createElement('input');
+        titleInput.placeholder = "Award Title to remove";
+        titleInput.type = "text";
+        titleInput.name = "removeAwardTitle";
+        document.getElementById('removeAwardsMenu').appendChild(titleInput);
+
+        let submit = document.createElement('button');
+        submit.innerHTML = 'Submit';
+        submit.type = "submit";
+        submit.id = "remove";
+        document.getElementById('removeAwardsMenu').appendChild(submit);
     }
 }
 
@@ -145,4 +167,5 @@ function ResetAllBool() {
     isEditUserMenuOpen = false;
     isRemoveUserMenuOpen = false;
     isAddAwardsMenuOpen = false;
+    isRemoveAwardsMenuOpen = false;
 }
