@@ -24,6 +24,11 @@ namespace EPAM.Task6._01_Users.BLL
             this.userDaoOb.AddAwardToUser(id, award);
         }
 
+        public void RemoveAward(string award)
+        {
+            this.userDaoOb.RemoveAward(award);
+        }
+
         public void AddUser(User user)
         {
             this.userDaoOb.AddUser(user);

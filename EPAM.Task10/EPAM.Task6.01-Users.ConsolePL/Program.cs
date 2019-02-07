@@ -44,6 +44,7 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 $"{Environment.NewLine}<remove>\tto remove user" +
                 $"{Environment.NewLine}<show>\t\tto show list of users and their awards" +
                 $"{Environment.NewLine}<add award>\tto add awards for users" +
+                $"{Environment.NewLine}<remove award>\tto remove awards" +
                 $"{Environment.NewLine}<q>\t\tto quit the program" +
                 $"{Environment.NewLine}");
 
@@ -76,6 +77,12 @@ namespace EPAM.Task6._01_Users.ConsolePL
                 case "add award":
                     {
                         AddAward(userLogic);
+                        goto default;
+                    }
+
+                case "remove award":
+                    {
+                        RemoveAward(userLogic);
                         goto default;
                     }
 
@@ -198,6 +205,14 @@ namespace EPAM.Task6._01_Users.ConsolePL
             {
                 Console.WriteLine(user.ToString());
             }
+        }
+
+        private static void RemoveAward(IUserLogic userLogic)
+        {
+            Console.WriteLine("Enter title of award to remove");
+            string title = Console.ReadLine();
+
+            userLogic.RemoveAward(title);
         }
     }
 }
