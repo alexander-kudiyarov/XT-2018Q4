@@ -67,3 +67,9 @@ input {
     border-radius: 5px;
     background-color: #eee;
 }
+
+img {
+    width: 32px;
+    overflow: hidden;
+    border-radius: 50%;
+}

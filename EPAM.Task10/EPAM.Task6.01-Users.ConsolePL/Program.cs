@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using EPAM.Task6._01_Users.BLL.Interfaces;
 using EPAM.Task6._01_Users.Common;
@@ -111,9 +112,13 @@ namespace EPAM.Task6._01_Users.ConsolePL
                     return;
                 }
 
+                Console.WriteLine("Path to image: ");
+                byte[] image = File.ReadAllBytes(Console.ReadLine());
+
                 var newAward = new Award
                 {
                     Title = title,
+                    Image = image,
                 };
                 try
                 {
@@ -159,11 +164,14 @@ namespace EPAM.Task6._01_Users.ConsolePL
             try
             {
                 DateTime dateOfBirth = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Path to image: ");
+                byte[] image = File.ReadAllBytes(Console.ReadLine());
                 var newUser = new User
                 {
                     FirstName = f_name,
                     LastName = l_name,
                     DateOfBirth = dateOfBirth,
+                    Image = image,
                 };
                 userLogic.AddUser(newUser);
             }

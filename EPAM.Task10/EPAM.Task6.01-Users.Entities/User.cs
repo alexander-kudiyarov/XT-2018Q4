@@ -33,6 +33,8 @@ namespace EPAM.Task6._01_Users.Entities
 
         public int Id { get; set; }
 
+        public byte[] Image { get; set; } = null;
+
         public string LastName { get; set; }
 
         public override string ToString()

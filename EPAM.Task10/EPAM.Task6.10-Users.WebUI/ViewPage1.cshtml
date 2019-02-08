@@ -19,7 +19,14 @@
             <ul>
                 @foreach (var user in users)
                 {
-                    <li>@user.ToString()</li>
+                    var imgSrc = "https://www.aj-chambers.com/front/images/default-user.jpg";
+                    if (user.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(user.Image);
+                        imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                    }
+
+                    <li><img id="user" src="@imgSrc" /> @user.ToString()</li>
                 }
             </ul>
         </div>
@@ -32,44 +39,57 @@
         </div>
         <div class="forms">
             <form id="addUserMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && !Request.Params["addFirstName"].IsEmpty())
+                @if (IsPost && !Request["addFirstName"].IsEmpty())
                 {
-                    string addFirstName = Request.Params["addFirstName"].ToLower();
-                    string addLastName = Request.Params["addLastName"].ToLower();
-                    DateTime addBirthDate;
-
-                    if (DateTime.TryParse(Request.Params["addBirthDate"], out addBirthDate))
+                    string addFirstName = Request["addFirstName"].ToLower();
+                    string addLastName = Request["addLastName"].ToLower();
+                    if (DateTime.TryParse(Request["addBirthDate"], out DateTime addBirthDate))
                     {
-                        var newUser = new EPAM.Task6._01_Users.Entities.User
+                        if (!Request["addUserImage"].IsEmpty())
                         {
-                            FirstName = addFirstName,
-                            LastName = addLastName,
-                            DateOfBirth = addBirthDate,
-                        };
-                        userLogic.AddUser(newUser);
+                            byte[] image = File.ReadAllBytes(Request["addUserImage"]);
+                            var newUser = new EPAM.Task6._01_Users.Entities.User
+                            {
+                                FirstName = addFirstName,
+                                LastName = addLastName,
+                                DateOfBirth = addBirthDate,
+                                Image = image,
+                            };
+                            userLogic.AddUser(newUser);
+                        }
+                        else
+                        {
+                            var newUser = new EPAM.Task6._01_Users.Entities.User
+                            {
+                                FirstName = addFirstName,
+                                LastName = addLastName,
+                                DateOfBirth = addBirthDate,
+                            };
+                            userLogic.AddUser(newUser);
+                        }
                         @:<script>window.location.replace("/ViewPage1.cshtml")</script>
                     }
                 }
             </form>
             <form id="editUserMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && (!Request.Params["editFirstName"].IsEmpty() || !Request.Params["editLastName"].IsEmpty() || !Request.Params["editBirthDate"].IsEmpty()))
+                @if (IsPost && (!Request["editId"].IsEmpty()))
                 {
 
-                    if (int.TryParse(Request.Params["editId"], out int editId))
+                    if (int.TryParse(Request["editId"], out int editId))
                     {
-                        string editFirstName = Request.Params["editFirstName"].ToLower();
-                        string editLastName = Request.Params["editLastName"].ToLower();
-                        string editBirthDate = Request.Params["editBirthDate"];
+                        string editFirstName = Request["editFirstName"].ToLower();
+                        string editLastName = Request["editLastName"].ToLower();
+                        string editBirthDate = Request["editBirthDate"];
                         userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
                         @:<script>window.location.replace("/ViewPage1.cshtml")</script>
                     }
                 }
             </form>
             <form id="removeUserMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && !Request.Params["removeId"].IsEmpty())
+                @if (IsPost && !Request["removeId"].IsEmpty())
                 {
                     char[] div = { '.', ',', ' ' };
-                    string[] removeIdList = Request.Params["removeId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                    string[] removeIdList = Request["removeId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var id in removeIdList)
                     {
                         userLogic.Remove(Convert.ToInt32(id));
@@ -78,9 +98,9 @@
                 }
             </form>
             <form id="addAwardsMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && !Request.Params["addAwardTitle"].IsEmpty())
+                @if (IsPost && !Request["addAwardTitle"].IsEmpty())
                 {
-                    string awardTitle = Request.Params["addAwardTitle"].ToLower();
+                    string awardTitle = Request["addAwardTitle"].ToLower();
                     {
                         var newAward = new EPAM.Task6._01_Users.Entities.Award
                         {
@@ -90,7 +110,7 @@
                         {
                             userLogic.AddAward(newAward);
                             char[] div = { '.', ',', ' ' };
-                            string[] addAwardIdList = Request.Params["addAwardId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                            string[] addAwardIdList = Request["addAwardId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
                             foreach (var id in addAwardIdList)
                             {
                                 userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
@@ -106,9 +126,9 @@
                 }
             </form>
             <form id="removeAwardsMenu" action="~/ViewPage1.cshtml" method="post">
-                @if (IsPost && !Request.Params["removeAwardTitle"].IsEmpty())
+                @if (IsPost && !Request["removeAwardTitle"].IsEmpty())
                 {
-                    string removeAwardTitle = Request.Params["removeAwardTitle"];
+                    string removeAwardTitle = Request["removeAwardTitle"];
                     userLogic.RemoveAward(removeAwardTitle);
                     @:<script>window.location.replace("/ViewPage1.cshtml")</script>
                 }

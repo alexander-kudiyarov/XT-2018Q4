@@ -33,6 +33,13 @@ function AddUserMenu() {
         birthDateInput.name = "addBirthDate";
         document.getElementById('addUserMenu').appendChild(birthDateInput);
 
+        let userImageInput = document.createElement('input');
+        userImageInput.placeholder = "Image";
+        userImageInput.type = "url";
+        birthDateInput.setAttribute('onfocusout', '(this.type="text")');
+        userImageInput.name = "addUserImage";
+        document.getElementById('addUserMenu').appendChild(userImageInput);
+
         let submit = document.createElement('button');
         submit.innerHTML = 'Submit';
         submit.type = "submit";
