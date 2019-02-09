@@ -7,16 +7,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Style.css" />
+    <link rel="stylesheet" href="~/InsexStyle.css" />
     <script src="~/AdministrationScripts.js"></script>
     <title>Administration</title>
 </head>
 <body>
     @if (User.IsInRole("admin"))
     {
-        <a href="~/index.cshtml">Home</a>
-        <div>
-                <a href="~/logout">Log Out</a>
+        <div class="navigation">
+            <a href="~/index.cshtml">Home</a>
+            <a href="~/logout">Log Out</a>
         </div>
         <div class="container">
             <div class="userList">
@@ -30,35 +30,35 @@
             </div>
             @if (User.IsInRole("admin"))
             {
-            <div class="buttons">
-                <button id="editProgramUser" type="submit" onclick="EditProgramUserMenu()">Edit Role</button>
-                <button id="removeProgramUser" type="submit" onclick="RemoveProgramUserMenu()">Remove</button>
-            </div>
-            <div class="forms">
-                <form id="editProgramUserMenu" action="~/administration.cshtml" method="post">
-                    @if (IsPost && (!Request["usernameToEdit"].IsEmpty()))
-                    {
-                        string username = Request["usernameToEdit"];
-                        string newRole = Request["newRole"];
-                        if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(newRole))
+                <div class="buttons">
+                    <button id="editProgramUser" type="submit" onclick="EditProgramUserMenu()">Edit Role</button>
+                    <button id="removeProgramUser" type="submit" onclick="RemoveProgramUserMenu()">Remove</button>
+                </div>
+                <div class="forms">
+                    <form id="editProgramUserMenu" action="~/administration.cshtml" method="post">
+                        @if (IsPost && (!Request["usernameToEdit"].IsEmpty()))
                         {
-                            userLogic.EditProgramUser(username, newRole);
-                            Response.Redirect("~/administration.cshtml");
+                            string username = Request["usernameToEdit"];
+                            string newRole = Request["newRole"];
+                            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(newRole))
+                            {
+                                userLogic.EditProgramUser(username, newRole);
+                                Response.Redirect("~/administration.cshtml");
+                            }
                         }
-                    }
-                </form>
-                <form id="removeProgramUserMenu" action="~/administration.cshtml" method="post">
-                    @if (IsPost && (!Request["usernameToRemove"].IsEmpty()))
-                    {
-                        string username = Request["usernameToRemove"];
-                        if(!string.IsNullOrWhiteSpace(username))
+                    </form>
+                    <form id="removeProgramUserMenu" action="~/administration.cshtml" method="post">
+                        @if (IsPost && (!Request["usernameToRemove"].IsEmpty()))
                         {
-                            userLogic.RemoveProgramUser(username);
-                            Response.Redirect("~/administration.cshtml");
+                            string username = Request["usernameToRemove"];
+                            if (!string.IsNullOrWhiteSpace(username))
+                            {
+                                userLogic.RemoveProgramUser(username);
+                                Response.Redirect("~/administration.cshtml");
+                            }
                         }
-                    }
-                </form>
-            </div>
+                    </form>
+                </div>
             }
         </div>
     }

@@ -17,15 +17,19 @@
 <!DOCTYPE html>
 <head>
     <meta name="viewport" content="width=device-width" />
-
+    <link rel="stylesheet" href="~/LoginStyle.css" />
     <title>Log In</title>
 </head>
 <body>
-    <a href="~/index.cshtml">Home</a>
-    <form action="~/login.cshtml" method="post">
-        <input placeholder="Name" type="text" name="UserName" />
-        <input placeholder="Password" type="password" name="Password" />
-        <button type="submit">Log In</button>
+    <div class="navigation">
+        <a href="~/index.cshtml">Home</a>
         <a href="~/registration.cshtml">Registration</a>
+    </div>
+    <div class="container">
+        <form action="~/login.cshtml" method="post">
+            <input placeholder="Username (admin)" type="text" name="UserName" />
+            <input placeholder="Password (password)" type="password" name="Password" />
+            <button type="submit">Log In</button>
+    </div>
     </form>
 </body>

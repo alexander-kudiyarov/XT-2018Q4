@@ -42,7 +42,7 @@ namespace EPAM.Task6._01_Users.Entities
             if (this.AwardsList.Count > 0)
             {
                 StringBuilder temp = new StringBuilder();
-                temp.Append($" | Awards: ");
+                temp.Append($", Awards: ");
                 foreach (Award award in this.AwardsList)
                 {
                     temp.Append($"{award.Title}, ");
@@ -59,7 +59,7 @@ namespace EPAM.Task6._01_Users.Entities
 
         public override string ToString()
         {
-            return this.textInfo.ToTitleCase($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
+            return this.textInfo.ToTitleCase($"ID: {Id}, Name: {FirstName} {LastName}, Date of birth: {DateOfBirth:D}, Age: {Age}");
         }
     }
 }

@@ -9,11 +9,11 @@ namespace EPAM.Task6._01_Users.DAL
     public class UserDao : IUserDao
     {
         private static Dictionary<string, Award> awardList;
-        private static string awardListPath = @"D:\AwardList.bin";
+        private static string awardListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfAwards.bin";
         private static Dictionary<string, ProgramUser> programUserList;
-        private static string programUserListPath = @"D:\ProgramUserList.bin";
+        private static string programUserListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfProgramUsers.bin";
         private static Dictionary<int, User> userList;
-        private static string userListPath = @"D:\UserList.bin";
+        private static string userListPath = System.AppDomain.CurrentDomain.BaseDirectory +"ListOfUsers.bin";
 
         public static T ReadFromBinaryFile<T>(string filePath)
         {

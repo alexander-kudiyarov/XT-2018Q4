@@ -9,12 +9,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/Style.css" />
+    <link rel="stylesheet" href="~/IndexStyle.css" />
     <script src="~/IndexScripts.js"></script>
     <title></title>
 </head>
 <body>
-    <div>
+    <div class="navigation">
+        @if (User.IsInRole("admin"))
+        {
+            <a href="~/administration.cshtml">Administration</a>
+        }
         @if (User.Identity.IsAuthenticated)
         {
             <a href="~/logout">Log Out</a>
@@ -23,11 +27,7 @@
         {
             <a href="~/login">Log In</a>
         }
-        @if (User.IsInRole("admin"))
-        {
-            <a href="~/administration.cshtml">Administration</a>
-        }
-        </div>
+    </div>
     <div class="container">
         <div class="userList">
             <h2>Users and Awards</h2>
@@ -41,7 +41,9 @@
                         imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                     }
 
-                    <li><img id="user" src="@imgSrc" /> @user.ToString()@if (User.Identity.IsAuthenticated) { @user.ShowAwards(); }</li>
+                    <li><img id="user" src="@imgSrc" /> <p>@user.ToString()@if (User.Identity.IsAuthenticated)
+                    {@user.ShowAwards();
+                }</p></li>
                 }
             </ul>
         </div>

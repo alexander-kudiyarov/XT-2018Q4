@@ -90,7 +90,8 @@
   <ItemGroup>
     <Content Include="AdministrationScripts.js" />
     <Content Include="IndexScripts.js" />
-    <Content Include="Style.css" />
+    <Content Include="IndexStyle.css" />
+    <Content Include="LoginStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

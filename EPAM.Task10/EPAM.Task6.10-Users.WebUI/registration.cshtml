@@ -7,27 +7,33 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/LoginStyle.css" />
     <title>Registration</title>
 </head>
 <body>
-    <a href="~/index.cshtml">Home</a>
-    <form action="~/registration.cshtml" method="post">
-        <input placeholder="Username" type="text" name="userName" />
-        <input placeholder="Password" type="password" name="password" />
-        <input placeholder="Confirm Password" type="password" name="confirmPassword" />
-        <button type="submit">Submit</button>
-        @if (IsPost)
-        {
-            string name = Request["userName"];
-            string password = Request["password"];
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
+    <div class="navigation">
+        <a href="~/index.cshtml">Home</a>
+        <a href="~/login">Log In</a>
+    </div>
+    <div class="container">
+        <form action="~/registration.cshtml" method="post">
+            <input placeholder="Username" type="text" name="userName" />
+            <input placeholder="Password" type="password" name="password" />
+            <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+            <button type="submit">Submit</button>
+            @if (IsPost)
             {
-                var user = new EPAM.Task6._01_Users.Entities.ProgramUser(name, password, "user");
-                userLogic.AddProgramUser(user);
-                Response.Redirect("~/login.cshtml");
+                string name = Request["userName"];
+                string password = Request["password"];
+                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
+                {
+                    var user = new EPAM.Task6._01_Users.Entities.ProgramUser(name, password, "user");
+                    userLogic.AddProgramUser(user);
+                    Response.Redirect("~/login.cshtml");
+                }
+                @:<script>alert("Empty Username or invalid password confirmation")</script>
             }
-            @:<script>alert("Empty Username or invalid password confirmation")</script>
-        }
-    </form>
+        </form>
+    </div>
 </body>
 </html>
