@@ -1,0 +1,22 @@
+﻿@{ 
+    var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
+}
+@if (IsPost)
+{
+    var user = Request["UserName"];
+    var password = Request["Password"];
+
+    if(userLogic.Authorization(user, password))
+    {
+        FormsAuthentication.SetAuthCookie(user, createPersistentCookie: true);
+    }
+    Response.Redirect("~/index.cshtml");
+    return;
+}
+
+<form action="~/login.cshtml" method="post">
+    <input placeholder="Name" type="text" name="UserName" />
+    <input placeholder="Password" type="password" name="Password" />
+    <button type="submit">Log In</button>
+    <a href="~/registration.cshtml">Registration</a>
+</form>

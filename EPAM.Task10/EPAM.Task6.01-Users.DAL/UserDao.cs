@@ -10,6 +10,8 @@ namespace EPAM.Task6._01_Users.DAL
     {
         private static Dictionary<string, Award> awardList;
         private static string awardListPath = @"D:\AwardList.bin";
+        private static Dictionary<string, ProgramUser> programUserList = new Dictionary<string, ProgramUser>();
+        private static string programUserListPath = @"D:\ProgramUserList.bin";
         private static Dictionary<int, User> userList;
         private static string userListPath = @"D:\UserList.bin";
 
@@ -43,8 +45,17 @@ namespace EPAM.Task6._01_Users.DAL
 
         public void AddAwardToUser(int id, Award award)
         {
-            userList[id].AwardsList.AddLast(award);
-            this.WriteToBinaryFile(userListPath, userList, false);
+            if (userList.ContainsKey(id))
+            {
+                userList[id].AwardsList.AddLast(award);
+                this.WriteToBinaryFile(userListPath, userList, false);
+            }
+        }
+
+        public void AddProgramUser(ProgramUser user)
+        {
+            programUserList.Add(user.Name, user);
+            this.WriteToBinaryFile(programUserListPath, userList, false);
         }
 
         public void AddUser(User user)
@@ -56,6 +67,19 @@ namespace EPAM.Task6._01_Users.DAL
             user.Id = ++lastId;
             userList.Add(user.Id, user);
             this.WriteToBinaryFile(userListPath, userList, false);
+        }
+
+        public bool Authorization(string name, string password)
+        {
+            if (programUserList.ContainsKey(name))
+            {
+                if (programUserList[name].Password.Equals(password))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void CreateNewAwardList()
@@ -97,6 +121,18 @@ namespace EPAM.Task6._01_Users.DAL
         public IEnumerable<User> GetAll()
         {
             return userList.Values;
+        }
+
+        public string GetProgramUserRole(string name)
+        {
+            if (programUserList.ContainsKey(name))
+            {
+                return programUserList[name].Role;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         public void LoadAwardList()

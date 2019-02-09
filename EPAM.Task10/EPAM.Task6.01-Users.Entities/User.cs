@@ -8,7 +8,7 @@ namespace EPAM.Task6._01_Users.Entities
     [Serializable]
     public class User
     {
-        private TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        private TextInfo textInfo = new CultureInfo("ru-Ru", false).TextInfo;
 
         public int Age
         {
@@ -39,10 +39,14 @@ namespace EPAM.Task6._01_Users.Entities
 
         public override string ToString()
         {
-            StringBuilder temp = new StringBuilder();
-            temp.Append($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
+            return this.textInfo.ToTitleCase($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
+        }
+
+        public string ShowAwards()
+        {
             if (this.AwardsList.Count > 0)
             {
+                StringBuilder temp = new StringBuilder();
                 temp.Append($" | Awards: ");
                 foreach (Award award in this.AwardsList)
                 {
@@ -50,9 +54,12 @@ namespace EPAM.Task6._01_Users.Entities
                 }
 
                 temp.Remove(temp.Length - 2, 2);
+                return this.textInfo.ToTitleCase(temp.ToString());
             }
-
-            return this.textInfo.ToTitleCase(temp.ToString());
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

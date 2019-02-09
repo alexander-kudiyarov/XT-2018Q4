@@ -24,9 +24,19 @@ namespace EPAM.Task6._01_Users.BLL
             this.userDaoOb.AddAwardToUser(id, award);
         }
 
+        public void AddProgramUser(ProgramUser user)
+        {
+            this.userDaoOb.AddProgramUser(user);
+        }
+
         public void AddUser(User user)
         {
             this.userDaoOb.AddUser(user);
+        }
+
+        public bool Authorization(string name, string password)
+        {
+            return this.userDaoOb.Authorization(name, password);
         }
 
         public void EditUser(int id, string f_name, string l_name, string b_date)
@@ -67,6 +77,11 @@ namespace EPAM.Task6._01_Users.BLL
         public void RemoveAward(string award)
         {
             this.userDaoOb.RemoveAward(award);
+        }
+
+        public string GetProgramUserRole(string name)
+        {
+            return this.userDaoOb.GetProgramUserRole(name);
         }
     }
 }

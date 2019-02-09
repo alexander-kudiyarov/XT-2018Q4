@@ -9,7 +9,11 @@ namespace EPAM.Task6._01_Users.DAL
 
         void AddAwardToUser(int id, Award award);
 
+        void AddProgramUser(ProgramUser user);
+
         void AddUser(User user);
+
+        bool Authorization(string name, string password);
 
         void CreateNewAwardList();
 
@@ -26,5 +30,7 @@ namespace EPAM.Task6._01_Users.DAL
         void Remove(int id);
 
         void RemoveAward(string award);
+
+        string GetProgramUserRole(string name);
     }
 }

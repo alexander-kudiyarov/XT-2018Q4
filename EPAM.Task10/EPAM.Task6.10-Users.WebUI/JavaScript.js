@@ -4,7 +4,7 @@ let isRemoveUserMenuOpen = false;
 let isAddAwardsMenuOpen = false;
 let isRemoveAwardsMenuOpen = false;
 
-let allMenu = [ "addUserMenu" , "editUserMenu", "removeUserMenu" , "addAwardsMenu", "removeAwardsMenu"];
+let allMenu = ["addUserMenu", "editUserMenu", "removeUserMenu", "addAwardsMenu", "removeAwardsMenu"];
 
 function AddUserMenu() {
     if (!isAddUserMenuOpen) {

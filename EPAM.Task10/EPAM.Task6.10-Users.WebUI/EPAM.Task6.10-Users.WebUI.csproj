@@ -93,12 +93,15 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class.cs" />
+    <Compile Include="MyRoleProvoder\MyRoleProvoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="logout.cshtml" />
+    <Content Include="login.cshtml" />
     <None Include="packages.config" />
-    <Content Include="ViewPage1.cshtml" />
+    <Content Include="index.cshtml" />
+    <Content Include="registration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
