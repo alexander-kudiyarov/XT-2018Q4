@@ -10,7 +10,7 @@ namespace EPAM.Task6._01_Users.DAL
     {
         private static Dictionary<string, Award> awardList;
         private static string awardListPath = @"D:\AwardList.bin";
-        private static Dictionary<string, ProgramUser> programUserList = new Dictionary<string, ProgramUser>();
+        private static Dictionary<string, ProgramUser> programUserList = new Dictionary<string, ProgramUser>() { { "admin", new ProgramUser("admin", "password", "admin") } };
         private static string programUserListPath = @"D:\ProgramUserList.bin";
         private static Dictionary<int, User> userList;
         private static string userListPath = @"D:\UserList.bin";
