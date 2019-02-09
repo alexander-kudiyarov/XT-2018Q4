@@ -37,11 +37,6 @@ namespace EPAM.Task6._01_Users.Entities
 
         public string LastName { get; set; }
 
-        public override string ToString()
-        {
-            return this.textInfo.ToTitleCase($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
-        }
-
         public string ShowAwards()
         {
             if (this.AwardsList.Count > 0)
@@ -60,6 +55,11 @@ namespace EPAM.Task6._01_Users.Entities
             {
                 return string.Empty;
             }
+        }
+
+        public override string ToString()
+        {
+            return this.textInfo.ToTitleCase($"ID: {Id} | Name: {FirstName} {LastName} | Date of birth: {DateOfBirth:D} | Age: {Age}");
         }
     }
 }

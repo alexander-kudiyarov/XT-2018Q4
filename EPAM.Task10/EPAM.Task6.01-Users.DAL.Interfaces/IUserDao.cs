@@ -21,15 +21,23 @@ namespace EPAM.Task6._01_Users.DAL
 
         void EditUser(int id, string f_name, string l_name, string b_date);
 
+        void EditProgramUser(string username, string newRole);
+
         IEnumerable<User> GetAll();
 
+        IEnumerable<ProgramUser> GetAllProgramUsers();
+
         void LoadAwardList();
+
+        void LoadProgramUserList();
 
         void LoadUserList();
 
         void Remove(int id);
 
         void RemoveAward(string award);
+
+        void RemoveProgramUser(string username);
 
         string GetProgramUserRole(string name);
     }

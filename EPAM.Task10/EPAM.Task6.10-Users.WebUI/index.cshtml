@@ -2,6 +2,7 @@
     var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
     userLogic.LoadUserList();
     userLogic.LoadAwardList();
+    userLogic.LoadProgramUserList();
     var users = userLogic.GetAll();
 }
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/Style.css" />
-    <script src="~/JavaScript.js"></script>
+    <script src="~/IndexScripts.js"></script>
     <title></title>
 </head>
 <body>
@@ -22,7 +23,11 @@
         {
             <a href="~/login">Log In</a>
         }
-    </div>
+        @if (User.IsInRole("admin"))
+        {
+            <a href="~/administration.cshtml">Administration</a>
+        }
+        </div>
     <div class="container">
         <div class="userList">
             <h2>Users and Awards</h2>
@@ -53,8 +58,8 @@
                 <form id="addUserMenu" action="~/index.cshtml" method="post">
                     @if (IsPost && !Request["addFirstName"].IsEmpty())
                             {
-                                string addFirstName = Request["addFirstName"].ToLower();
-                                string addLastName = Request["addLastName"].ToLower();
+                                string addFirstName = Request["addFirstName"];
+                                string addLastName = Request["addLastName"];
                                 if (DateTime.TryParse(Request["addBirthDate"], out DateTime addBirthDate))
                                 {
                                     if (!Request["addUserImage"].IsEmpty())
@@ -62,8 +67,8 @@
                                         byte[] image = File.ReadAllBytes(Request["addUserImage"]);
                                         var newUser = new EPAM.Task6._01_Users.Entities.User
                                         {
-                                            FirstName = addFirstName,
-                                            LastName = addLastName,
+                                            FirstName = addFirstName.ToLower(),
+                                            LastName = addLastName.ToLower(),
                                             DateOfBirth = addBirthDate,
                                             Image = image,
                                         };
@@ -89,8 +94,8 @@
 
                         if (int.TryParse(Request["editId"], out int editId))
                         {
-                            string editFirstName = Request["editFirstName"].ToLower();
-                            string editLastName = Request["editLastName"].ToLower();
+                            string editFirstName = Request["editFirstName"];
+                            string editLastName = Request["editLastName"];
                             string editBirthDate = Request["editBirthDate"];
                             userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
                             Response.Redirect("~/index.cshtml");
@@ -114,10 +119,7 @@
                     {
                         string awardTitle = Request["addAwardTitle"].ToLower();
                         {
-                            var newAward = new EPAM.Task6._01_Users.Entities.Award
-                            {
-                                Title = awardTitle,
-                            };
+                            var newAward = new EPAM.Task6._01_Users.Entities.Award(awardTitle);
                             try
                             {
                                 userLogic.AddAward(newAward);

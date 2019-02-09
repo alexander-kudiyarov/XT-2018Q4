@@ -10,7 +10,7 @@ namespace EPAM.Task6._01_Users.DAL
     {
         private static Dictionary<string, Award> awardList;
         private static string awardListPath = @"D:\AwardList.bin";
-        private static Dictionary<string, ProgramUser> programUserList = new Dictionary<string, ProgramUser>() { { "admin", new ProgramUser("admin", "password", "admin") } };
+        private static Dictionary<string, ProgramUser> programUserList;
         private static string programUserListPath = @"D:\ProgramUserList.bin";
         private static Dictionary<int, User> userList;
         private static string userListPath = @"D:\UserList.bin";
@@ -54,8 +54,11 @@ namespace EPAM.Task6._01_Users.DAL
 
         public void AddProgramUser(ProgramUser user)
         {
-            programUserList.Add(user.Name, user);
-            this.WriteToBinaryFile(programUserListPath, userList, false);
+            if (!programUserList.ContainsKey(user.Name))
+            {
+                programUserList.Add(user.Name, user);
+                this.WriteToBinaryFile(programUserListPath, programUserList, false);
+            }
         }
 
         public void AddUser(User user)
@@ -71,9 +74,9 @@ namespace EPAM.Task6._01_Users.DAL
 
         public bool Authorization(string name, string password)
         {
-            if (programUserList.ContainsKey(name))
+            if (programUserList.ContainsKey(name.ToLower()))
             {
-                if (programUserList[name].Password.Equals(password))
+                if (programUserList[name.ToLower()].Password.Equals(password))
                 {
                     return true;
                 }
@@ -92,18 +95,27 @@ namespace EPAM.Task6._01_Users.DAL
             File.Delete(userListPath);
         }
 
+        public void EditProgramUser(string username, string newRole)
+        {
+            if (programUserList.ContainsKey(username) && !username.ToLower().Equals("admin"))
+            {
+                programUserList[username].Role = newRole;
+                this.WriteToBinaryFile(programUserListPath, programUserList, false);
+            }
+        }
+
         public void EditUser(int id, string f_name, string l_name, string b_date)
         {
             if (userList.ContainsKey(id))
             {
                 if (!string.IsNullOrWhiteSpace(f_name))
                 {
-                    userList[id].FirstName = f_name;
+                    userList[id].FirstName = f_name.ToLower();
                 }
 
                 if (!string.IsNullOrWhiteSpace(l_name))
                 {
-                    userList[id].LastName = l_name;
+                    userList[id].LastName = l_name.ToLower();
                 }
 
                 if (!string.IsNullOrWhiteSpace(b_date))
@@ -121,6 +133,11 @@ namespace EPAM.Task6._01_Users.DAL
         public IEnumerable<User> GetAll()
         {
             return userList.Values;
+        }
+
+        public IEnumerable<ProgramUser> GetAllProgramUsers()
+        {
+            return programUserList.Values;
         }
 
         public string GetProgramUserRole(string name)
@@ -144,6 +161,20 @@ namespace EPAM.Task6._01_Users.DAL
             else
             {
                 awardList = new Dictionary<string, Award>();
+                this.WriteToBinaryFile(awardListPath, awardList, false);
+            }
+        }
+
+        public void LoadProgramUserList()
+        {
+            if (File.Exists(programUserListPath))
+            {
+                programUserList = ReadFromBinaryFile<Dictionary<string, ProgramUser>>(programUserListPath);
+            }
+            else
+            {
+                programUserList = new Dictionary<string, ProgramUser>() { { "admin", new ProgramUser("admin", "password", "admin") } };
+                this.WriteToBinaryFile(programUserListPath, programUserList, false);
             }
         }
 
@@ -156,13 +187,17 @@ namespace EPAM.Task6._01_Users.DAL
             else
             {
                 userList = new Dictionary<int, User>();
+                this.WriteToBinaryFile(userListPath, userList, false);
             }
         }
 
         public void Remove(int id)
         {
-            userList.Remove(id);
-            this.WriteToBinaryFile(userListPath, userList, false);
+            if (userList.ContainsKey(id))
+            {
+                userList.Remove(id);
+                this.WriteToBinaryFile(userListPath, userList, false);
+            }
         }
 
         public void RemoveAward(string award)
@@ -187,6 +222,15 @@ namespace EPAM.Task6._01_Users.DAL
                 }
 
                 this.WriteToBinaryFile(userListPath, userList, false);
+            }
+        }
+
+        public void RemoveProgramUser(string username)
+        {
+            if (programUserList.ContainsKey(username.ToLower()) && !username.ToLower().Equals("admin"))
+            {
+                programUserList.Remove(username.ToLower());
+                this.WriteToBinaryFile(programUserListPath, programUserList, false);
             }
         }
 

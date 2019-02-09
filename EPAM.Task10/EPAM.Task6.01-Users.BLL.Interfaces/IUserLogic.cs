@@ -15,11 +15,19 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
 
         bool Authorization(string name, string password);
 
+        void EditProgramUser(string username, string newRole);
+
         void EditUser(int id, string f_name, string l_name, string b_date);
 
         IEnumerable<User> GetAll();
 
+        IEnumerable<ProgramUser> GetAllProgramUsers();
+
+        string GetProgramUserRole(string name);
+
         void LoadAwardList();
+
+        void LoadProgramUserList();
 
         void LoadUserList();
 
@@ -31,6 +39,6 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
 
         void RemoveAward(string award);
 
-        string GetProgramUserRole(string name);
+        void RemoveProgramUser(string username);
     }
 }

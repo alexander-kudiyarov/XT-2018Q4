@@ -11,7 +11,7 @@ namespace EPAM.Task6._01_Users.Entities
     {
         public ProgramUser(string name, string password, string role)
         {
-            this.Name = name;
+            this.Name = name.ToLower();
             this.Password = password;
             this.Role = role.ToLower();
         }
@@ -20,6 +20,11 @@ namespace EPAM.Task6._01_Users.Entities
 
         public string Password { get; }
 
-        public string Role { get; }
+        public string Role { get; set; }
+
+        public override string ToString()
+        {
+            return $"Username: {Name}, Role: {Role}";
+        }
     }
 }

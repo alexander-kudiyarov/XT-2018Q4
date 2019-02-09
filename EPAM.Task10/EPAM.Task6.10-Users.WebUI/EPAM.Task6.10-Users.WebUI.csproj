@@ -88,7 +88,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JavaScript.js" />
+    <Content Include="AdministrationScripts.js" />
+    <Content Include="IndexScripts.js" />
     <Content Include="Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -99,6 +100,7 @@
   <ItemGroup>
     <Content Include="logout.cshtml" />
     <Content Include="login.cshtml" />
+    <Content Include="administration.cshtml" />
     <None Include="packages.config" />
     <Content Include="index.cshtml" />
     <Content Include="registration.cshtml" />

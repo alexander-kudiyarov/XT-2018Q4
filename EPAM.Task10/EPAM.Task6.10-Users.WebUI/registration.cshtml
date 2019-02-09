@@ -1,5 +1,6 @@
 ﻿@{
     var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
+    userLogic.LoadProgramUserList();
 }
 <!DOCTYPE html>
 
@@ -9,27 +10,24 @@
     <title>Registration</title>
 </head>
 <body>
-    <div>
-        <form action="~/registration.cshtml" method="post">
-            <input placeholder="Username" type="text" name="userName" />
-            <input placeholder="Password" type="text" name="password" />
-            <input placeholder="Confirm Password" type="text" name="confirmPassword" />
-            <input placeholder="Role" type="text" name="role" />
-            <button type="submit">Submit</button>
-            @if (IsPost)
+    <a href="~/index.cshtml">Home</a>
+    <form action="~/registration.cshtml" method="post">
+        <input placeholder="Username" type="text" name="userName" />
+        <input placeholder="Password" type="password" name="password" />
+        <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+        <button type="submit">Submit</button>
+        @if (IsPost)
+        {
+            string name = Request["userName"];
+            string password = Request["password"];
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
             {
-                string name = Request["userName"];
-                string password = Request["password"];
-                string role = Request["role"];
-                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
-                {
-                    var user = new EPAM.Task6._01_Users.Entities.ProgramUser(name, password, role);
-                    userLogic.AddProgramUser(user);
-                    Response.Redirect("~/index.cshtml");
-                }
-                Response.Redirect("~/registration.cshtml");
+                var user = new EPAM.Task6._01_Users.Entities.ProgramUser(name, password, "user");
+                userLogic.AddProgramUser(user);
+                Response.Redirect("~/login.cshtml");
             }
-        </form>
-    </div>
+            @:<script>alert("Empty Username or invalid password confirmation")</script>
+        }
+    </form>
 </body>
 </html>

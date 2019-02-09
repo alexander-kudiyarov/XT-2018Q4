@@ -39,6 +39,11 @@ namespace EPAM.Task6._01_Users.BLL
             return this.userDaoOb.Authorization(name, password);
         }
 
+        public void EditProgramUser(string username, string newRole)
+        {
+            this.userDaoOb.EditProgramUser(username, newRole);
+        }
+
         public void EditUser(int id, string f_name, string l_name, string b_date)
         {
             this.userDaoOb.EditUser(id, f_name, l_name, b_date);
@@ -49,9 +54,24 @@ namespace EPAM.Task6._01_Users.BLL
             return this.userDaoOb.GetAll();
         }
 
+        public IEnumerable<ProgramUser> GetAllProgramUsers()
+        {
+            return this.userDaoOb.GetAllProgramUsers();
+        }
+
+        public string GetProgramUserRole(string name)
+        {
+            return this.userDaoOb.GetProgramUserRole(name);
+        }
+
         public void LoadAwardList()
         {
             this.userDaoOb.LoadAwardList();
+        }
+
+        public void LoadProgramUserList()
+        {
+            this.userDaoOb.LoadProgramUserList();
         }
 
         public void LoadUserList()
@@ -79,9 +99,9 @@ namespace EPAM.Task6._01_Users.BLL
             this.userDaoOb.RemoveAward(award);
         }
 
-        public string GetProgramUserRole(string name)
+        public void RemoveProgramUser(string username)
         {
-            return this.userDaoOb.GetProgramUserRole(name);
+            this.userDaoOb.RemoveProgramUser(username);
         }
     }
 }
