@@ -23,6 +23,8 @@ namespace EPAM.Task6._01_Users.DAL
 
         IEnumerable<ProgramUser> GetAllProgramUsers();
 
+        string GetUserAwards(int id);
+
         void RemoveUser(int id);
 
         void RemoveAward(string award);

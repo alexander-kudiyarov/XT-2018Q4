@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using EPAM.Task6._01_Users.Entities;
 
 namespace EPAM.Task6._01_Users.DAL
@@ -14,6 +16,9 @@ namespace EPAM.Task6._01_Users.DAL
         private static string programUserListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfProgramUsers.bin";
         private static Dictionary<int, User> userList;
         private static string userListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfUsers.bin";
+        private static HashSet<KeyValuePair<int, string>> usersAndAwardsList = new HashSet<KeyValuePair<int, string>>();
+        private static string usersAndAwardsListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfUsersAndAwards.bin";
+        private TextInfo textInfo = new CultureInfo("us-US", false).TextInfo;
 
         public static T ReadFromBinaryFile<T>(string filePath)
         {
@@ -51,11 +56,8 @@ namespace EPAM.Task6._01_Users.DAL
 
         public void AddAwardToUser(int id, Award award)
         {
-            if (userList.ContainsKey(id))
-            {
-                userList[id].AwardsList.AddLast(award);
-                this.WriteToBinaryFile(userListPath, userList, false);
-            }
+            usersAndAwardsList.Add(new KeyValuePair<int, string>(id, award.Title));
+            this.WriteToBinaryFile(usersAndAwardsListPath, usersAndAwardsList, false);
         }
 
         public void AddProgramUser(ProgramUser user)
@@ -151,28 +153,36 @@ namespace EPAM.Task6._01_Users.DAL
             }
         }
 
+        public string GetUserAwards(int id)
+        {
+            StringBuilder temp = new StringBuilder();
+            if (usersAndAwardsList.Count > 0)
+            {
+                temp.Append(" Awards: ");
+                foreach (var title in usersAndAwardsList)
+                {
+                    temp.Append($"{this.textInfo.ToTitleCase(title.Value)}, ");
+                }
+
+                temp.Remove(temp.Length - 2, 2);
+                return temp.ToString();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
         public void RemoveAward(string award)
         {
-            if (awardList.ContainsKey(award))
+            foreach (var pair in usersAndAwardsList)
             {
-                if (awardList.Remove(award))
+                if (pair.Value.Equals(award))
                 {
-                    this.WriteToBinaryFile(awardListPath, awardList, false);
+                    usersAndAwardsList.Remove(pair);
+                    this.WriteToBinaryFile(usersAndAwardsListPath, usersAndAwardsList, false);
+                    break;
                 }
-
-                foreach (var user in userList)
-                {
-                    foreach (var userAward in user.Value.AwardsList)
-                    {
-                        if (userAward.Title == award)
-                        {
-                            user.Value.AwardsList.Remove(userAward);
-                            break;
-                        }
-                    }
-                }
-
-                this.WriteToBinaryFile(userListPath, userList, false);
             }
         }
 
@@ -191,15 +201,6 @@ namespace EPAM.Task6._01_Users.DAL
             {
                 userList.Remove(id);
                 this.WriteToBinaryFile(userListPath, userList, false);
-            }
-        }
-
-        private void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
-        {
-            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
-            {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                binaryFormatter.Serialize(stream, objectToWrite);
             }
         }
 
@@ -239,6 +240,15 @@ namespace EPAM.Task6._01_Users.DAL
             {
                 userList = new Dictionary<int, User>();
                 this.WriteToBinaryFile(userListPath, userList, false);
+            }
+        }
+
+        private void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
             }
         }
     }

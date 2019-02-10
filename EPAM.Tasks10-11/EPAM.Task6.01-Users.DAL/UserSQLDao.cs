@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace EPAM.Task6._01_Users.DAL
     public class UserSQLDao : IUserDao
     {
         private string connectionString;
+        private TextInfo textInfo = new CultureInfo("us-US", false).TextInfo;
 
         public UserSQLDao()
         {
@@ -285,6 +287,44 @@ namespace EPAM.Task6._01_Users.DAL
             }
 
             return string.Empty;
+        }
+
+        public string GetUserAwards(int id)
+        {
+            var result = new List<string>();
+            using (var sqlConnection = new SqlConnection(this.connectionString))
+            {
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetUserAwards";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                var parameterId = new SqlParameter("@Id", id);
+                cmd.Parameters.Add(parameterId);
+
+                sqlConnection.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add((string)reader["AwardTitle"]);
+                }
+
+                StringBuilder temp = new StringBuilder();
+                if (result.Count > 0)
+                {
+                    temp.Append(" Awards: ");
+                    foreach (var title in result)
+                    {
+                        temp.Append($"{this.textInfo.ToTitleCase(title)}, ");
+                    }
+
+                    temp.Remove(temp.Length - 2, 2);
+                    return temp.ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
         }
 
         public void RemoveAward(string awardTitle)

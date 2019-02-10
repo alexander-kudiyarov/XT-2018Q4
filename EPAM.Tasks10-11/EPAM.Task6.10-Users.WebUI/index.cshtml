@@ -39,9 +39,7 @@
                         imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                     }
 
-                    <li><img id="user" src="@imgSrc" /> <p>@user.ToString()@if (User.Identity.IsAuthenticated)
-                    {@user.ShowAwards();
-                }</p></li>
+                    <li><img id="user" src="@imgSrc" /> <p>@user.ToString()@if (User.Identity.IsAuthenticated) {@userLogic.GetUserAwards(user.Id);}</p></li>
                 }
             </ul>
         </div>
@@ -101,7 +99,7 @@
                             {
                                 userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
                             }
-                            catch(System.Data.SqlClient.SqlException exc)
+                            catch(System.Data.SqlClient.SqlException)
                             {
                                 @:<script>alert("Wrong Date Format")</script>
                             }
@@ -141,9 +139,9 @@
                                     Response.Redirect("~/index.cshtml");
                                 }
                             }
-                            catch (ArgumentException)
+                            catch (System.Data.SqlClient.SqlException)
                             {
-                                @:<script>alert("This award already exist")</script>
+                                @:<script>alert("This award already exist / Wrong User ID")</script>
                             }
 
                         }

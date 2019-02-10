@@ -8,7 +8,7 @@ namespace EPAM.Task6._01_Users.Entities
     [Serializable]
     public class User
     {
-        private TextInfo textInfo = new CultureInfo("ru-Ru", false).TextInfo;
+        private TextInfo textInfo = new CultureInfo("us-US", false).TextInfo;
 
         public int Age
         {
@@ -25,8 +25,6 @@ namespace EPAM.Task6._01_Users.Entities
             }
         }
 
-        public LinkedList<Award> AwardsList { get; } = new LinkedList<Award>();
-
         public DateTime DateOfBirth { get; set; }
 
         public string FirstName { get; set; }
@@ -36,26 +34,6 @@ namespace EPAM.Task6._01_Users.Entities
         public byte[] Image { get; set; } = null;
 
         public string LastName { get; set; }
-
-        public string ShowAwards()
-        {
-            if (this.AwardsList.Count > 0)
-            {
-                StringBuilder temp = new StringBuilder();
-                temp.Append($", Awards: ");
-                foreach (Award award in this.AwardsList)
-                {
-                    temp.Append($"{award.Title}, ");
-                }
-
-                temp.Remove(temp.Length - 2, 2);
-                return this.textInfo.ToTitleCase(temp.ToString());
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
 
         public override string ToString()
         {

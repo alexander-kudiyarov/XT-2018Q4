@@ -35,7 +35,7 @@ function AddUserMenu() {
         document.getElementById('addUserMenu').appendChild(birthDateInput);
 
         let userImageInput = document.createElement('input');
-        userImageInput.placeholder = "Image";
+        userImageInput.placeholder = "Image (path, optional)";
         userImageInput.type = "url";
         birthDateInput.setAttribute('onfocusout', '(this.type="text")');
         userImageInput.name = "addUserImage";

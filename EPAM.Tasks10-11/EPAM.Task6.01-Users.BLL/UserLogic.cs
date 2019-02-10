@@ -64,6 +64,11 @@ namespace EPAM.Task6._01_Users.BLL
             return this.userDaoOb.GetProgramUserRole(name);
         }
 
+        public string GetUserAwards(int id)
+        {
+            return this.userDaoOb.GetUserAwards(id);
+        }
+
         public void Remove(int id)
         {
             this.userDaoOb.RemoveUser(id);

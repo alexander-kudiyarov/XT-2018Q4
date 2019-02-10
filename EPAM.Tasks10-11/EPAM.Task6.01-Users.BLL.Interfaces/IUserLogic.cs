@@ -25,6 +25,8 @@ namespace EPAM.Task6._01_Users.BLL.Interfaces
 
         string GetProgramUserRole(string name);
 
+        string GetUserAwards(int id);
+
         void Remove(int id);
 
         void RemoveAward(string award);
