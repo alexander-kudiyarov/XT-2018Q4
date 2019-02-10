@@ -10,7 +10,7 @@ namespace EPAM.Task6._01_Users.Common
 
         private static IUserLogic userLogic;
 
-        public static IUserDao UserDao => userDaoOb ?? (userDaoOb = new UserDao());
+        public static IUserDao UserDao => userDaoOb ?? (userDaoOb = new UserSQLDao());
 
         public static IUserLogic UserLogic => userLogic ?? (userLogic = new UserLogic(UserDao));
     }

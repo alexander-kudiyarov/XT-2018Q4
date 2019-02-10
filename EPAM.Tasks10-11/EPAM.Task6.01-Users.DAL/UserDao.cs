@@ -13,7 +13,7 @@ namespace EPAM.Task6._01_Users.DAL
         private static Dictionary<string, ProgramUser> programUserList;
         private static string programUserListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfProgramUsers.bin";
         private static Dictionary<int, User> userList;
-        private static string userListPath = System.AppDomain.CurrentDomain.BaseDirectory +"ListOfUsers.bin";
+        private static string userListPath = System.AppDomain.CurrentDomain.BaseDirectory + "ListOfUsers.bin";
 
         public static T ReadFromBinaryFile<T>(string filePath)
         {
@@ -37,10 +37,16 @@ namespace EPAM.Task6._01_Users.DAL
             }
         }
 
-        public void AddAward(Award award)
+        public bool AddAward(Award award)
         {
-            awardList.Add(award.Title, award);
-            this.WriteToBinaryFile(awardListPath, awardList, false);
+            if (!awardList.ContainsKey(award.Title))
+            {
+                awardList.Add(award.Title, award);
+                this.WriteToBinaryFile(awardListPath, awardList, false);
+                return true;
+            }
+
+            return false;
         }
 
         public void AddAwardToUser(int id, Award award)
@@ -85,16 +91,6 @@ namespace EPAM.Task6._01_Users.DAL
             return false;
         }
 
-        public void CreateNewAwardList()
-        {
-            File.Delete(awardListPath);
-        }
-
-        public void CreateNewUserList()
-        {
-            File.Delete(userListPath);
-        }
-
         public void EditProgramUser(string username, string newRole)
         {
             if (programUserList.ContainsKey(username) && !username.ToLower().Equals("admin"))
@@ -130,14 +126,17 @@ namespace EPAM.Task6._01_Users.DAL
             }
         }
 
-        public IEnumerable<User> GetAll()
-        {
-            return userList.Values;
-        }
-
         public IEnumerable<ProgramUser> GetAllProgramUsers()
         {
+            this.LoadProgramUserList();
             return programUserList.Values;
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            this.LoadUserList();
+            this.LoadAwardList();
+            return userList.Values;
         }
 
         public string GetProgramUserRole(string name)
@@ -149,54 +148,6 @@ namespace EPAM.Task6._01_Users.DAL
             else
             {
                 return string.Empty;
-            }
-        }
-
-        public void LoadAwardList()
-        {
-            if (File.Exists(awardListPath))
-            {
-                awardList = ReadFromBinaryFile<Dictionary<string, Award>>(awardListPath);
-            }
-            else
-            {
-                awardList = new Dictionary<string, Award>();
-                this.WriteToBinaryFile(awardListPath, awardList, false);
-            }
-        }
-
-        public void LoadProgramUserList()
-        {
-            if (File.Exists(programUserListPath))
-            {
-                programUserList = ReadFromBinaryFile<Dictionary<string, ProgramUser>>(programUserListPath);
-            }
-            else
-            {
-                programUserList = new Dictionary<string, ProgramUser>() { { "admin", new ProgramUser("admin", "password", "admin") } };
-                this.WriteToBinaryFile(programUserListPath, programUserList, false);
-            }
-        }
-
-        public void LoadUserList()
-        {
-            if (File.Exists(userListPath))
-            {
-                userList = ReadFromBinaryFile<Dictionary<int, User>>(userListPath);
-            }
-            else
-            {
-                userList = new Dictionary<int, User>();
-                this.WriteToBinaryFile(userListPath, userList, false);
-            }
-        }
-
-        public void Remove(int id)
-        {
-            if (userList.ContainsKey(id))
-            {
-                userList.Remove(id);
-                this.WriteToBinaryFile(userListPath, userList, false);
             }
         }
 
@@ -234,12 +185,60 @@ namespace EPAM.Task6._01_Users.DAL
             }
         }
 
-        public void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        public void RemoveUser(int id)
+        {
+            if (userList.ContainsKey(id))
+            {
+                userList.Remove(id);
+                this.WriteToBinaryFile(userListPath, userList, false);
+            }
+        }
+
+        private void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
         {
             using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
             {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
+            }
+        }
+
+        private void LoadAwardList()
+        {
+            if (File.Exists(awardListPath))
+            {
+                awardList = ReadFromBinaryFile<Dictionary<string, Award>>(awardListPath);
+            }
+            else
+            {
+                awardList = new Dictionary<string, Award>();
+                this.WriteToBinaryFile(awardListPath, awardList, false);
+            }
+        }
+
+        private void LoadProgramUserList()
+        {
+            if (File.Exists(programUserListPath))
+            {
+                programUserList = ReadFromBinaryFile<Dictionary<string, ProgramUser>>(programUserListPath);
+            }
+            else
+            {
+                programUserList = new Dictionary<string, ProgramUser>() { { "admin", new ProgramUser("admin", "password", "admin") } };
+                this.WriteToBinaryFile(programUserListPath, programUserList, false);
+            }
+        }
+
+        private void LoadUserList()
+        {
+            if (File.Exists(userListPath))
+            {
+                userList = ReadFromBinaryFile<Dictionary<int, User>>(userListPath);
+            }
+            else
+            {
+                userList = new Dictionary<int, User>();
+                this.WriteToBinaryFile(userListPath, userList, false);
             }
         }
     }

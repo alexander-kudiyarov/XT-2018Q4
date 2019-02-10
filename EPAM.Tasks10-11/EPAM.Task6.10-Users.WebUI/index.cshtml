@@ -1,8 +1,6 @@
 ﻿@{
     var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
-    userLogic.LoadUserList();
-    userLogic.LoadAwardList();
-    userLogic.LoadProgramUserList();
+    userLogic.GetAllProgramUsers();
     var users = userLogic.GetAll();
 }
 <!DOCTYPE html>
@@ -99,7 +97,15 @@
                             string editFirstName = Request["editFirstName"];
                             string editLastName = Request["editLastName"];
                             string editBirthDate = Request["editBirthDate"];
-                            userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
+                            try
+                            {
+                                userLogic.EditUser(editId, editFirstName, editLastName, editBirthDate);
+                            }
+                            catch(System.Data.SqlClient.SqlException exc)
+                            {
+                                @:<script>alert("Wrong Date Format")</script>
+                            }
+
                             Response.Redirect("~/index.cshtml");
                         }
                     }
@@ -124,14 +130,16 @@
                             var newAward = new EPAM.Task6._01_Users.Entities.Award(awardTitle);
                             try
                             {
-                                userLogic.AddAward(newAward);
-                                char[] div = { '.', ',', ' ' };
-                                string[] addAwardIdList = Request["addAwardId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
-                                foreach (var id in addAwardIdList)
+                                if(userLogic.AddAward(newAward))
                                 {
-                                    userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                                    char[] div = { '.', ',', ' ' };
+                                    string[] addAwardIdList = Request["addAwardId"].Split(div, StringSplitOptions.RemoveEmptyEntries);
+                                    foreach (var id in addAwardIdList)
+                                    {
+                                        userLogic.AddAwardToUser(Convert.ToInt32(id), newAward);
+                                    }
+                                    Response.Redirect("~/index.cshtml");
                                 }
-                                Response.Redirect("~/index.cshtml");
                             }
                             catch (ArgumentException)
                             {

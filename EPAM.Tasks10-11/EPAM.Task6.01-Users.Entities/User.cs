@@ -59,7 +59,7 @@ namespace EPAM.Task6._01_Users.Entities
 
         public override string ToString()
         {
-            return this.textInfo.ToTitleCase($"ID: {Id}, Name: {FirstName} {LastName}, Date of birth: {DateOfBirth:D}, Age: {Age}");
+            return $"ID: {Id}, Name: {this.textInfo.ToTitleCase($"{FirstName} {LastName}")}, Date of birth: {DateOfBirth:D}, Age: {Age}";
         }
     }
 }

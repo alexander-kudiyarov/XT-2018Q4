@@ -14,9 +14,9 @@ namespace EPAM.Task6._01_Users.BLL
             this.userDaoOb = userDao;
         }
 
-        public void AddAward(Award award)
+        public bool AddAward(Award award)
         {
-            this.userDaoOb.AddAward(award);
+            return this.userDaoOb.AddAward(award);
         }
 
         public void AddAwardToUser(int id, Award award)
@@ -51,7 +51,7 @@ namespace EPAM.Task6._01_Users.BLL
 
         public IEnumerable<User> GetAll()
         {
-            return this.userDaoOb.GetAll();
+            return this.userDaoOb.GetAllUsers();
         }
 
         public IEnumerable<ProgramUser> GetAllProgramUsers()
@@ -64,34 +64,9 @@ namespace EPAM.Task6._01_Users.BLL
             return this.userDaoOb.GetProgramUserRole(name);
         }
 
-        public void LoadAwardList()
-        {
-            this.userDaoOb.LoadAwardList();
-        }
-
-        public void LoadProgramUserList()
-        {
-            this.userDaoOb.LoadProgramUserList();
-        }
-
-        public void LoadUserList()
-        {
-            this.userDaoOb.LoadUserList();
-        }
-
-        public void OverwriteAwardList()
-        {
-            this.userDaoOb.CreateNewAwardList();
-        }
-
-        public void OwerwriteUserList()
-        {
-            this.userDaoOb.CreateNewUserList();
-        }
-
         public void Remove(int id)
         {
-            this.userDaoOb.Remove(id);
+            this.userDaoOb.RemoveUser(id);
         }
 
         public void RemoveAward(string award)

@@ -7,7 +7,7 @@ namespace EPAM.Task6._01_Users.Entities
     {
         public Award(string title)
         {
-            Title = title;
+            this.Title = title;
         }
 
         public string Title { get; set; }

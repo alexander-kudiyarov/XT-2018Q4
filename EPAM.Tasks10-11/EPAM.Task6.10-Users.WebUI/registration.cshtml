@@ -1,6 +1,6 @@
 ﻿@{
     var userLogic = EPAM.Task6._01_Users.Common.DependencyResolver.UserLogic;
-    userLogic.LoadProgramUserList();
+    userLogic.GetAllProgramUsers();
 }
 <!DOCTYPE html>
 
@@ -28,10 +28,20 @@
                 if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
                 {
                     var user = new EPAM.Task6._01_Users.Entities.ProgramUser(name, password, "user");
-                    userLogic.AddProgramUser(user);
-                    Response.Redirect("~/login.cshtml");
+                    try
+                    {
+                        userLogic.AddProgramUser(user);
+                        Response.Redirect("~/login.cshtml");
+                    }
+                    catch (System.Data.SqlClient.SqlException)
+                    {
+                        @:<script>alert("User with this username already exist")</script>
+                    }
                 }
-                @:<script>alert("Empty Username or invalid password confirmation")</script>
+                else
+                {
+                    @:<script>alert("Empty Username or invalid password confirmation")</script>
+                }
             }
         </form>
     </div>
