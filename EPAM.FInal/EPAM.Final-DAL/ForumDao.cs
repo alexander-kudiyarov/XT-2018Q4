@@ -12,58 +12,276 @@ namespace EPAM.Final_DAL
 {
     public class ForumDao : IForumDao
     {
-        static string connectionString = @"Data Source=DESKTOP-89VB63U\SQLEXPRESS;Initial Catalog=MyTraining;Integrated Security=True";
+        static string connectionString = @"Data Source=DESKTOP-89VB63U\SQLEXPRESS;Initial Catalog=EPAM.Final.Forum;Integrated Security=True";
 
         public void NewUser(string username, string password)
         {
-            using (var sqlConnection = new SqlConnection(connectionString))
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                var cmd = sqlConnection.CreateCommand();
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
 
-                cmd.CommandText = "New User";
-                cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "NewUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                var usernameParameter = new SqlParameter("@username", username);
-                cmd.Parameters.Add(usernameParameter);
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
 
-                var passwordParameter = new SqlParameter("@password", password);
-                cmd.Parameters.Add(passwordParameter);
+                    var passwordParameter = new SqlParameter("@password", password);
+                    cmd.Parameters.Add(passwordParameter);
+
+                    var isAdminParameter = new SqlParameter("@isAdmin", false);
+                    cmd.Parameters.Add(isAdminParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
             }
         }
 
         public void EditUser(string username, string newUsername, string newPassword)
         {
-            throw new NotImplementedException();
+            if(!string.IsNullOrWhiteSpace(username) && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "EditUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
+
+
+                    if(!string.IsNullOrWhiteSpace(newUsername))
+                    {
+                        var newUsernameParameter = new SqlParameter("@newUsername", newUsername);
+                        cmd.Parameters.Add(newUsernameParameter);
+                    }
+                    else
+                    {
+                        var newUsernameParameter = new SqlParameter("@newUsername", DBNull.Value);
+                        cmd.Parameters.Add(newUsernameParameter);
+                    }
+                    
+                    if(!string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        var newPasswordParameter = new SqlParameter("@newPassword", newPassword);
+                        cmd.Parameters.Add(newPasswordParameter);
+                    }
+                    else
+                    {
+                        var newPasswordParameter = new SqlParameter("@newPassword", DBNull.Value);
+                        cmd.Parameters.Add(newPasswordParameter);
+                    }
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
         public void DeleteUser(string username)
         {
-            throw new NotImplementedException();
+            if(!string.IsNullOrWhiteSpace(username))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "DeleteUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
         public IEnumerable<User> GetUsers()
         {
-            throw new NotImplementedException();
+            var result = new List<User>();
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetUsers";
+                cmd.CommandType = CommandType.Text;
+                sqlConnection.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add(new User((string)reader["username"], (string)reader["password"], (bool)reader["isAdmin"]));
+                }
+
+                return result;
+            }
         }
 
-        public void NewTopic(string subject, string text)
+        public void NewTopic(string username, string subject)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(subject))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "NewTopic";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
+
+                    var subjectParameter = new SqlParameter("@subject", subject);
+                    cmd.Parameters.Add(subjectParameter);
+
+                    var lastMessageParameter = new SqlParameter("@lastMessage", DateTime.Now);
+                    cmd.Parameters.Add(lastMessageParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
         public void EditTopic(string subject, string newSubject)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(subject) && !string.IsNullOrWhiteSpace(newSubject))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "EditTopic";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var subjectParameter = new SqlParameter("@subject", subject);
+                    cmd.Parameters.Add(subjectParameter);
+
+                    var newSubjectParameter = new SqlParameter("@newSubject", newSubject);
+                    cmd.Parameters.Add(newSubjectParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
         public void DeleteTopic(string subject)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(subject))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "DeleteTopic";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var subjectParameter = new SqlParameter("@subject", subject);
+                    cmd.Parameters.Add(subjectParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
         public IEnumerable<Topic> GetTopics()
         {
-            throw new NotImplementedException();
+            var result = new List<Topic>();
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetTopics";
+                cmd.CommandType = CommandType.Text;
+                sqlConnection.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add(new Topic((string)reader["subject"], (string)reader["startedBy"], (DateTime)reader["lastMessage"]));
+                }
+
+                return result;
+            }
+        }
+
+        public IEnumerable<Topic> GetTopics(string username)
+        {
+            var result = new List<Topic>();
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetTopicsByUser";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                var usernameParameter = new SqlParameter("@username", username);
+                cmd.Parameters.Add(usernameParameter);
+
+                sqlConnection.Open();
+
+                cmd.ExecuteNonQuery();
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add(new Topic((string)reader["subject"], (string)reader["startedBy"], (DateTime)reader["lastMessage"]));
+                }
+
+                return result;
+            }
         }
 
         public void NewMessage(string text)

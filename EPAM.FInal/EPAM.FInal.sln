@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Final-DAL", "EPAM.Fina
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.Final-DAL.Interfaces", "EPAM.Final-DAL.Interfaces\EPAM.Final-DAL.Interfaces.csproj", "{E0C4FBAB-DE58-430C-ABBC-F5A01D2CFB3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{E0C4FBAB-DE58-430C-ABBC-F5A01D2CFB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0C4FBAB-DE58-430C-ABBC-F5A01D2CFB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0C4FBAB-DE58-430C-ABBC-F5A01D2CFB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{C73764B6-E0E7-4CA9-A9B4-F787D4D8131C} = {B95ABEB3-4608-4E96-AA67-7A55DE609A53}
 		{AA24A6EC-A139-4FC8-A55C-E3DD98FED088} = {2507CC5C-6B1E-4F0C-8EEC-29648F68FD65}
 		{E0C4FBAB-DE58-430C-ABBC-F5A01D2CFB3A} = {2507CC5C-6B1E-4F0C-8EEC-29648F68FD65}
+		{304E4E2E-A69D-4A2B-A2FE-001CD40B4B16} = {83B0725E-26F2-41A5-94B2-B0C67698D7FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3104F38D-119E-47B3-8D68-5FDE95579874}

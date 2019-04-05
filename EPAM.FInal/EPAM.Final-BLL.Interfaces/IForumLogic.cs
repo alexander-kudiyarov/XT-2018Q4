@@ -17,13 +17,15 @@ namespace EPAM.Final_BLL.Interfaces
 
         IEnumerable<User> GetUsers();
 
-        void NewTopic(string subject, string text);
+        void NewTopic(string username, string subject);
 
         void EditTopic(string subject, string newSubject);
 
         void DeleteTopic(string subject);
 
         IEnumerable<Topic> GetTopics();
+
+        IEnumerable<Topic> GetTopics(string username);
 
         void NewMessage(string text);
 

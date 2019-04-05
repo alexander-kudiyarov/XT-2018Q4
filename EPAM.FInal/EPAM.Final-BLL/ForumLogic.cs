@@ -38,9 +38,9 @@ namespace EPAM.Final_BLL
             return forumDao.GetUsers();
         }
 
-        public void NewTopic(string subject, string text)
+        public void NewTopic(string username, string subject)
         {
-            forumDao.NewTopic(subject, text);
+            forumDao.NewTopic(username, subject);
         }
 
         public void EditTopic(string subject, string newSubject)
@@ -56,6 +56,11 @@ namespace EPAM.Final_BLL
         public IEnumerable<Topic> GetTopics()
         {
             return forumDao.GetTopics();
+        }
+
+        public IEnumerable<Topic> GetTopics(string username)
+        {
+            return forumDao.GetTopics(username);
         }
 
         public void NewMessage(string text)

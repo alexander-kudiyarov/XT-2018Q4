@@ -12,11 +12,11 @@ namespace EPAM.Final_Entities
         public string Password { get; }
         public bool IsAdmin { get; }
 
-        public User(string username, string password)
+        public User(string username, string password, bool isAdmin)
         {
             Username = username;
             Password = password;
-            IsAdmin = false;
+            IsAdmin = isAdmin;
         }
     }
 }
