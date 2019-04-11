@@ -9,30 +9,42 @@ namespace EPAM.Final_BLL.Interfaces
 {
     public interface IForumLogic
     {
+        bool Authentication(string username, string password);
+
+        string GetUserRole(string name);
+
         void NewUser(string username, string password);
 
-        void EditUser(string username, string newUsername, string newPassword);
+        void EditUser(int id, string newUsername, string newPassword);
 
-        void DeleteUser(string username);
+        void DeleteUser(int id);
+
+        User GetUser(int id);
 
         IEnumerable<User> GetUsers();
 
-        void NewTopic(string username, string subject);
+        void NewThread(string username, string subject);
 
-        void EditTopic(string subject, string newSubject);
+        int GetThreadId(string threadName);
 
-        void DeleteTopic(string subject);
+        void EditThread(int id, string newSubject);
 
-        IEnumerable<Topic> GetTopics();
+        void DeleteThread(int id);
 
-        IEnumerable<Topic> GetTopics(string username);
+        IEnumerable<Thread> GetThreads();
 
-        void NewMessage(string text);
+        IEnumerable<Thread> GetThreadsByUser(int id);
 
-        void EditMessage(int id, string text);
+        void NewPost(string text, int threadId, string username);
 
-        void DeleteMessage(int id);
+        void EditPost(int id, string text);
 
-        IEnumerable<Message> GetMessages();
+        void DeletePost(int id);
+
+        IEnumerable<Post> GetPostsByThread(int id);
+
+        IEnumerable<Post> GetPostsByUser(int id);
+
+        Post GetPost(int id);
     }
 }

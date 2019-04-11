@@ -1,0 +1,21 @@
+﻿@{
+    if (int.TryParse(Request.QueryString["postId"], out int postId) && int.TryParse(Request.QueryString["threadId"], out int threadId))
+    {
+        var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+        EPAM.Final_Entities.Post post = forumLogic.GetPost(postId);
+
+        if (post.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
+        {
+            forumLogic.DeletePost(postId);
+            Response.Redirect($"~/cshtml/thread?threadId={threadId}");
+        }
+        else
+        {
+            Response.Redirect($"~/cshtml/index");
+        }
+    }
+    else
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+}

@@ -1,0 +1,21 @@
+﻿@{
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    if (IsPost)
+    {
+        var username = Request["username"];
+        var password = Request["password"];
+
+        if (forumLogic.Authentication(username, password))
+        {
+            FormsAuthentication.SetAuthCookie(username, createPersistentCookie: true);
+        }
+
+        Response.Redirect("~/cshtml/index");
+    }
+}
+
+<form method="post">
+    <input placeholder="Username (admin)" type="text" name="username" />
+    <input placeholder="Password (password)" type="text" name="password" />
+    <button type="submit">Log In</button>
+</form>

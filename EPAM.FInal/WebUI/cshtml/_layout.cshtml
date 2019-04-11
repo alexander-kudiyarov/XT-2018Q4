@@ -1,0 +1,29 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/css/styleSheet.css" />
+</head>
+<body>
+    <div class="navigation">
+        <a href="~/cshtml/index">Forum</a>
+        @if (User.IsInRole("admin"))
+        {
+            <a href="~/administration.cshtml">Administration</a>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="~/cshtml/logout.cshtml">Log Out</a>
+        }
+        else
+        {
+            @RenderPage("~/cshtml/_login.cshtml")
+        }
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>

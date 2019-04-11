@@ -1,0 +1,24 @@
+﻿@{
+    if(!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    int threadId = Page[0];
+}
+
+<div>
+    <form id="newPost" method="post">
+        <input type="text" name="text" />
+        <button type="submit">Submit</button>
+
+        @if (IsPost && !Request["text"].IsEmpty())
+        {
+            string text = Request["text"];
+            forumLogic.NewPost(text, threadId, User.Identity.Name);
+            Response.Redirect($"~/cshtml/thread?threadId={threadId}");
+        }
+
+    </form>
+</div>

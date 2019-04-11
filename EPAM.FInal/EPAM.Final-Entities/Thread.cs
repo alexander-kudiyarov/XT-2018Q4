@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace EPAM.Final_Entities
 {
-    public class Topic
+    public class Thread
     {
+        public int Id { get; }
         public string Subject { get; }
         public string StartedBy { get; }
+        public int StartedById { get; }
         public DateTime LastMessage { get; }
 
-        public Topic(string subject, string startedBy, DateTime lastMessage)
+        public Thread(int id, string subject, string startedBy, int startedById, DateTime lastMessage)
         {
+            Id = id;
             Subject = subject;
             StartedBy = startedBy;
+            StartedById = startedById;
             LastMessage = lastMessage;
         }
     }

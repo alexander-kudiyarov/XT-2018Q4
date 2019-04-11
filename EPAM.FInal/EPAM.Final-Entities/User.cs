@@ -8,15 +8,17 @@ namespace EPAM.Final_Entities
 {
     public class User
     {
+        public int Id { get; }
         public string Username { get; }
         public string Password { get; }
-        public bool IsAdmin { get; }
+        public string Role { get; }
 
-        public User(string username, string password, bool isAdmin)
+        public User(int id, string username, string password, string role)
         {
+            Id = id;
             Username = username;
             Password = password;
-            IsAdmin = isAdmin;
+            Role = role;
         }
     }
 }

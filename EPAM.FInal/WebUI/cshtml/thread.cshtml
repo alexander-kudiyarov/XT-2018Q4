@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/cshtml/_layout.cshtml";
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    IEnumerable<EPAM.Final_Entities.Post> posts = null;
+    bool thread = false;
+
+    if (int.TryParse(Request.QueryString["threadId"], out int id) && id > 0)
+    {
+        posts = forumLogic.GetPostsByThread(id);
+        thread = true;
+    }
+    else if (int.TryParse(Request.QueryString["userId"], out id) && id > 0)
+    {
+        posts = forumLogic.GetPostsByUser(id);
+    }
+    else
+    {
+        Response.Redirect("~/cshtml/index");
+    }
+
+    if (posts.Count() < 1)
+    {
+        <p>No posts</p>
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div class="posts">
+
+        @foreach (var p in posts)
+        {
+            <p>@p.Text</p>
+            <p>by</p>
+            <a href="~/cshtml/user?id=@p.AuthorId">@p.Author</a>
+            if(p.Author.Equals(User.Identity.Name))
+            {
+
+            }
+
+            if(p.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
+            {
+                <a href="~/cshtml/deletePostConfirmation?postId=@p.Id&threadId=@id">Delete</a>
+            }
+        }
+
+    </div>
+
+    @if (thread && User.Identity.IsAuthenticated)
+    {
+        @RenderPage("~/cshtml/_newPost.cshtml", id)
+    }
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/cshtml/_layout.cshtml";
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    EPAM.Final_Entities.User user = null;
+
+    if (int.TryParse(Request.QueryString["id"], out int id) && id > 0)
+    {
+        user = forumLogic.GetUser(id);
+    }
+    else
+    {
+        Response.Redirect("~/cshtml/index");
+    }
+
+    if(object.Equals(user, null))
+    {
+        Response.Redirect("~/cshtml/index");
+    }
+
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <p>@user.Username</p>
+        <a href="~/cshtml/index?userId=@user.Id">Threads</a>
+        <a href="~/cshtml/thread?userId=@user.Id">Posts</a>
+    </div>
+</body>
+</html>

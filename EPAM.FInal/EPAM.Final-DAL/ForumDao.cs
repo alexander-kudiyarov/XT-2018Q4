@@ -4,15 +4,72 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Final_DAL
 {
     public class ForumDao : IForumDao
     {
         static string connectionString = @"Data Source=DESKTOP-89VB63U\SQLEXPRESS;Initial Catalog=EPAM.Final.Forum;Integrated Security=True";
+
+        public bool Authentication(string username, string password)
+        {
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                string savedPassword;
+
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "Authentication";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                var usernameParameter = new SqlParameter("@username", username);
+                cmd.Parameters.Add(usernameParameter);
+
+                sqlConnection.Open();
+
+                cmd.ExecuteNonQuery();
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    savedPassword = (string)reader["password"];
+                    if(savedPassword.Equals(password))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public string GetUserRole(string username)
+        {
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                string role;
+                
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetRole";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                var usernameParameter = new SqlParameter("@username", username);
+                cmd.Parameters.Add(usernameParameter);
+
+                sqlConnection.Open();
+
+                cmd.ExecuteNonQuery();
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    role = (string)reader["role"];
+                    return role;
+                }
+
+                return string.Empty;
+            }
+        }
 
         public void NewUser(string username, string password)
         {
@@ -31,8 +88,8 @@ namespace EPAM.Final_DAL
                     var passwordParameter = new SqlParameter("@password", password);
                     cmd.Parameters.Add(passwordParameter);
 
-                    var isAdminParameter = new SqlParameter("@isAdmin", false);
-                    cmd.Parameters.Add(isAdminParameter);
+                    var roleParameter = new SqlParameter("@role", "user");
+                    cmd.Parameters.Add(roleParameter);
 
                     sqlConnection.Open();
 
@@ -48,9 +105,9 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void EditUser(string username, string newUsername, string newPassword)
+        public void EditUser(int id, string newUsername, string newPassword)
         {
-            if(!string.IsNullOrWhiteSpace(username) && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
+            if (id > 0 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -59,11 +116,11 @@ namespace EPAM.Final_DAL
                     cmd.CommandText = "EditUser";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var usernameParameter = new SqlParameter("@username", username);
-                    cmd.Parameters.Add(usernameParameter);
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
 
 
-                    if(!string.IsNullOrWhiteSpace(newUsername))
+                    if (!string.IsNullOrWhiteSpace(newUsername))
                     {
                         var newUsernameParameter = new SqlParameter("@newUsername", newUsername);
                         cmd.Parameters.Add(newUsernameParameter);
@@ -73,8 +130,8 @@ namespace EPAM.Final_DAL
                         var newUsernameParameter = new SqlParameter("@newUsername", DBNull.Value);
                         cmd.Parameters.Add(newUsernameParameter);
                     }
-                    
-                    if(!string.IsNullOrWhiteSpace(newPassword))
+
+                    if (!string.IsNullOrWhiteSpace(newPassword))
                     {
                         var newPasswordParameter = new SqlParameter("@newPassword", newPassword);
                         cmd.Parameters.Add(newPasswordParameter);
@@ -99,9 +156,9 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void DeleteUser(string username)
+        public void DeleteUser(int id)
         {
-            if(!string.IsNullOrWhiteSpace(username))
+            if (id > 0)
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -110,8 +167,8 @@ namespace EPAM.Final_DAL
                     cmd.CommandText = "DeleteUser";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var usernameParameter = new SqlParameter("@username", username);
-                    cmd.Parameters.Add(usernameParameter);
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
 
                     sqlConnection.Open();
 
@@ -127,6 +184,28 @@ namespace EPAM.Final_DAL
             }
         }
 
+        public User GetUser(int id)
+        {
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                var cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "GetUser";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                var idParameter = new SqlParameter("@id", id);
+                cmd.Parameters.Add(idParameter);
+
+                sqlConnection.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    return new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"]);
+                }
+
+                return null;
+            }
+        }
+
         public IEnumerable<User> GetUsers()
         {
             var result = new List<User>();
@@ -134,19 +213,19 @@ namespace EPAM.Final_DAL
             {
                 var cmd = sqlConnection.CreateCommand();
                 cmd.CommandText = "GetUsers";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 sqlConnection.Open();
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new User((string)reader["username"], (string)reader["password"], (bool)reader["isAdmin"]));
+                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"]));
                 }
 
                 return result;
             }
         }
 
-        public void NewTopic(string username, string subject)
+        public void NewThread(string username, string subject)
         {
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(subject))
             {
@@ -154,7 +233,7 @@ namespace EPAM.Final_DAL
                 {
                     var cmd = sqlConnection.CreateCommand();
 
-                    cmd.CommandText = "NewTopic";
+                    cmd.CommandText = "NewThread";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     var usernameParameter = new SqlParameter("@username", username);
@@ -180,19 +259,49 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void EditTopic(string subject, string newSubject)
+        public int GetThreadId(string threadName)
         {
-            if (!string.IsNullOrWhiteSpace(subject) && !string.IsNullOrWhiteSpace(newSubject))
+            int id;
+            if(!string.IsNullOrWhiteSpace(threadName))
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
                     var cmd = sqlConnection.CreateCommand();
 
-                    cmd.CommandText = "EditTopic";
+                    cmd.CommandText = "GetThreadId";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var subjectParameter = new SqlParameter("@subject", subject);
-                    cmd.Parameters.Add(subjectParameter);
+                    var threadNameParameter = new SqlParameter("@threadName", threadName);
+                    cmd.Parameters.Add(threadNameParameter);
+
+                    sqlConnection.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id = (int)reader["id"];
+                        return id;
+                    }
+
+                }
+            }
+
+            return -1;
+        }
+
+        public void EditThread(int id, string newSubject)
+        {
+            if (id > 0 && !string.IsNullOrWhiteSpace(newSubject))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "EditThread";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
 
                     var newSubjectParameter = new SqlParameter("@newSubject", newSubject);
                     cmd.Parameters.Add(newSubjectParameter);
@@ -211,19 +320,19 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void DeleteTopic(string subject)
+        public void DeleteThread(int id)
         {
-            if (!string.IsNullOrWhiteSpace(subject))
+            if (id > 0)
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
                     var cmd = sqlConnection.CreateCommand();
 
-                    cmd.CommandText = "DeleteTopic";
+                    cmd.CommandText = "DeleteThread";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var subjectParameter = new SqlParameter("@subject", subject);
-                    cmd.Parameters.Add(subjectParameter);
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
 
                     sqlConnection.Open();
 
@@ -239,69 +348,244 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public IEnumerable<Topic> GetTopics()
+        public IEnumerable<Thread> GetThreads()
         {
-            var result = new List<Topic>();
+            var result = new List<Thread>();
             using (var sqlConnection = new SqlConnection(connectionString))
             {
                 var cmd = sqlConnection.CreateCommand();
-                cmd.CommandText = "GetTopics";
+                cmd.CommandText = "GetThreads";
                 cmd.CommandType = CommandType.Text;
                 sqlConnection.Open();
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new Topic((string)reader["subject"], (string)reader["startedBy"], (DateTime)reader["lastMessage"]));
+                    result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
                 }
-
                 return result;
             }
         }
 
-        public IEnumerable<Topic> GetTopics(string username)
+        public IEnumerable<Thread> GetThreadsByUser(int id)
         {
-            var result = new List<Topic>();
-            using (var sqlConnection = new SqlConnection(connectionString))
+            if (id > 0)
             {
-                var cmd = sqlConnection.CreateCommand();
-                cmd.CommandText = "GetTopicsByUser";
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                var usernameParameter = new SqlParameter("@username", username);
-                cmd.Parameters.Add(usernameParameter);
-
-                sqlConnection.Open();
-
-                cmd.ExecuteNonQuery();
-
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                var result = new List<Thread>();
+                using (var sqlConnection = new SqlConnection(connectionString))
                 {
-                    result.Add(new Topic((string)reader["subject"], (string)reader["startedBy"], (DateTime)reader["lastMessage"]));
-                }
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetThreadsByUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                return result;
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
+                    }
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        public void NewPost(string text, int threadId, string username)
+        {
+            if (threadId > 0 && !string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(text))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "NewPost";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var textParameter = new SqlParameter("@text", text);
+                    cmd.Parameters.Add(textParameter);
+
+                    var threadIdParameter = new SqlParameter("@threadId", threadId);
+                    cmd.Parameters.Add(threadIdParameter);
+
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
+
+                    var publishDateParameter = new SqlParameter("@publishDate", DateTime.Now);
+                    cmd.Parameters.Add(publishDateParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
             }
         }
 
-        public void NewMessage(string text)
+        public void EditPost(int id, string text)
         {
-            throw new NotImplementedException();
+            if (id > 0 && !string.IsNullOrWhiteSpace(text))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "EditPost";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    var textParameter = new SqlParameter("@text", text);
+                    cmd.Parameters.Add(textParameter);
+
+                    var editDateParameter = new SqlParameter("@editDate", DateTime.Now);
+                    cmd.Parameters.Add(editDateParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
-        public void EditMessage(int id, string text)
+        public void DeletePost(int id)
         {
-            throw new NotImplementedException();
+            if (id > 0)
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "DeletePost";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
         }
 
-        public void DeleteMessage(int id)
+        public IEnumerable<Post> GetPostsByThread(int id)
         {
-            throw new NotImplementedException();
+            if (id > 0)
+            {
+                var result = new List<Post>();
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetPostsByThread";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    }
+
+                    return result;
+                }
+            }
+
+            return null;
         }
 
-        public IEnumerable<Message> GetMessages()
+        public IEnumerable<Post> GetPostsByUser(int id)
         {
-            throw new NotImplementedException();
+            if (id > 0)
+            {
+                var result = new List<Post>();
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetPostsByUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    }
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        public Post GetPost(int id)
+        {
+            if (id > 0)
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    Post post;
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetPost";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        post = new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?);
+                        return post;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

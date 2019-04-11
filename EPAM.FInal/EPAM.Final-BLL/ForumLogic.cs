@@ -18,19 +18,34 @@ namespace EPAM.Final_BLL
             this.forumDao = forumDao;
         }
 
+        public bool Authentication(string username, string password)
+        {
+            return this.forumDao.Authentication(username, password);
+        }
+
+        public string GetUserRole(string name)
+        {
+            return this.forumDao.GetUserRole(name);
+        }
+
         public void NewUser(string username, string password)
         {
             forumDao.NewUser(username, password);
         }
 
-        public void EditUser(string username, string newUsername, string newPassword)
+        public void EditUser(int id, string newUsername, string newPassword)
         {
-            forumDao.EditUser(username, newUsername, newPassword);
+            forumDao.EditUser(id, newUsername, newPassword);
         }
 
-        public void DeleteUser(string username)
+        public void DeleteUser(int id)
         {
-            forumDao.DeleteUser(username);
+            forumDao.DeleteUser(id);
+        }
+
+        public User GetUser(int id)
+        {
+            return forumDao.GetUser(id);
         }
 
         public IEnumerable<User> GetUsers()
@@ -38,49 +53,64 @@ namespace EPAM.Final_BLL
             return forumDao.GetUsers();
         }
 
-        public void NewTopic(string username, string subject)
+        public void NewThread(string username, string subject)
         {
-            forumDao.NewTopic(username, subject);
+            forumDao.NewThread(username, subject);
         }
 
-        public void EditTopic(string subject, string newSubject)
+        public int GetThreadId(string threadName)
         {
-            forumDao.EditTopic(subject, newSubject);
+            return forumDao.GetThreadId(threadName);
         }
 
-        public void DeleteTopic(string subject)
+        public void EditThread(int id, string newSubject)
         {
-            forumDao.DeleteTopic(subject);
+            forumDao.EditThread(id, newSubject);
         }
 
-        public IEnumerable<Topic> GetTopics()
+        public void DeleteThread(int id)
         {
-            return forumDao.GetTopics();
+            forumDao.DeleteThread(id);
         }
 
-        public IEnumerable<Topic> GetTopics(string username)
+        public IEnumerable<Thread> GetThreads()
         {
-            return forumDao.GetTopics(username);
+            return forumDao.GetThreads();
         }
 
-        public void NewMessage(string text)
+        public IEnumerable<Thread> GetThreadsByUser(int id)
         {
-            forumDao.NewMessage(text);
+            return forumDao.GetThreadsByUser(id);
         }
 
-        public void EditMessage(int id, string text)
+        public void NewPost(string text, int threadId, string username)
         {
-            forumDao.EditMessage(id, text);
+            forumDao.NewPost(text, threadId, username);
         }
 
-        public void DeleteMessage(int id)
+        public void EditPost(int id, string text)
         {
-            forumDao.DeleteMessage(id);
+            forumDao.EditPost(id, text);
         }
 
-        public IEnumerable<Message> GetMessages()
+        public void DeletePost(int id)
         {
-            return forumDao.GetMessages();
+            forumDao.DeletePost(id);
+        }
+
+        public IEnumerable<Post> GetPostsByThread(int id)
+        {
+            return forumDao.GetPostsByThread(id);
+        }
+
+        public IEnumerable<Post> GetPostsByUser(int id)
+        {
+            return forumDao.GetPostsByUser(id);
+        }
+
+        public Post GetPost(int id)
+        {
+            return forumDao.GetPost(id);
         }
     }
 }

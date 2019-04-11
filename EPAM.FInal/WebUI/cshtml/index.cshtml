@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/cshtml/_layout.cshtml";
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    IEnumerable<EPAM.Final_Entities.Thread> threads;
+
+    if (int.TryParse(Request.QueryString["userId"], out int id))
+    {
+        threads = forumLogic.GetThreadsByUser(id);
+    }
+    else
+    {
+        threads = forumLogic.GetThreads();
+    }
+
+    if(threads.Count() < 1)
+    {
+        <p>No threads</p>
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+
+        @foreach (var t in threads)
+        {
+            <a href="~/cshtml/thread?threadId=@t.Id">@t.Subject</a>
+            <p>by</p>
+            <a href="~/cshtml/user?id=@t.StartedById">@t.StartedBy</a>
+            <p>last message @t.LastMessage</p>
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="~/cshtml/newThread">New thread</a>
+        }
+
+    </div>
+</body>
+</html>
