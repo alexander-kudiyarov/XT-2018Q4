@@ -348,6 +348,36 @@ namespace EPAM.Final_DAL
             }
         }
 
+        public Thread GetThread(int id)
+        {
+            if (id > 0)
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    Thread thread;
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetThread";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        thread = new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]);
+                        return thread;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public IEnumerable<Thread> GetThreads()
         {
             var result = new List<Thread>();
@@ -496,6 +526,36 @@ namespace EPAM.Final_DAL
             }
         }
 
+        public Post GetPost(int id)
+        {
+            if (id > 0)
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    Post post;
+                    var cmd = sqlConnection.CreateCommand();
+                    cmd.CommandText = "GetPost";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        post = new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?);
+                        return post;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public IEnumerable<Post> GetPostsByThread(int id)
         {
             if (id > 0)
@@ -552,36 +612,6 @@ namespace EPAM.Final_DAL
                     }
 
                     return result;
-                }
-            }
-
-            return null;
-        }
-
-        public Post GetPost(int id)
-        {
-            if (id > 0)
-            {
-                using (var sqlConnection = new SqlConnection(connectionString))
-                {
-                    Post post;
-                    var cmd = sqlConnection.CreateCommand();
-                    cmd.CommandText = "GetPost";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    var idParameter = new SqlParameter("@id", id);
-                    cmd.Parameters.Add(idParameter);
-
-                    sqlConnection.Open();
-
-                    cmd.ExecuteNonQuery();
-
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        post = new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?);
-                        return post;
-                    }
                 }
             }
 

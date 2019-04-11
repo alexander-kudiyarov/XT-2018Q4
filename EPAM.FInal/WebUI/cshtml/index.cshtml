@@ -12,35 +12,33 @@
         threads = forumLogic.GetThreads();
     }
 
-    if(threads.Count() < 1)
+    if (threads.Count() < 1)
     {
         <p>No threads</p>
     }
 }
 
-<!DOCTYPE html>
+<title>Title</title>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-
-        @foreach (var t in threads)
+<div>
+    @foreach (var t in threads)
+    {
+        <a href="~/cshtml/thread?threadId=@t.Id">@t.Subject</a>
+        <p>by</p>
+        <a href="~/cshtml/user?id=@t.StartedById">@t.StartedBy</a>
+        if (t.StartedBy.Equals(User.Identity.Name))
         {
-            <a href="~/cshtml/thread?threadId=@t.Id">@t.Subject</a>
-            <p>by</p>
-            <a href="~/cshtml/user?id=@t.StartedById">@t.StartedBy</a>
-            <p>last message @t.LastMessage</p>
+            <a href="~/cshtml/editThread?id=@t.Id">Edit</a>
         }
-
-        @if (User.Identity.IsAuthenticated)
+        if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("admin"))
         {
-            <a href="~/cshtml/newThread">New thread</a>
+            <a href="~/cshtml/deleteThreadConfirmation?id=@t.Id">Delete</a>
         }
+        <p>last message @t.LastMessage</p>
+    }
 
-    </div>
-</body>
-</html>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="~/cshtml/newThread">New thread</a>
+    }
+</div>

@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/cshtml/_layout.cshtml";
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+}
+
+<title>Registration</title>
+
+<form id="newUser" method="post">
+    <input placeholder="Username" type="text" name="username" />
+    <input placeholder="Password" type="password" name="password" />
+    <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+    <button type="submit">Submit</button>
+    @if (IsPost)
+    {
+        string username = Request["username"];
+        string password = Request["password"];
+        if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password) && password.Equals(Request["confirmPassword"]))
+        {
+            forumLogic.NewUser(username, password);
+            Response.Redirect($"~/cshtml/index");
+        }
+        else
+        {
+            @:<script>alert("Empty Username or invalid password confirmation")</script>
+        }
+    }
+</form>

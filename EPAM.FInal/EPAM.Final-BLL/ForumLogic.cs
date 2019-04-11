@@ -73,6 +73,11 @@ namespace EPAM.Final_BLL
             forumDao.DeleteThread(id);
         }
 
+        public Thread GetThread(int id)
+        {
+            return forumDao.GetThread(id);
+        }
+
         public IEnumerable<Thread> GetThreads()
         {
             return forumDao.GetThreads();
@@ -98,6 +103,11 @@ namespace EPAM.Final_BLL
             forumDao.DeletePost(id);
         }
 
+        public Post GetPost(int id)
+        {
+            return forumDao.GetPost(id);
+        }
+
         public IEnumerable<Post> GetPostsByThread(int id)
         {
             return forumDao.GetPostsByThread(id);
@@ -106,11 +116,6 @@ namespace EPAM.Final_BLL
         public IEnumerable<Post> GetPostsByUser(int id)
         {
             return forumDao.GetPostsByUser(id);
-        }
-
-        public Post GetPost(int id)
-        {
-            return forumDao.GetPost(id);
         }
     }
 }

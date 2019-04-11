@@ -31,6 +31,8 @@ namespace EPAM.Final_DAL.Interfaces
 
         void DeleteThread(int id);
 
+        Thread GetThread(int id);
+
         IEnumerable<Thread> GetThreads();
 
         IEnumerable<Thread> GetThreadsByUser(int id);
@@ -41,10 +43,10 @@ namespace EPAM.Final_DAL.Interfaces
 
         void DeletePost(int id);
 
+        Post GetPost(int id);
+
         IEnumerable<Post> GetPostsByThread(int id);
 
         IEnumerable<Post> GetPostsByUser(int id);
-
-        Post GetPost(int id);
     }
 }

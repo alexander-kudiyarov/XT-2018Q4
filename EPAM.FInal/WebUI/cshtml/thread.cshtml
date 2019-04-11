@@ -24,38 +24,28 @@
     }
 }
 
-<!DOCTYPE html>
+<title></title>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div class="posts">
-
-        @foreach (var p in posts)
+<div class="posts">
+    @foreach (var p in posts)
+    {
+        <p>@p.Text</p>
+        <p>by</p>
+        <a href="~/cshtml/user?id=@p.AuthorId">@p.Author</a>
+        if (p.Author.Equals(User.Identity.Name))
         {
-            <p>@p.Text</p>
-            <p>by</p>
-            <a href="~/cshtml/user?id=@p.AuthorId">@p.Author</a>
-            if(p.Author.Equals(User.Identity.Name))
-            {
-
-            }
-
-            if(p.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
-            {
-                <a href="~/cshtml/deletePostConfirmation?postId=@p.Id&threadId=@id">Delete</a>
-            }
+            <a href="~/cshtml/editPost?postId=@p.Id&threadId=@id">Edit</a>
         }
 
-    </div>
-
-    @if (thread && User.Identity.IsAuthenticated)
-    {
-        @RenderPage("~/cshtml/_newPost.cshtml", id)
+        if (p.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
+        {
+            <a href="~/cshtml/deletePostConfirmation?postId=@p.Id&threadId=@id">Delete</a>
+        }
     }
 
-</body>
-</html>
+</div>
+
+@if (thread && User.Identity.IsAuthenticated)
+{
+    @RenderPage("~/cshtml/_newPost.cshtml", id)
+}

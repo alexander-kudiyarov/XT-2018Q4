@@ -1,0 +1,18 @@
+﻿@{
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    Layout = "~/cshtml/_layout.cshtml";
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    var users = forumLogic.GetUsers();
+}
+
+
+<div>
+    @foreach(var u in users)
+    {
+        <a href="~/cshtml/user?id=@u.Id">@u.Username</a>
+    }
+</div>

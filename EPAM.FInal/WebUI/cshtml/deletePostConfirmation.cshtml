@@ -1,38 +1,24 @@
 ﻿@{
-    Layout = "~/cshtml/_layout.cshtml";
-    EPAM.Final_Entities.Post post = null;
-    int postId;
+    int postId = 0;
     int threadId = 0;
-
-    if (int.TryParse(Request.QueryString["postId"], out postId) && int.TryParse(Request.QueryString["threadId"], out threadId))
+    if (!(int.TryParse(Request.QueryString["postId"], out postId) && int.TryParse(Request.QueryString["threadId"], out threadId)))
     {
-        var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
-        post = forumLogic.GetPost(postId);
-
-        if (!(post.Author.Equals(User.Identity.Name) || User.IsInRole("admin")))
-        {
-            Response.Redirect($"~/cshtml/index");
-        }
+        Response.Redirect($"~/cshtml/index");
     }
-    else
+
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    var p = forumLogic.GetPost(postId);
+
+    if (!(p.Author.Equals(User.Identity.Name) || User.IsInRole("admin")))
     {
         Response.Redirect($"~/cshtml/index");
     }
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <p>You want to delete this post?</p>
-        <p>@post.Text</p>
-        <a href="~/cshtml/deletePost?postId=@postId&threadId=@threadId">Yes</a>
-        <a href="~/cshtml/thread?threadId=@threadId">No</a>
-    </div>
-</body>
-</html>
+<title>Post delete confirmation</title>
+<div>
+    <p>You want to delete this post?</p>
+    <p>@p.Text</p>
+    <a href="~/cshtml/deletePost?postId=@postId&threadId=@threadId">Yes</a>
+    <a href="~/cshtml/thread?threadId=@threadId">No</a>
+</div>

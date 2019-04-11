@@ -12,7 +12,7 @@
         Response.Redirect("~/cshtml/index");
     }
 
-    if(object.Equals(user, null))
+    if (object.Equals(user, null))
     {
         Response.Redirect("~/cshtml/index");
     }
@@ -20,18 +20,8 @@
 
 }
 
-<!DOCTYPE html>
+<title></title>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <p>@user.Username</p>
-        <a href="~/cshtml/index?userId=@user.Id">Threads</a>
-        <a href="~/cshtml/thread?userId=@user.Id">Posts</a>
-    </div>
-</body>
-</html>
+<p>@user.Username</p>
+<a href="~/cshtml/index?userId=@user.Id">Threads</a>
+<a href="~/cshtml/thread?userId=@user.Id">Posts</a>

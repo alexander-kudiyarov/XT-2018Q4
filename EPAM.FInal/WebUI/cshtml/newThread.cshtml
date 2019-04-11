@@ -1,49 +1,35 @@
 ﻿@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~/cshtml/index");
+    }
+
+    Layout = "~/cshtml/_layout.cshtml";
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    Layout = "~/cshtml/_layout.cshtml";
-}
-else
-{
-    Response.Redirect("~/cshtml/index");
-}
+<title>New Thread</title>
+<form id="newThread" method="post">
+    <input placeholder="Thread subject" type="text" name="threadName" />
+    <input placeholder="Message . . ." type="text" name="messageText" />
+    <button type="submit">Submit</button>
 
-<!DOCTYPE html>
+    @if (IsPost && !Request["threadName"].IsEmpty() && !Request["messageText"].IsEmpty())
+    {
+        string threadName = Request["threadName"];
+        string messageText = Request["messageText"];
+        forumLogic.NewThread(User.Identity.Name, threadName);
+        int threadId = forumLogic.GetThreadId(threadName);
+        if (threadId != -1)
+        {
+            forumLogic.NewPost(messageText, threadId, User.Identity.Name);
+        }
+        else
+        {
+            Response.Redirect($"~/cshtml/index");
+        }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>New Thread</title>
-</head>
-<body>
-    <div>
-        <form id="newThread" method="post">
-            <input placeholder="Thread subject" type="text" name="threadName" />
-            <input placeholder="Message . . ." type="text" name="messageText" />
-            <button type="submit">Submit</button>
+        Response.Redirect($"~/cshtml/thread?threadId={threadId}");
+    }
 
-            @if (IsPost && !Request["threadName"].IsEmpty() && !Request["messageText"].IsEmpty())
-            {
-                string threadName = Request["threadName"];
-                string messageText = Request["messageText"];
-                forumLogic.NewThread(User.Identity.Name, threadName);
-                int threadId = forumLogic.GetThreadId(threadName);
-                if (threadId != -1)
-                {
-                    forumLogic.NewPost(messageText, threadId, User.Identity.Name);
-                }
-                else
-                {
-                    Response.Redirect($"~/cshtml/index");
-                }
-
-                Response.Redirect($"~/cshtml/thread?threadId={threadId}");
-            }
-
-        </form>
-    </div>
-</body>
-</html>
+</form>
