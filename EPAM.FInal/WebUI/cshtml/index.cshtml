@@ -17,28 +17,30 @@
         <p>No threads</p>
     }
 }
+@foreach (var t in threads)
+{
+    <a href="~/cshtml/thread?threadId=@t.Id">
+        <div class="thread">
+            <div class="threadInf">
+                <p>@t.Subject</p>
+            </div>
+            <p>last message @($"{t.LastMessage:f}")</p>
+            @if (t.StartedBy.Equals(User.Identity.Name))
+            {
+                <a class="hickening" href="~/cshtml/editThread?id=@t.Id">Edit</a>
+            }
+            @if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("admin"))
+            {
+                <a class="hickening" href="~/cshtml/deleteThreadConfirmation?id=@t.Id">Delete</a>
+            }
+        </div>
+    </a>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <footer>
+        <a class="bright hickening" href="~/cshtml/newThread">New thread</a>
+    </footer>
 
-<title>Title</title>
-
-<div>
-    @foreach (var t in threads)
-    {
-        <a href="~/cshtml/thread?threadId=@t.Id">@t.Subject</a>
-        <p>by</p>
-        <a href="~/cshtml/user?id=@t.StartedById">@t.StartedBy</a>
-        if (t.StartedBy.Equals(User.Identity.Name))
-        {
-            <a href="~/cshtml/editThread?id=@t.Id">Edit</a>
-        }
-        if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("admin"))
-        {
-            <a href="~/cshtml/deleteThreadConfirmation?id=@t.Id">Delete</a>
-        }
-        <p>last message @t.LastMessage</p>
-    }
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        <a href="~/cshtml/newThread">New thread</a>
-    }
-</div>
+}
+<title>Forum</title>

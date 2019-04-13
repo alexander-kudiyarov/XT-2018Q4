@@ -33,9 +33,9 @@ namespace EPAM.Final_BLL
             forumDao.NewUser(username, password);
         }
 
-        public void EditUser(int id, string newUsername, string newPassword)
+        public void EditUser(int id, string newUsername, string newPassword, string newRole)
         {
-            forumDao.EditUser(id, newUsername, newPassword);
+            forumDao.EditUser(id, newUsername, newPassword, newRole);
         }
 
         public void DeleteUser(int id)

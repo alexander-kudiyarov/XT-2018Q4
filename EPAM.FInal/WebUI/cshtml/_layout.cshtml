@@ -2,23 +2,32 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,100i,400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/css/styleSheet.css" />
 </head>
 <body>
     <div class="navigation">
-        <a href="~/cshtml/index">Forum</a>
+        <a class="title" href="~/cshtml/index">Simple Forum</a>
         @if (User.IsInRole("admin"))
         {
-            <a href="~/cshtml/administration.cshtml">Administration</a>
+            <div class="loginLogout hoverable">
+                <a href="~/cshtml/administration">Administration</a>
+            </div>
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <a href="~/cshtml/logout.cshtml">Log Out</a>
+            <div class="loginLogout hoverable">
+                <a class="loginLogout" href="~/cshtml/logout">Log Out</a>
+            </div>
         }
         else
         {
-            @RenderPage("~/cshtml/_login.cshtml")
-            <a href="~/cshtml/registration">Registration</a>
+            if (!HttpContext.Current.Request.Url.AbsolutePath.Equals("/cshtml/registration"))
+            {
+                <div class="loginLogout">
+                    @RenderPage("/cshtml/_login.cshtml")
+                </div>
+            }
         }
     </div>
     <div class="container">

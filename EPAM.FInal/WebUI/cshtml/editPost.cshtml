@@ -16,18 +16,17 @@
     }
 
     Layout = "~/cshtml/_layout.cshtml";
+
+    if (IsPost && !Request["newMessage"].IsEmpty())
+    {
+        string editedPost = Request["newMessage"];
+        forumLogic.EditPost(postId, editedPost);
+        Response.Redirect($"~/cshtml/thread?threadId={threadId}");
+    }
 }
 
 <title>Post edit</title>
 <form id="editPost" method="post">
     <input placeholder="Message . . ." value="@p.Text" name="newMessage" />
     <button type="submit">Submit</button>
-
-    @if (IsPost && !Request["newMessage"].IsEmpty())
-    {
-        string editedPost = Request["newMessage"];
-        forumLogic.EditPost(postId, editedPost);
-        Response.Redirect($"~/cshtml/thread?threadId={threadId}");
-    }
-
 </form>

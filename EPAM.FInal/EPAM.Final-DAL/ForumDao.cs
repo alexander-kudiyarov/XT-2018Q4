@@ -105,9 +105,9 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void EditUser(int id, string newUsername, string newPassword)
+        public void EditUser(int id, string newUsername, string newPassword, string newRole)
         {
-            if (id > 0 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
+            if (id > 0 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword) || !string.IsNullOrWhiteSpace(newRole)))
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -140,6 +140,17 @@ namespace EPAM.Final_DAL
                     {
                         var newPasswordParameter = new SqlParameter("@newPassword", DBNull.Value);
                         cmd.Parameters.Add(newPasswordParameter);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(newRole))
+                    {
+                        var newRoleParameter = new SqlParameter("@newRole", newRole);
+                        cmd.Parameters.Add(newRoleParameter);
+                    }
+                    else
+                    {
+                        var newRoleParameter = new SqlParameter("@newRole", DBNull.Value);
+                        cmd.Parameters.Add(newRoleParameter);
                     }
 
                     sqlConnection.Open();

@@ -15,7 +15,7 @@ namespace EPAM.Final_BLL.Interfaces
 
         void NewUser(string username, string password);
 
-        void EditUser(int id, string newUsername, string newPassword);
+        void EditUser(int id, string newUsername, string newPassword, string newRole);
 
         void DeleteUser(int id);
 

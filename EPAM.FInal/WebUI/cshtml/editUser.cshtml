@@ -1,0 +1,35 @@
+﻿@{
+    if (!(int.TryParse(Request.QueryString["id"], out int id)))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    var u = forumLogic.GetUser(id);
+
+    if (!u.Username.Equals(User.Identity.Name))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    Layout = "~/cshtml/_layout.cshtml";
+
+    if (IsPost)
+    {
+        string newUsername = Request["newUsername"];
+        string newPassword = Request["newPassword"];
+        string confirmation = Request["confirmation"];
+        forumLogic.EditUser(id, newUsername, newPassword, string.Empty);
+        FormsAuthentication.SetAuthCookie(newUsername, createPersistentCookie: true);
+        Response.Redirect($"~/cshtml/user?id={id}");
+    }
+}
+
+<title>Edit user</title>
+
+<form id="editUser" method="post">
+    <input placeholder="Username" value="@u.Username" name="newUsername" />
+    <input placeholder="Password" name="newPassword" />
+    <input placeholder="Password confirmation" name="confirmation" />
+    <button type="submit">Submit</button>
+</form>

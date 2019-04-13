@@ -1,4 +1,84 @@
 ﻿* {
+    font-family: 'IBM Plex Mono', monospace;
     margin: 0;
     padding: 0;
+}
+
+body {
+    width: 1080px;
+    max-width: 95%;
+    margin: auto;
+}
+
+.navigation {
+    font-size: small;
+    width: 95%;
+    padding: 1em 0 0 2.5em;
+}
+
+.title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.loginLogout {
+    display: inline-block;
+}
+
+.thread {
+    font-size: small;
+    margin: .5em;
+    padding: .5em 2em;
+    color: #424242;
+    border-radius: 50px;
+}
+
+    .thread:hover {
+        background-color: #e0e0e0;
+    }
+
+.threadInf {
+    font-size: medium;
+    margin: 0 0 .25em 0;
+}
+
+a {
+    text-decoration: none;
+    color: #424242;
+}
+
+button {
+    color: #424242;
+    outline: none;
+}
+
+input {
+    text-align: center;
+    outline: none;
+}
+
+.hoverable {
+    padding: .25em;
+    border: none;
+    border-radius: 100px;
+    background-color: white;
+}
+
+    .hoverable:hover {
+        background-color: #e0e0e0;
+    }
+
+.hickening:hover {
+    font-weight: bold;
+}
+
+footer {
+    margin: 0 1.75em;
+}
+
+.bright {
+    padding: .25em;
+    border: none;
+    border-radius: 50px;
+    background-color: #f8bbd0;
 }

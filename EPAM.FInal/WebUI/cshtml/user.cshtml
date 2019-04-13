@@ -1,27 +1,30 @@
 ﻿@{
-    Layout = "~/cshtml/_layout.cshtml";
+    if (!(int.TryParse(Request.QueryString["id"], out int id) && id > 0))
+    {
+        Response.Redirect("~/cshtml/index");
+    }
+
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
-    EPAM.Final_Entities.User user = null;
+    var u = forumLogic.GetUser(id);
 
-    if (int.TryParse(Request.QueryString["id"], out int id) && id > 0)
-    {
-        user = forumLogic.GetUser(id);
-    }
-    else
+    if (object.Equals(u, null))
     {
         Response.Redirect("~/cshtml/index");
     }
 
-    if (object.Equals(user, null))
-    {
-        Response.Redirect("~/cshtml/index");
-    }
-
-
+    Layout = "~/cshtml/_layout.cshtml";
 }
+
+
+
 
 <title></title>
 
-<p>@user.Username</p>
-<a href="~/cshtml/index?userId=@user.Id">Threads</a>
-<a href="~/cshtml/thread?userId=@user.Id">Posts</a>
+<p>@u.Username</p>
+<a href="~/cshtml/index?userId=@u.Id">Threads</a>
+<a href="~/cshtml/thread?userId=@u.Id">Posts</a>
+
+@if(u.Username.Equals(User.Identity.Name))
+{
+    <a href="~/cshtml/editUser?id=@u.Id">Edit user</a>
+}

@@ -110,6 +110,8 @@
     <Content Include="cshtml\administration.cshtml" />
     <Content Include="cshtml\deleteThreadConfirmation.cshtml" />
     <Content Include="cshtml\deleteThread.cshtml" />
+    <Content Include="cshtml\changeUserRole.cshtml" />
+    <Content Include="cshtml\editUser.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,21 +1,23 @@
 ﻿@{
-    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     if (IsPost)
     {
         var username = Request["username"];
         var password = Request["password"];
-
-        if (forumLogic.Authentication(username, password))
+        if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
         {
-            FormsAuthentication.SetAuthCookie(username, createPersistentCookie: true);
-        }
+            var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+            if (forumLogic.Authentication(username, password))
+            {
+                FormsAuthentication.SetAuthCookie(username, createPersistentCookie: true);
+            }
 
-        Response.Redirect("~/cshtml/index");
+            Response.Redirect("~/cshtml/index");
+        }
     }
 }
-
 <form method="post">
-    <input placeholder="Username (admin)" type="text" name="username" />
-    <input placeholder="Password (password)" type="password" name="password" />
-    <button type="submit">Log In</button>
+    <input class="hoverable" placeholder="Username (admin)" type="text" name="username" />
+    <input class="hoverable" placeholder="Password (password)" type="password" name="password" />
+    <button class="hoverable" type="submit">Log In</button>
+    <a class="hoverable" href="~/cshtml/registration">Registration</a>
 </form>

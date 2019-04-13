@@ -14,5 +14,17 @@
     @foreach(var u in users)
     {
         <a href="~/cshtml/user?id=@u.Id">@u.Username</a>
+        if (u.Username.Equals(User.Identity.Name))
+        {
+            <p>(you)</p>
+        }
+        if(!u.Role.Equals("admin"))
+        {
+            <a href="~/cshtml/changeUserRole?id=@u.Id&newRole=admin">Give admin</a>
+        }
+        if(u.Role.Equals("admin") && !u.Username.Equals(User.Identity.Name))
+        {
+            <a href="~/cshtml/changeUserRole?id=@u.Id&newRole=user">Take admin</a>
+        }
     }
 </div>
