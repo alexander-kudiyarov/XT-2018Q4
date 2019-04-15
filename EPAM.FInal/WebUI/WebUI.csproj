@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\styleSheet.css" />
+    <Content Include="js\JavaScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +113,8 @@
     <Content Include="cshtml\deleteThread.cshtml" />
     <Content Include="cshtml\changeUserRole.cshtml" />
     <Content Include="cshtml\editUser.cshtml" />
+    <Content Include="cshtml\deleteUser.cshtml" />
+    <Content Include="cshtml\banUser.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -120,9 +123,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="js\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EPAM.Final-BLL.Interfaces\EPAM.Final-BLL.Interfaces.csproj">
       <Project>{11109b06-635f-4699-9a0b-bdff6a9bd283}</Project>

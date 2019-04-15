@@ -1,10 +1,10 @@
-﻿using EPAM.Final_BLL.Interfaces;
-using EPAM.Final_Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using EPAM.Final_BLL.Interfaces;
+using EPAM.Final_Common;
 
 namespace WebUI.MyRoleProvider
 {
@@ -14,7 +14,7 @@ namespace WebUI.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            return new[] {this.forumLogic.GetUserRole(username) };
+            return new[] { this.forumLogic.GetUserRole(username) };
         }
 
         public override bool IsUserInRole(string username, string roleName)

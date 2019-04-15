@@ -1,9 +1,9 @@
-﻿using EPAM.Final_Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EPAM.Final_Entities;
 
 namespace EPAM.Final_BLL.Interfaces
 {
@@ -16,6 +16,8 @@ namespace EPAM.Final_BLL.Interfaces
         void NewUser(string username, string password);
 
         void EditUser(int id, string newUsername, string newPassword, string newRole);
+
+        void BanUser(int id);
 
         void DeleteUser(int id);
 

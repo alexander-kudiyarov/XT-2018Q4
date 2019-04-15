@@ -1,15 +1,15 @@
-﻿using EPAM.Final_DAL.Interfaces;
-using EPAM.Final_Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using EPAM.Final_DAL.Interfaces;
+using EPAM.Final_Entities;
 
 namespace EPAM.Final_DAL
 {
     public class ForumDao : IForumDao
     {
-        static string connectionString = @"Data Source=DESKTOP-89VB63U\SQLEXPRESS;Initial Catalog=EPAM.Final.Forum;Integrated Security=True";
+        private static string connectionString = @"Data Source=DESKTOP-89VB63U\SQLEXPRESS;Initial Catalog=EPAM.Final.Forum;Integrated Security=True";
 
         public bool Authentication(string username, string password)
         {
@@ -32,7 +32,7 @@ namespace EPAM.Final_DAL
                 while (reader.Read())
                 {
                     savedPassword = (string)reader["password"];
-                    if(savedPassword.Equals(password))
+                    if (savedPassword.Equals(password))
                     {
                         return true;
                     }
@@ -47,7 +47,7 @@ namespace EPAM.Final_DAL
             using (var sqlConnection = new SqlConnection(connectionString))
             {
                 string role;
-                
+
                 var cmd = sqlConnection.CreateCommand();
                 cmd.CommandText = "GetRole";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -91,6 +91,9 @@ namespace EPAM.Final_DAL
                     var roleParameter = new SqlParameter("@role", "user");
                     cmd.Parameters.Add(roleParameter);
 
+                    var isBannedParameter = new SqlParameter("@isBanned", false);
+                    cmd.Parameters.Add(isBannedParameter);
+
                     sqlConnection.Open();
 
                     try
@@ -118,7 +121,6 @@ namespace EPAM.Final_DAL
 
                     var idParameter = new SqlParameter("@id", id);
                     cmd.Parameters.Add(idParameter);
-
 
                     if (!string.IsNullOrWhiteSpace(newUsername))
                     {
@@ -167,9 +169,37 @@ namespace EPAM.Final_DAL
             }
         }
 
+        public void BanUser(int id)
+        {
+            if (id > 1)
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "BanUser";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var idParameter = new SqlParameter("@id", id);
+                    cmd.Parameters.Add(idParameter);
+
+                    sqlConnection.Open();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+        }
+
         public void DeleteUser(int id)
         {
-            if (id > 0)
+            if (id > 1)
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -210,7 +240,7 @@ namespace EPAM.Final_DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    return new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"]);
+                    return new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"], (bool)reader["isBanned"]);
                 }
 
                 return null;
@@ -229,7 +259,7 @@ namespace EPAM.Final_DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"]));
+                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"], (bool)reader["isBanned"]));
                 }
 
                 return result;
@@ -273,7 +303,7 @@ namespace EPAM.Final_DAL
         public int GetThreadId(string threadName)
         {
             int id;
-            if(!string.IsNullOrWhiteSpace(threadName))
+            if (!string.IsNullOrWhiteSpace(threadName))
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -293,7 +323,6 @@ namespace EPAM.Final_DAL
                         id = (int)reader["id"];
                         return id;
                     }
-
                 }
             }
 
@@ -403,6 +432,7 @@ namespace EPAM.Final_DAL
                 {
                     result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
                 }
+
                 return result;
             }
         }

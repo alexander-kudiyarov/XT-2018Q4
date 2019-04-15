@@ -1,0 +1,15 @@
+﻿@{
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    if (!(int.TryParse(Request.QueryString["id"], out int id)))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    forumLogic.BanUser(id);
+    Response.Redirect($"~/cshtml/administration");
+}

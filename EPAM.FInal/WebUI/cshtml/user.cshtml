@@ -14,17 +14,14 @@
 
     Layout = "~/cshtml/_layout.cshtml";
 }
+<div class="highlight">
+    <p class="title">@u.Username</p>
+    <a class="thickening" href="~/cshtml/index?userId=@u.Id">Threads</a>
+    <a class="thickening" href="~/cshtml/thread?userId=@u.Id">Posts</a>
 
-
-
-
-<title></title>
-
-<p>@u.Username</p>
-<a href="~/cshtml/index?userId=@u.Id">Threads</a>
-<a href="~/cshtml/thread?userId=@u.Id">Posts</a>
-
-@if(u.Username.Equals(User.Identity.Name))
-{
-    <a href="~/cshtml/editUser?id=@u.Id">Edit user</a>
-}
+    @if (u.Username.Equals(User.Identity.Name) & !u.Username.Equals("admin"))
+    {
+        <a class="thickening" href="~/cshtml/editUser?id=@u.Id">Edit user</a>
+    }
+</div>
+<title>User: @u.Username</title>

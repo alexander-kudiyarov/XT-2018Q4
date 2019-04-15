@@ -8,19 +8,23 @@ namespace EPAM.Final_Entities
 {
     public class Thread
     {
-        public int Id { get; }
-        public string Subject { get; }
-        public string StartedBy { get; }
-        public int StartedById { get; }
-        public DateTime LastMessage { get; }
-
         public Thread(int id, string subject, string startedBy, int startedById, DateTime lastMessage)
         {
-            Id = id;
-            Subject = subject;
-            StartedBy = startedBy;
-            StartedById = startedById;
-            LastMessage = lastMessage;
+            this.Id = id;
+            this.Subject = subject;
+            this.StartedBy = startedBy;
+            this.StartedById = startedById;
+            this.LastMessage = lastMessage;
         }
+
+        public int Id { get; }
+
+        public string Subject { get; }
+
+        public string StartedBy { get; }
+
+        public int StartedById { get; }
+
+        public DateTime LastMessage { get; }
     }
 }

@@ -8,23 +8,36 @@
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     var users = forumLogic.GetUsers();
 }
-
-
 <div>
-    @foreach(var u in users)
+    @foreach (var u in users)
     {
-        <a href="~/cshtml/user?id=@u.Id">@u.Username</a>
-        if (u.Username.Equals(User.Identity.Name))
-        {
-            <p>(you)</p>
-        }
-        if(!u.Role.Equals("admin"))
-        {
-            <a href="~/cshtml/changeUserRole?id=@u.Id&newRole=admin">Give admin</a>
-        }
-        if(u.Role.Equals("admin") && !u.Username.Equals(User.Identity.Name))
-        {
-            <a href="~/cshtml/changeUserRole?id=@u.Id&newRole=user">Take admin</a>
-        }
+        <a href="~/cshtml/user?id=@u.Id">
+            <div class="highlight">
+                <p class="title">
+                    @u.Username @if (u.Username.Equals(User.Identity.Name))
+                    {<text>(you)</text>}
+                </p>
+                @if (!u.Role.Equals("admin"))
+                {
+                    <a class="thickening" href="~/cshtml/changeUserRole?id=@u.Id&newRole=admin">Give admin rights</a>
+                }
+                @if (u.Role.Equals("admin") && !u.Username.Equals(User.Identity.Name) && !u.Username.Equals("admin"))
+                {
+                    <a class="thickening" href="~/cshtml/changeUserRole?id=@u.Id&newRole=user">Take admin rights</a>
+                }
+                @if(!u.IsBanned && !u.Username.Equals("admin"))
+                {
+                    <a class="thickening" href="~/cshtml/banUser?id=@u.Id">Ban user</a>
+                }
+                @if(u.IsBanned && !u.Username.Equals("admin"))
+                {
+                    <a class="thickening" href="~/cshtml/banUser?id=@u.Id">Unban user</a>
+                }
+                @if (!u.Username.Equals(User.Identity.Name))
+                {
+                    <a class="thickening" href="javascript:Confirmation('deleteUser?id=@u.Id');">Delete User</a>
+                }
+            </div>
+        </a>
     }
 </div>

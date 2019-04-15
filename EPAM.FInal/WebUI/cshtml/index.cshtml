@@ -2,14 +2,23 @@
     Layout = "~/cshtml/_layout.cshtml";
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     IEnumerable<EPAM.Final_Entities.Thread> threads;
+    bool threadsByUser = false;
 
     if (int.TryParse(Request.QueryString["userId"], out int id))
     {
         threads = forumLogic.GetThreadsByUser(id);
+        threadsByUser = true;
+        var user = forumLogic.GetUser(id);
+        <h4>Threads by @user.Username</h4>
     }
     else
     {
         threads = forumLogic.GetThreads();
+    }
+
+    if (threadsByUser)
+    {
+
     }
 
     if (threads.Count() < 1)
@@ -20,27 +29,24 @@
 @foreach (var t in threads)
 {
     <a href="~/cshtml/thread?threadId=@t.Id">
-        <div class="thread">
-            <div class="threadInf">
-                <p>@t.Subject</p>
-            </div>
+        <div class="highlight">
+            <p class="title">@t.Subject</p>
             <p>last message @($"{t.LastMessage:f}")</p>
             @if (t.StartedBy.Equals(User.Identity.Name))
             {
-                <a class="hickening" href="~/cshtml/editThread?id=@t.Id">Edit</a>
+                <a class="thickening" href="~/cshtml/editThread?id=@t.Id">Edit</a>
             }
-            @if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("admin"))
+            @if (User.IsInRole("admin"))
             {
-                <a class="hickening" href="~/cshtml/deleteThreadConfirmation?id=@t.Id">Delete</a>
+                <a class="thickening" href="javascript:Confirmation('deleteThread?id=@t.Id');">Delete</a>
             }
         </div>
     </a>
 }
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated && !threadsByUser)
 {
     <footer>
-        <a class="bright hickening" href="~/cshtml/newThread">New thread</a>
+        <a class="bright thickening" href="~/cshtml/newThread">New thread</a>
     </footer>
-
 }
 <title>Forum</title>

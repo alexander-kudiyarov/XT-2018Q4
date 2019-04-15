@@ -28,8 +28,8 @@
 <title>Edit user</title>
 
 <form id="editUser" method="post">
-    <input placeholder="Username" value="@u.Username" name="newUsername" />
-    <input placeholder="Password" name="newPassword" />
-    <input placeholder="Password confirmation" name="confirmation" />
+    <input placeholder="Username" value="@u.Username" name="newUsername" maxlength="32" />
+    <input placeholder="Password" name="newPassword" maxlength="64" />
+    <input placeholder="Password confirmation" name="confirmation" maxlength="64" />
     <button type="submit">Submit</button>
 </form>

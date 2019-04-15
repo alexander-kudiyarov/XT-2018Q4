@@ -10,9 +10,9 @@
 
 <title>New Thread</title>
 <form id="newThread" method="post">
-    <input placeholder="Thread subject" type="text" name="threadName" />
-    <input placeholder="Message . . ." type="text" name="messageText" />
-    <button type="submit">Submit</button>
+    <input class="threadForm" placeholder="Thread subject" type="text" name="threadName" autocomplete="off" maxlength="128" />
+    <textarea class="messageForm" placeholder="Message . . ." type="text" name="messageText" autocomplete="off" maxlength="4000"></textarea>
+    <button class="bright thickening" type="submit">Submit</button>
 
     @if (IsPost && !Request["threadName"].IsEmpty() && !Request["messageText"].IsEmpty())
     {

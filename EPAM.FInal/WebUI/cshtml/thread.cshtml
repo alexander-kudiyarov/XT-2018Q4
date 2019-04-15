@@ -2,16 +2,20 @@
     Layout = "~/cshtml/_layout.cshtml";
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     IEnumerable<EPAM.Final_Entities.Post> posts = null;
-    bool thread = false;
+    EPAM.Final_Entities.Thread thread = null;
+    bool isThread = false;
 
     if (int.TryParse(Request.QueryString["threadId"], out int id) && id > 0)
     {
         posts = forumLogic.GetPostsByThread(id);
-        thread = true;
+        thread = forumLogic.GetThread(id);
+        isThread = true;
     }
     else if (int.TryParse(Request.QueryString["userId"], out id) && id > 0)
     {
         posts = forumLogic.GetPostsByUser(id);
+        var user = forumLogic.GetUser(id);
+        <h4>Posts by @user.Username</h4>
     }
     else
     {
@@ -23,28 +27,37 @@
         <p>No posts</p>
     }
 }
-<div class="posts">
-    @foreach (var p in posts)
-    {
-        <p>@p.Text</p>
-        <p>by</p>
-        <a href="~/cshtml/user?id=@p.AuthorId">@p.Author</a>
-        if (p.Author.Equals(User.Identity.Name))
-        {
-            <a href="~/cshtml/editPost?postId=@p.Id&threadId=@id">Edit</a>
-        }
-
-        if (p.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
-        {
-            <a href="~/cshtml/deletePostConfirmation?postId=@p.Id&threadId=@id">Delete</a>
-        }
-    }
-
-</div>
-
-@if (thread && User.Identity.IsAuthenticated)
+<h4>
+    @if (thread != null)
+    {@thread.Subject}
+</h4>
+@foreach (var p in posts)
 {
-    @RenderPage("~/cshtml/_newPost.cshtml", id)
+    <div class="highlight">
+        <p class="title">@p.Text</p>
+        <p>
+            posted @($"{p.PublishDate:f}") @if (p.EditDate.HasValue)
+            {<text>(edited: @($"{p.EditDate:f}")) </text>}by <a class="thickening" href="~/cshtml/user?id=@p.AuthorId">@p.Author</a>
+        </p>
+        @if (p.Author.Equals(User.Identity.Name))
+        {
+            <a class="thickening" href="~/cshtml/editPost?postId=@p.Id&threadId=@id">Edit</a>
+        }
+
+        @if (p.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
+        {
+            <a class="thickening" href="javascript:Confirmation('deletePost?postId=@p.Id&threadId=@id');">Delete</a>
+        }
+
+    </div>
+}
+
+
+@if (isThread && User.Identity.IsAuthenticated)
+{
+    <footer>
+        @RenderPage("~/cshtml/_newPost.cshtml", id)
+    </footer>
 }
 
 <title>Thread</title>

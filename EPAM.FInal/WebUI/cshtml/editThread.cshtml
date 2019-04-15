@@ -19,8 +19,8 @@
 
 <title>Thread edit</title>
 <form id="editThread" method="post">
-    <input placeholder="Subject" value="@t.Subject" name="newSubject" />
-    <button type="submit">Submit</button>
+    <input class="threadForm" placeholder="New ubject" value="@t.Subject" name="newSubject" autocomplete="off" maxlength="128" />
+    <button class="bright thickening" type="submit">Submit</button>
 
     @if (IsPost && !Request["newSubject"].IsEmpty())
     {
