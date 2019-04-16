@@ -23,24 +23,24 @@ namespace EPAM.Final_BLL
             return this.forumDao.Authentication(username, password);
         }
 
-        public string GetUserRole(string name)
+        public string[] GetUserRoles(string name)
         {
-            return this.forumDao.GetUserRole(name);
+            return this.forumDao.GetUserRoles(name);
         }
 
-        public void NewUser(string username, string password)
+        public bool NewUser(string username, string password)
         {
-            this.forumDao.NewUser(username, password);
+            return this.forumDao.NewUser(username, password);
         }
 
-        public void EditUser(int id, string newUsername, string newPassword, string newRole)
+        public void EditUser(int id, string newUsername, string newPassword)
         {
-            this.forumDao.EditUser(id, newUsername, newPassword, newRole);
+            this.forumDao.EditUser(id, newUsername, newPassword);
         }
 
-        public void BanUser(int id)
+        public void EditUserRole(int userId, int newRoleId)
         {
-            this.forumDao.BanUser(id);
+            this.forumDao.EditUserRole(userId, newRoleId);
         }
 
         public void DeleteUser(int id)
@@ -58,9 +58,14 @@ namespace EPAM.Final_BLL
             return this.forumDao.GetUsers();
         }
 
-        public void NewThread(string username, string subject)
+        public int GetUserId(string username)
         {
-            this.forumDao.NewThread(username, subject);
+            return this.forumDao.GetUserId(username);
+        }
+
+        public bool NewThread(string username, string subject)
+        {
+            return this.forumDao.NewThread(username, subject);
         }
 
         public int GetThreadId(string threadName)

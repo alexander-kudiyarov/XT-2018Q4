@@ -14,12 +14,20 @@ namespace WebUI.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            return new[] { this.forumLogic.GetUserRole(username) };
+            return this.forumLogic.GetUserRoles(username);
         }
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            return this.forumLogic.GetUserRole(username) == roleName;
+            foreach(var role in forumLogic.GetUserRoles(username))
+            {
+                if (role.Equals(roleName))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #region NotImplemented

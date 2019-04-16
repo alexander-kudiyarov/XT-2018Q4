@@ -7,7 +7,7 @@
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     var t = forumLogic.GetThread(id);
 
-    if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("admin"))
+    if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("moderator"))
     {
         forumLogic.DeleteThread(id);
         Response.Redirect($"~/cshtml/index");

@@ -8,24 +8,18 @@ namespace EPAM.Final_Entities
 {
     public class User
     {
-        public User(int id, string username, string password, string role, bool isBanned)
+        public User(int id, string username, string[] roles)
         {
             this.Id = id;
             this.Username = username;
-            this.Password = password;
-            this.Role = role;
-            this.IsBanned = isBanned;
+            this.Roles = roles;
         }
 
         public int Id { get; }
 
         public string Username { get; }
 
-        private string Password { get; }
-
-        public string Role { get; }
-
-        public bool IsBanned { get; }
+        public string[] Roles { get; }
     }
 }
 

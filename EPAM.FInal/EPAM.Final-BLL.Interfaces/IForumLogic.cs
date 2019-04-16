@@ -11,13 +11,13 @@ namespace EPAM.Final_BLL.Interfaces
     {
         bool Authentication(string username, string password);
 
-        string GetUserRole(string name);
+        string[] GetUserRoles(string name);
 
-        void NewUser(string username, string password);
+        bool NewUser(string username, string password);
 
-        void EditUser(int id, string newUsername, string newPassword, string newRole);
+        void EditUser(int id, string newUsername, string newPassword);
 
-        void BanUser(int id);
+        void EditUserRole(int userId, int newRoleId);
 
         void DeleteUser(int id);
 
@@ -25,7 +25,9 @@ namespace EPAM.Final_BLL.Interfaces
 
         IEnumerable<User> GetUsers();
 
-        void NewThread(string username, string subject);
+        int GetUserId(string username);
+
+        bool NewThread(string username, string subject);
 
         int GetThreadId(string threadName);
 

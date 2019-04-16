@@ -17,23 +17,23 @@
                     @u.Username @if (u.Username.Equals(User.Identity.Name))
                     {<text>(you)</text>}
                 </p>
-                @if (!u.Role.Equals("admin"))
+                @if (u.Roles.Contains("moderator") && !u.Roles.Contains("admin"))
                 {
-                    <a class="thickening" href="~/cshtml/changeUserRole?id=@u.Id&newRole=admin">Give admin rights</a>
+                    <a class="thickening" href="~/cshtml/editUserRole?userId=@u.Id&newRoleId=3">Take moderation rights</a>
                 }
-                @if (u.Role.Equals("admin") && !u.Username.Equals(User.Identity.Name) && !u.Username.Equals("admin"))
+                @if (u.Roles.Contains("user"))
                 {
-                    <a class="thickening" href="~/cshtml/changeUserRole?id=@u.Id&newRole=user">Take admin rights</a>
+                    <a class="thickening" href="~/cshtml/editUserRole?userId=@u.Id&newRoleId=2">Give moderation rights</a>
                 }
-                @if(!u.IsBanned && !u.Username.Equals("admin"))
+                @if(u.Roles.Contains("banned"))
                 {
-                    <a class="thickening" href="~/cshtml/banUser?id=@u.Id">Ban user</a>
+                    <a class="thickening" href="~/cshtml/editUserRole?userId=@u.Id&newRoleId=5">Unban user</a>
                 }
-                @if(u.IsBanned && !u.Username.Equals("admin"))
+                @if(!u.Roles.Contains("banned") && !u.Roles.Contains("admin"))
                 {
-                    <a class="thickening" href="~/cshtml/banUser?id=@u.Id">Unban user</a>
+                    <a class="thickening" href="~/cshtml/editUserRole?userId=@u.Id&newRoleId=4">Ban user</a>
                 }
-                @if (!u.Username.Equals(User.Identity.Name))
+                @if (!u.Roles.Contains("admin"))
                 {
                     <a class="thickening" href="javascript:Confirmation('deleteUser?id=@u.Id');">Delete User</a>
                 }

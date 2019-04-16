@@ -1,0 +1,15 @@
+﻿@{
+    int userId = 0;
+    int newRoleId = 0;
+
+    if (!User.IsInRole("admin") || !int.TryParse(Request.QueryString["userId"], out userId) || !int.TryParse(Request.QueryString["newRoleId"], out newRoleId))
+    {
+        Response.Redirect($"~/cshtml/index");
+    }
+
+    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+
+    forumLogic.EditUserRole(userId, newRoleId);
+
+    Response.Redirect("~/cshtml/administration");
+}

@@ -9,8 +9,15 @@
         if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password) && password.Equals(passwordConfirmation))
         {
             var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
-            forumLogic.NewUser(username, password);
-            Response.Redirect($"~/cshtml/index");
+
+            if (forumLogic.NewUser(username, password))
+            {
+                Response.Redirect($"~/cshtml/index");
+            }
+            else
+            {
+                @:<script>alert("User with this username already exist")</script>
+            }
         }
         else
         {

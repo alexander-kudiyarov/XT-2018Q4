@@ -43,7 +43,7 @@
         </div>
     </a>
 }
-@if (User.Identity.IsAuthenticated && !threadsByUser)
+@if (User.Identity.IsAuthenticated && !threadsByUser && !User.IsInRole("banned"))
 {
     <footer>
         <a class="bright thickening" href="~/cshtml/newThread">New thread</a>

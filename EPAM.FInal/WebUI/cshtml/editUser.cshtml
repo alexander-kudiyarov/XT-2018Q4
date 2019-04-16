@@ -19,17 +19,25 @@
         string newUsername = Request["newUsername"];
         string newPassword = Request["newPassword"];
         string confirmation = Request["confirmation"];
-        forumLogic.EditUser(id, newUsername, newPassword, string.Empty);
-        FormsAuthentication.SetAuthCookie(newUsername, createPersistentCookie: true);
-        Response.Redirect($"~/cshtml/user?id={id}");
+        if (!string.IsNullOrWhiteSpace(newUsername) || (string.IsNullOrWhiteSpace(newPassword) && newPassword.Equals(confirmation)))
+        {
+            forumLogic.EditUser(id, newUsername, newPassword);
+
+            if(!string.IsNullOrWhiteSpace(newUsername))
+            {
+                FormsAuthentication.SetAuthCookie(newUsername, createPersistentCookie: true);
+            }
+            
+            Response.Redirect($"~/cshtml/user?id={id}");
+        }
     }
 }
 
 <title>Edit user</title>
 
-<form id="editUser" method="post">
-    <input placeholder="Username" value="@u.Username" name="newUsername" maxlength="32" />
-    <input placeholder="Password" name="newPassword" maxlength="64" />
-    <input placeholder="Password confirmation" name="confirmation" maxlength="64" />
-    <button type="submit">Submit</button>
+<form id="newUser" method="post">
+    <input class="form" placeholder="Username" value="@u.Username" name="newUsername" maxlength="32" />
+    <input class="form" placeholder="Password" name="newPassword" maxlength="64" />
+    <input class="form" placeholder="Password confirmation" name="confirmation" maxlength="64" />
+    <button class="bright thickening" type="submit">Submit</button>
 </form>

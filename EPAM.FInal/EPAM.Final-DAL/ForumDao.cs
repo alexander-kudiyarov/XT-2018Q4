@@ -42,12 +42,11 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public string GetUserRole(string username)
+        public string[] GetUserRoles(string username)
         {
             using (var sqlConnection = new SqlConnection(connectionString))
             {
-                string role;
-
+                List<string> roles = new List<string>();
                 var cmd = sqlConnection.CreateCommand();
                 cmd.CommandText = "GetRole";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -63,15 +62,14 @@ namespace EPAM.Final_DAL
 
                 while (reader.Read())
                 {
-                    role = (string)reader["role"];
-                    return role;
+                    roles.Add((string)reader["role"]);
                 }
 
-                return string.Empty;
+                return roles.ToArray();
             }
         }
 
-        public void NewUser(string username, string password)
+        public bool NewUser(string username, string password)
         {
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
@@ -88,29 +86,25 @@ namespace EPAM.Final_DAL
                     var passwordParameter = new SqlParameter("@password", password);
                     cmd.Parameters.Add(passwordParameter);
 
-                    var roleParameter = new SqlParameter("@role", "user");
-                    cmd.Parameters.Add(roleParameter);
-
-                    var isBannedParameter = new SqlParameter("@isBanned", false);
-                    cmd.Parameters.Add(isBannedParameter);
-
                     sqlConnection.Open();
 
                     try
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SqlException e)
+                    catch (SqlException)
                     {
-                        Console.WriteLine(e.Message);
+                        return false;
                     }
                 }
             }
+
+            return true;
         }
 
-        public void EditUser(int id, string newUsername, string newPassword, string newRole)
+        public void EditUser(int id, string newUsername, string newPassword)
         {
-            if (id > 0 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword) || !string.IsNullOrWhiteSpace(newRole)))
+            if (id > 0 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
@@ -144,17 +138,6 @@ namespace EPAM.Final_DAL
                         cmd.Parameters.Add(newPasswordParameter);
                     }
 
-                    if (!string.IsNullOrWhiteSpace(newRole))
-                    {
-                        var newRoleParameter = new SqlParameter("@newRole", newRole);
-                        cmd.Parameters.Add(newRoleParameter);
-                    }
-                    else
-                    {
-                        var newRoleParameter = new SqlParameter("@newRole", DBNull.Value);
-                        cmd.Parameters.Add(newRoleParameter);
-                    }
-
                     sqlConnection.Open();
 
                     try
@@ -169,19 +152,22 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public void BanUser(int id)
+        public void EditUserRole(int userId, int newRoleId)
         {
-            if (id > 1)
+            if (userId > 1)
             {
                 using (var sqlConnection = new SqlConnection(connectionString))
                 {
                     var cmd = sqlConnection.CreateCommand();
 
-                    cmd.CommandText = "BanUser";
+                    cmd.CommandText = "EditUserRole";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var idParameter = new SqlParameter("@id", id);
-                    cmd.Parameters.Add(idParameter);
+                    var userIdParameter = new SqlParameter("@userId", userId);
+                    cmd.Parameters.Add(userIdParameter);
+
+                    var newRoleIdParameter = new SqlParameter("@newRoleId", newRoleId);
+                    cmd.Parameters.Add(newRoleIdParameter);
 
                     sqlConnection.Open();
 
@@ -240,7 +226,7 @@ namespace EPAM.Final_DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    return new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"], (bool)reader["isBanned"]);
+                    return new User((int)reader["id"], (string)reader["username"], GetUserRoles((string)reader["username"]));
                 }
 
                 return null;
@@ -259,14 +245,43 @@ namespace EPAM.Final_DAL
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["password"], (string)reader["role"], (bool)reader["isBanned"]));
+                    result.Add(new User((int)reader["id"], (string)reader["username"], GetUserRoles((string)reader["username"])));
                 }
 
                 return result;
             }
         }
 
-        public void NewThread(string username, string subject)
+        public int GetUserId(string username)
+        {
+            int id;
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    var cmd = sqlConnection.CreateCommand();
+
+                    cmd.CommandText = "GetUserId";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var usernameParameter = new SqlParameter("@username", username);
+                    cmd.Parameters.Add(usernameParameter);
+
+                    sqlConnection.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        id = (int)reader["id"];
+                        return id;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        public bool NewThread(string username, string subject)
         {
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(subject))
             {
@@ -292,12 +307,14 @@ namespace EPAM.Final_DAL
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch (SqlException e)
+                    catch (SqlException)
                     {
-                        Console.WriteLine(e.Message);
+                        return false;
                     }
                 }
             }
+
+            return true;
         }
 
         public int GetThreadId(string threadName)

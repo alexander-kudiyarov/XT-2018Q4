@@ -10,7 +10,7 @@
     var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
     EPAM.Final_Entities.Post post = forumLogic.GetPost(postId);
 
-    if (post.Author.Equals(User.Identity.Name) || User.IsInRole("admin"))
+    if (post.Author.Equals(User.Identity.Name) || User.IsInRole("moderator"))
     {
         forumLogic.DeletePost(postId);
         Response.Redirect($"~/cshtml/thread?threadId={threadId}");

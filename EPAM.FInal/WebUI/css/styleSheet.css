@@ -100,14 +100,14 @@ footer {
     display: block;
     border-radius: 6px;
     border: 1px #a9a9a9 solid;
-    margin: 1em auto;
+    margin: 1em -0.33em;
     padding: 0.33em;
+    width: 100%;
 }
 
 #newUser {
-    border: red 1px solid;
-    width: 10%;
-    margin: auto;
+    width: 360px;
+    min-width: 33%;
 }
 
 h4 {

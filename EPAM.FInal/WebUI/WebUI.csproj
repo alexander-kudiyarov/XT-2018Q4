@@ -103,18 +103,15 @@
     <Content Include="cshtml\_login.cshtml" />
     <Content Include="cshtml\logout.cshtml" />
     <Content Include="cshtml\deletePost.cshtml" />
-    <Content Include="cshtml\deletePostConfirmation.cshtml" />
     <Content Include="cshtml\newThread.cshtml" />
     <Content Include="cshtml\editPost.cshtml" />
     <Content Include="cshtml\editThread.cshtml" />
     <Content Include="cshtml\registration.cshtml" />
     <Content Include="cshtml\administration.cshtml" />
-    <Content Include="cshtml\deleteThreadConfirmation.cshtml" />
     <Content Include="cshtml\deleteThread.cshtml" />
-    <Content Include="cshtml\changeUserRole.cshtml" />
     <Content Include="cshtml\editUser.cshtml" />
     <Content Include="cshtml\deleteUser.cshtml" />
-    <Content Include="cshtml\banUser.cshtml" />
+    <Content Include="cshtml\editUserRole.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

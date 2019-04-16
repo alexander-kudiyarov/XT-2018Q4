@@ -53,7 +53,7 @@
 }
 
 
-@if (isThread && User.Identity.IsAuthenticated)
+@if (isThread && User.Identity.IsAuthenticated && !User.IsInRole("banned"))
 {
     <footer>
         @RenderPage("~/cshtml/_newPost.cshtml", id)
