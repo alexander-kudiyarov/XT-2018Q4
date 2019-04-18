@@ -12,7 +12,7 @@ namespace ConsoleApp1
         {
             var postLogic = EPAM.Final_Common.DependencyResolver.PostLogic;
             var threadLogic = EPAM.Final_Common.DependencyResolver.ThreadLogic;
-
+            Console.WriteLine();
             Console.WriteLine(threadLogic.GetId("tested"));
             Console.WriteLine(postLogic.New("hello", 40, "admin"));
         }
