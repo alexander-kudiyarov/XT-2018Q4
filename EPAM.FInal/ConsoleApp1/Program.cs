@@ -6,25 +6,15 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+            var postLogic = EPAM.Final_Common.DependencyResolver.PostLogic;
+            var threadLogic = EPAM.Final_Common.DependencyResolver.ThreadLogic;
 
-            forumLogic.DeleteUser(4);
-
-            foreach (var u in forumLogic.GetUsers())
-            {
-                Console.WriteLine(u.Id);
-                Console.WriteLine(u.Username);
-                foreach (var r in u.Roles)
-                {
-                    Console.Write($"{r} ");
-                }
-
-                Console.WriteLine();
-            } 
+            Console.WriteLine(threadLogic.GetId("tested"));
+            Console.WriteLine(postLogic.New("hello", 40, "admin"));
         }
     }
 }

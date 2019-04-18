@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForumLogic.cs" />
+    <Compile Include="PostLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadLogic.cs" />
+    <Compile Include="UserLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EPAM.Final-BLL.Interfaces\EPAM.Final-BLL.Interfaces.csproj">

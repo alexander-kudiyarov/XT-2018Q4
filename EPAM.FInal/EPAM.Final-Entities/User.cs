@@ -22,4 +22,3 @@ namespace EPAM.Final_Entities
         public string[] Roles { get; }
     }
 }
-

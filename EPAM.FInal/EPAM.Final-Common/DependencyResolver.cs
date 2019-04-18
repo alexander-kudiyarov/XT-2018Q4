@@ -7,11 +7,23 @@ namespace EPAM.Final_Common
 {
     public static class DependencyResolver
     {
-        private static IForumDao forumDao;
-        private static IForumLogic forumLogic;
+        private static IUserDao userDao;
+        private static IThreadDao threadDao;
+        private static IPostDao postDao;
+        private static IUserLogic userLogic;
+        private static IThreadLogic threadLogic;
+        private static IPostLogic postLogic;
 
-        public static IForumDao ForumDao => forumDao ?? (forumDao = new ForumDao());
+        public static IUserDao UserDao => userDao ?? (userDao = new UserSQLDao());
 
-        public static IForumLogic ForumLogic => forumLogic ?? (forumLogic = new ForumLogic(ForumDao));
+        public static IThreadDao ThreadDao => threadDao ?? (threadDao = new ThreadSQLDao());
+
+        public static IPostDao PostDao => postDao ?? (postDao = new PostSQLDao());
+
+        public static IUserLogic UserLogic => userLogic ?? (userLogic = new UserLogic(UserDao));
+
+        public static IThreadLogic ThreadLogic => threadLogic ?? (threadLogic = new ThreadLogic(ThreadDao));
+
+        public static IPostLogic PostLogic => postLogic ?? (postLogic = new PostLogic(PostDao));
     }
 }

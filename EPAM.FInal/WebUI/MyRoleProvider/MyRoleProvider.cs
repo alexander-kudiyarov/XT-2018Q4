@@ -19,7 +19,7 @@ namespace WebUI.MyRoleProvider
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            foreach(var role in forumLogic.GetUserRoles(username))
+            foreach (var role in this.forumLogic.GetUserRoles(username))
             {
                 if (role.Equals(roleName))
                 {

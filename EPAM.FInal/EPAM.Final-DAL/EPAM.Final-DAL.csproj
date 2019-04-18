@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ForumDao.cs" />
+    <Compile Include="PostSQLDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLDao.cs" />
+    <Compile Include="ThreadSQLDao.cs" />
+    <Compile Include="UserSQLDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EPAM.Final-DAL.Interfaces\EPAM.Final-DAL.Interfaces.csproj">
