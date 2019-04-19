@@ -70,7 +70,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@password", password);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? GetId(username) : errorCode;
+                int id = errorCode;
+
+                if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
+                {
+                    while (reader.Read())
+                    {
+                        id = (int)reader["id"];
+                    }
+                }
+
+                return id;
             }
         }
 

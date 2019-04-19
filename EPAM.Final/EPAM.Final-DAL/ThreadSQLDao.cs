@@ -24,7 +24,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@lastMessage", DateTime.Now);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? GetId(subject) : errorCode;
+                int id = errorCode;
+
+                if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
+                {
+                    while (reader.Read())
+                    {
+                        id = (int)reader["id"];
+                    }
+                }
+
+                return id;
             }
         }
 

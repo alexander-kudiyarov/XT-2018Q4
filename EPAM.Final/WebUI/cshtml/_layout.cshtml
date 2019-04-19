@@ -18,8 +18,8 @@
         }
         @if (User.Identity.IsAuthenticated)
         {
-            var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
-            int id = forumLogic.GetUserId(User.Identity.Name);
+            var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
+            int id = userLogic.GetId(User.Identity.Name);
             <a href="~/cshtml/user?id=@id" class="hoverable">@User.Identity.Name @if (User.IsInRole("banned")) { <text>(you are banned)</text> }</a>
             <div class="loginLogout hoverable">
                 <a class="loginLogout" href="~/cshtml/logout">Log Out</a>

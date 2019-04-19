@@ -1,19 +1,20 @@
 ﻿@{
     Layout = "~/cshtml/_layout.cshtml";
-    var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
+    var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
+    var threadLogic = EPAM.Final_Common.DependencyResolver.ThreadLogic;
     IEnumerable<EPAM.Final_Entities.Thread> threads;
     bool threadsByUser = false;
 
     if (int.TryParse(Request.QueryString["userId"], out int id))
     {
-        threads = forumLogic.GetThreadsByUser(id);
+        threads = threadLogic.GetAllByUser(id);
         threadsByUser = true;
-        var user = forumLogic.GetUser(id);
+        var user = userLogic.Get(id);
         <h4>Threads by @user.Username</h4>
     }
     else
     {
-        threads = forumLogic.GetThreads();
+        threads = threadLogic.GetAll();
     }
 
     if (threadsByUser)

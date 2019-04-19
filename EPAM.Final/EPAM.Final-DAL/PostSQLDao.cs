@@ -26,15 +26,22 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@publishDate", DateTime.Now);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
                 int id = errorCode;
 
-                while (reader.Read())
+                if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    id = (int)reader["id"];
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            id = (int)reader["id"];
+                        }
+                    }
+                    catch(InvalidCastException)
+                    {
+                        return id;
+                    }
+                    
                 }
 
                 return id;

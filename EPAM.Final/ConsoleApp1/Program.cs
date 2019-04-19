@@ -10,11 +10,10 @@ namespace ConsoleApp1
     {
         public static void Main(string[] args)
         {
+            var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
             var postLogic = EPAM.Final_Common.DependencyResolver.PostLogic;
             var threadLogic = EPAM.Final_Common.DependencyResolver.ThreadLogic;
-            Console.WriteLine();
-            Console.WriteLine(threadLogic.GetId("tested"));
-            Console.WriteLine(postLogic.New("hello", 40, "admin"));
+            Console.WriteLine(userLogic.Delete(8));
         }
     }
 }

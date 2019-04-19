@@ -30,9 +30,9 @@ namespace EPAM.Final_BLL
 
         public int Edit(int id, string newSubject)
         {
-            if (id > 0 && string.IsNullOrWhiteSpace(newSubject))
+            if (id > 0 && !string.IsNullOrWhiteSpace(newSubject))
             {
-                this.threadDao.Edit(id, newSubject);
+                return this.threadDao.Edit(id, newSubject);
             }
 
             return errorCode;
@@ -42,7 +42,7 @@ namespace EPAM.Final_BLL
         {
             if (id > 0)
             {
-                this.threadDao.Delete(id);
+                return this.threadDao.Delete(id);
             }
 
             return errorCode;

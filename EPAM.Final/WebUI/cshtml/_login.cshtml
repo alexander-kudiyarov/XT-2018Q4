@@ -5,8 +5,8 @@
         var password = Request["password"];
         if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
         {
-            var forumLogic = EPAM.Final_Common.DependencyResolver.ForumLogic;
-            if (forumLogic.Authentication(username, password))
+            var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
+            if (userLogic.Authentication(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, createPersistentCookie: true);
             }

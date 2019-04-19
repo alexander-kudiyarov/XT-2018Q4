@@ -44,5 +44,23 @@ namespace EPAM.Final_DAL
                 return false;
             }
         }
+
+        protected bool ReadSQLResult(SqlConnection sqlConnection, SqlCommand cmd, out SqlDataReader reader)
+        {
+            try
+            {
+                sqlConnection.Open();
+
+                reader = cmd.ExecuteReader();
+
+                return true;
+            }
+            catch (SqlException)
+            {
+                reader = null;
+
+                return false;
+            }
+        }
     }
 }

@@ -10,16 +10,16 @@ namespace WebUI.MyRoleProvider
 {
     public class MyRoleProvider : RoleProvider
     {
-        private IForumLogic forumLogic = DependencyResolver.ForumLogic;
+        private IUserLogic userLogic = DependencyResolver.UserLogic;
 
         public override string[] GetRolesForUser(string username)
         {
-            return this.forumLogic.GetUserRoles(username);
+            return this.userLogic.GetRoles(username);
         }
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            foreach (var role in this.forumLogic.GetUserRoles(username))
+            foreach (var role in this.userLogic.GetRoles(username))
             {
                 if (role.Equals(roleName))
                 {
