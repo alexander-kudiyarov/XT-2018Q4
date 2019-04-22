@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EPAM.Final_Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace ConsoleApp1
     {
         public static void Main(string[] args)
         {
-            var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
-            var postLogic = EPAM.Final_Common.DependencyResolver.PostLogic;
-            var threadLogic = EPAM.Final_Common.DependencyResolver.ThreadLogic;
+            var userLogic = DependencyResolver.UserLogic;
+            var postLogic = DependencyResolver.PostLogic;
+            var threadLogic = DependencyResolver.ThreadLogic;
             Console.WriteLine(userLogic.Delete(8));
         }
     }

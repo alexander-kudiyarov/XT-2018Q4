@@ -1,0 +1,28 @@
+﻿@using EPAM.Final_Common;
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var postLogic = DependencyResolver.PostLogic;
+    int threadId = Page[0];
+}
+<form method="post">
+    <textarea placeholder="Your message . . ." type="text" name="text" autocomplete="off" maxlength="4000"></textarea>
+    <button type="submit">Submit</button>
+
+    @if (IsPost)
+    {
+        string text = Request["text"];
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            postLogic.New(text, threadId, User.Identity.Name);
+            Response.Redirect($"~/html/posts?threadId={threadId}");
+        }
+        else
+        {
+            <script>alert("Post cannot be empty")</script>
+        }
+    }
+</form>

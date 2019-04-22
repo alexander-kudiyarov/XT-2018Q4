@@ -11,6 +11,12 @@ namespace EPAM.Final_BLL
 {
     public class UserLogic : ForumLogic, IUserLogic
     {
+        private int minUsernameLength = 3;
+
+        private int maxUsernameLength = 20;
+
+        private int minPasswordLength = 6;
+
         private IUserDao userDao;
 
         public UserLogic(IUserDao userDao)
@@ -20,7 +26,7 @@ namespace EPAM.Final_BLL
 
         public bool Authentication(string username, string password)
         {
-            if (!string.IsNullOrWhiteSpace(username) || password.Length < 4)
+            if (string.IsNullOrWhiteSpace(username) || password.Length < 4)
             {
                 return false;
             }
@@ -28,29 +34,29 @@ namespace EPAM.Final_BLL
             return this.userDao.Authentication(username, password);
         }
 
-        public string[] GetRoles(string name)
+        public string GetRole(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                return null;
+                return this.userDao.GetRole(name);
             }
 
-            return this.userDao.GetRoles(name);
+            return null;
         }
 
         public int New(string username, string password)
         {
-            if (string.IsNullOrWhiteSpace(username) || password.Length < 4)
+            if (username.Length >= minUsernameLength && username.Length <= maxUsernameLength && password.Length >= minPasswordLength)
             {
-                return errorCode;
+                return this.userDao.New(username, password);
             }
 
-            return this.userDao.New(username, password);
+            return errorCode;
         }
 
         public int Edit(int id, string newUsername, string newPassword)
         {
-            if (id > 1 && (!string.IsNullOrWhiteSpace(newUsername) || !string.IsNullOrWhiteSpace(newPassword)))
+            if ((newUsername.Length >= minUsernameLength && newUsername.Length <= maxUsernameLength) || newPassword.Length >= minPasswordLength)
             {
                 return this.userDao.Edit(id, newUsername, newPassword);
             }
@@ -58,11 +64,11 @@ namespace EPAM.Final_BLL
             return errorCode;
         }
 
-        public int EditRole(int userId, int newRoleId)
+        public int EditRole(int id, int newRoleId)
         {
-            if (userId > 1)
+            if (id > 1)
             {
-                return this.userDao.EditRole(userId, newRoleId);
+                return this.userDao.EditRole(id, newRoleId);
             }
 
             return errorCode;

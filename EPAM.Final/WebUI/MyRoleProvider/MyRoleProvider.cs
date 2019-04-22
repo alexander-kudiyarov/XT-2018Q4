@@ -14,17 +14,14 @@ namespace WebUI.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            return this.userLogic.GetRoles(username);
+            return  new[] { this.userLogic.GetRole(username) };
         }
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            foreach (var role in this.userLogic.GetRoles(username))
+            if (this.userLogic.GetRole(username).Equals(roleName))
             {
-                if (role.Equals(roleName))
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;

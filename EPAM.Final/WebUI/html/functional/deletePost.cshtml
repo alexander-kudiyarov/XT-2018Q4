@@ -1,0 +1,22 @@
+﻿@using EPAM.Final_Common;
+@using EPAM.Final_Entities;
+@{
+    int postId = 0;
+    int threadId = 0;
+
+    if (!(int.TryParse(Request.QueryString["postId"], out postId) && int.TryParse(Request.QueryString["threadId"], out threadId)))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var postLogic = DependencyResolver.PostLogic;
+    Post post = postLogic.Get(postId);
+
+    if (post.Author.Equals(User.Identity.Name) || User.IsInRole("moderator") || User.IsInRole("admin"))
+    {
+        postLogic.Delete(postId);
+        Response.Redirect($"~/html/posts?threadId={threadId}");
+    }
+
+    Response.Redirect($"~/html/threads");
+}

@@ -1,0 +1,42 @@
+﻿@using EPAM.Final_Common;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/styles/styleSheet.css" />
+    <script src="~/scripts/JavaScript.js"></script>
+</head>
+<body>
+    <div>
+        <a href="~/html/threads">Simple Forum</a>
+        @if (User.IsInRole("admin"))
+        {
+            <div>
+                <a href="~/html/administration">Administration</a>
+            </div>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            var userLogic = DependencyResolver.UserLogic;
+            int id = userLogic.GetId(User.Identity.Name);
+            string role = userLogic.GetRole(User.Identity.Name);
+            <a href="~/html/user?id=@id">@User.Identity.Name (@role)</a>
+            <div>
+                <a href="~/html/functional/logout">Log Out</a>
+            </div>
+        }
+        else
+        {
+            if (!HttpContext.Current.Request.Url.AbsolutePath.Equals("/html/registration"))
+            {
+                @RenderPage("/html/partial/_login.cshtml")
+            }
+        }
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

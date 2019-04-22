@@ -1,0 +1,48 @@
+﻿@using EPAM.Final_Common;
+@{
+    int threadId = 0;
+
+    if (!(int.TryParse(Request.QueryString["id"], out threadId)))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var threadLogic = DependencyResolver.ThreadLogic;
+    var t = threadLogic.Get(threadId);
+
+    if (!(t.StartedBy.Equals(User.Identity.Name)))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    Layout = "~/html/partial/_layout.cshtml";
+}
+
+<form method="post">
+    <input placeholder="New ubject" value="@t.Subject" name="newSubject" autocomplete="off" maxlength="128" />
+    <button type="submit">Submit</button>
+
+    @if (IsPost)
+    {
+        string editedThread = Request["newSubject"];
+
+        if (string.IsNullOrWhiteSpace(editedThread))
+        {
+            <script>alert("Thread subject cannot be empty")</script>
+        }
+        else
+        {
+            if (threadLogic.Edit(threadId, editedThread) > 0)
+            {
+                Response.Redirect($"~/html/threads");
+            }
+            else
+            {
+                <script>alert("Thread with this subject already exist")</script>
+            }
+        }
+    }
+</form>
+<head>
+    <title>Thread editing</title>
+</head>

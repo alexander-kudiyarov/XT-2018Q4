@@ -1,0 +1,67 @@
+﻿@using EPAM.Final_Common;
+@using EPAM.Final_Entities;
+@{
+    Layout = "~/html/partial/_layout.cshtml";
+    var userLogic = DependencyResolver.UserLogic;
+    var threadLogic = DependencyResolver.ThreadLogic;
+    var postLogic = DependencyResolver.PostLogic;
+    IEnumerable<Post> posts = null;
+    Thread thread = null;
+    bool isThread = false;
+
+    if (int.TryParse(Request.QueryString["threadId"], out int id) && id > 0)
+    {
+        isThread = true;
+        thread = threadLogic.Get(id);
+        posts = postLogic.GetAllByThread(id);
+        <h4>@thread.Subject</h4>
+    }
+    else
+    {
+        if (int.TryParse(Request.QueryString["userId"], out id) && id > 0)
+        {
+            var user = userLogic.Get(id);
+            posts = postLogic.GetAllByUser(id);
+            <h4>Posts by @user.Username</h4>
+        }
+        else
+        {
+            Response.Redirect("~/html/threads");
+        }
+    }
+}
+
+@if (posts.Count() > 0)
+{
+    foreach (var p in posts)
+    {
+        <div>
+            <p>@p.Text</p>
+            <p>
+                posted @($"{p.PublishDate:f}") @if (p.EditDate.HasValue)
+                {<text>(edited: @($"{p.EditDate:f}")) </text>}by <a href="~/html/user?id=@p.AuthorId">@p.Author</a>
+            </p>
+            @if (p.Author.Equals(User.Identity.Name))
+            {
+                <a href="~/html/editPost?postId=@p.Id&threadId=@id">Edit</a>
+            }
+
+            @if (p.Author.Equals(User.Identity.Name) || User.IsInRole("admin") || User.IsInRole("moderator"))
+            {
+                <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">Delete</a>
+            }
+        </div>
+    }
+}
+else
+{
+    <p>No posts</p>
+}
+
+@if (isThread && User.Identity.IsAuthenticated && !User.IsInRole("banned"))
+{
+    @RenderPage("~/html/partial/_newPost.cshtml", id)
+}
+<head>
+    <title>Thread</title>
+</head>

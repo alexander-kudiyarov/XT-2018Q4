@@ -1,0 +1,51 @@
+﻿@using EPAM.Final_Common;
+@{
+    if (!User.Identity.IsAuthenticated && User.IsInRole("banned"))
+    {
+        Response.Redirect("~/html/threads");
+    }
+
+    Layout = "~/html/partial/_layout.cshtml";
+    if (IsPost)
+    {
+
+        string subject = Request["subject"];
+        string post = Request["post"];
+        var threadLogic = DependencyResolver.ThreadLogic;
+        var postLogic = DependencyResolver.PostLogic;
+
+        if (string.IsNullOrWhiteSpace(subject))
+        {
+            <script>alert("Thread subject can't be empty")</script>
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(post))
+            {
+                <script>alert("Post can't be empty")</script>
+            }
+            else
+            {
+                int threadId = threadLogic.New(User.Identity.Name, subject);
+
+                if (threadId > 0)
+                {
+                    postLogic.New(post, threadId, User.Identity.Name);
+                    Response.Redirect($"~/html/posts?threadId={threadId}");
+                }
+                else
+                {
+                    @:<script>alert("Thread with this subject already exist")</script>
+                }
+            }
+        }
+    }
+}
+<form method="post">
+    <input placeholder="Thread subject" type="text" name="subject" autocomplete="off" maxlength="128" />
+    <textarea placeholder="Message . . ." type="text" name="post" autocomplete="off" maxlength="4000"></textarea>
+    <button type="submit">Submit</button>
+</form>
+<head>
+    <title>Thread starting</title>
+</head>

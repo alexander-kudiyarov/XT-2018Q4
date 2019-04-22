@@ -1,0 +1,18 @@
+﻿@using EPAM.Final_Common;
+@{
+    if (!int.TryParse(Request.QueryString["id"], out int id))
+    {
+        Response.Redirect("~/html/threads");
+    }
+
+    var threadLogic = DependencyResolver.ThreadLogic;
+    var t = threadLogic.Get(id);
+
+    if (t.StartedBy.Equals(User.Identity.Name) || User.IsInRole("moderator") || User.IsInRole("admin"))
+    {
+        threadLogic.Delete(id);
+        Response.Redirect($"~/html/threads");
+    }
+
+    Response.Redirect($"~/html/threads");
+}

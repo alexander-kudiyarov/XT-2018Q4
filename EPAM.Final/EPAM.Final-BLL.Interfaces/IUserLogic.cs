@@ -11,7 +11,7 @@ namespace EPAM.Final_BLL.Interfaces
     {
         bool Authentication(string username, string password);
 
-        string[] GetRoles(string name);
+        string GetRole(string name);
 
         int New(string username, string password);
 

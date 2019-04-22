@@ -1,0 +1,30 @@
+﻿@using EPAM.Final_Common;
+@{
+    if (!(int.TryParse(Request.QueryString["id"], out int id) && id > 0))
+    {
+        Response.Redirect("~/html/threads");
+    }
+
+    var userLogic = DependencyResolver.UserLogic;
+    var u = userLogic.Get(id);
+
+    if (object.Equals(u, null))
+    {
+        Response.Redirect("~/html/threads");
+    }
+
+    Layout = "~/html/partial/_layout.cshtml";
+}
+<div>
+    <p>@u.Username</p>
+    <a href="~/html/threads?userId=@u.Id">Threads</a>
+    <a href="~/html/posts?userId=@u.Id">Posts</a>
+
+    @if (u.Username.Equals(User.Identity.Name) & !u.Username.Equals("admin"))
+    {
+        <a href="~/html/editUser?id=@u.Id">Edit user</a>
+    }
+</div>
+<head>
+    <title>User: @u.Username</title>
+</head>

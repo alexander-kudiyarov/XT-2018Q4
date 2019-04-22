@@ -1,0 +1,58 @@
+﻿@using EPAM.Final_Common;
+@{
+    Layout = "~/html/partial/_layout.cshtml";
+    if (IsPost)
+    {
+        string username = Request["username"];
+        string password = Request["password"];
+        string confirmation = Request["confirmation"];
+
+        if (username.Length < 3 || username.Length > 20)
+        {
+            <script>alert("Username must be between 3 and 20 characters")</script>
+        }
+        else
+        {
+            if (password.Length < 6)
+            {
+                <script>alert("Password must be at least 6 characters long")</script>
+            }
+            else
+            {
+                {
+                    if (!password.Equals(confirmation))
+                    {
+                        <script>alert("Wrong password confirmation")</script>
+                    }
+                    else
+                    {
+                        var userLogic = DependencyResolver.UserLogic;
+                        if (userLogic.New(username, password) > 0)
+                        {
+                            <script>alert("Successfull")</script>
+                            <script>location.href = "index"</script>
+                        }
+                        else
+                        {
+                            <script>alert("User with this username already exist")</script>
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+<form id="newUser" method="post">
+    <label>Username</label>
+    <input placeholder="must be between 3 and 20 characters" type="text" name="username" maxlength="20" />
+    <label>Password</label>
+    <input placeholder="must be at least 6 characters long" type="password" name="password" max="128">
+    <label>Confirm password</label>
+    <input type="password" name="confirmation" max="128">
+    <button type="submit">Submit</button>
+</form>
+<head>
+    <title>Registration</title>
+    <script src="~/scripts/JavaScript.js"></script>
+</head>

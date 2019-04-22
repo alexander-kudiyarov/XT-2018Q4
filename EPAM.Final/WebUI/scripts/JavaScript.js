@@ -3,3 +3,8 @@
         window.location.href = pageForRedirect;
     }
 }
+
+function SuccessfulAlert() {
+    window.alert("successful");
+    window.location.href = "index";
+}

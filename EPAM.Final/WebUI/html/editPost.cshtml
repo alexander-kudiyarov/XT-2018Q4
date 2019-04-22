@@ -1,0 +1,43 @@
+﻿@using EPAM.Final_Common;
+
+@{
+    int postId = 0;
+    int threadId = 0;
+
+    if (!(int.TryParse(Request.QueryString["postId"], out postId) && int.TryParse(Request.QueryString["threadId"], out threadId)))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var postLogic = DependencyResolver.PostLogic;
+    var p = postLogic.Get(postId);
+
+    if (!p.Author.Equals(User.Identity.Name))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    Layout = "~/html/partial/_layout.cshtml";
+
+    if (IsPost)
+    {
+        string editedPost = Request["newMessage"];
+
+        if (string.IsNullOrWhiteSpace(editedPost))
+        {
+            <script>alert("Post cannot be empty")</script>
+        }
+        else
+        {
+            postLogic.Edit(postId, editedPost);
+            Response.Redirect($"~/html/posts?threadId={threadId}");
+        }
+    }
+}
+<form method="post">
+    <textarea placeholder="Message . . ." name="newMessage" maxlength="4000">@p.Text</textarea>
+    <button type="submit">Submit</button>
+</form>
+<head>
+    <title>Post Editing</title>
+</head>

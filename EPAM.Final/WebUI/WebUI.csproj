@@ -86,8 +86,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\styleSheet.css" />
-    <Content Include="js\JavaScript.js" />
+    <Content Include="styles\styleSheet.css" />
+    <Content Include="scripts\JavaScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,23 +95,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cshtml\_layout.cshtml" />
-    <Content Include="cshtml\index.cshtml" />
-    <Content Include="cshtml\thread.cshtml" />
-    <Content Include="cshtml\user.cshtml" />
-    <Content Include="cshtml\_newPost.cshtml" />
-    <Content Include="cshtml\_login.cshtml" />
-    <Content Include="cshtml\logout.cshtml" />
-    <Content Include="cshtml\deletePost.cshtml" />
-    <Content Include="cshtml\newThread.cshtml" />
-    <Content Include="cshtml\editPost.cshtml" />
-    <Content Include="cshtml\editThread.cshtml" />
-    <Content Include="cshtml\registration.cshtml" />
-    <Content Include="cshtml\administration.cshtml" />
-    <Content Include="cshtml\deleteThread.cshtml" />
-    <Content Include="cshtml\editUser.cshtml" />
-    <Content Include="cshtml\deleteUser.cshtml" />
-    <Content Include="cshtml\editUserRole.cshtml" />
+    <Content Include="html\partial\_layout.cshtml" />
+    <Content Include="html\threads.cshtml" />
+    <Content Include="html\posts.cshtml" />
+    <Content Include="html\user.cshtml" />
+    <Content Include="html\partial\_newPost.cshtml" />
+    <Content Include="html\partial\_login.cshtml" />
+    <Content Include="html\functional\logout.cshtml" />
+    <Content Include="html\functional\deletePost.cshtml" />
+    <Content Include="html\newThread.cshtml" />
+    <Content Include="html\editPost.cshtml" />
+    <Content Include="html\editThread.cshtml" />
+    <Content Include="html\registration.cshtml" />
+    <Content Include="html\administration.cshtml" />
+    <Content Include="html\functional\deleteThread.cshtml" />
+    <Content Include="html\editUser.cshtml" />
+    <Content Include="html\functional\deleteUser.cshtml" />
+    <Content Include="html\functional\editUserRole.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

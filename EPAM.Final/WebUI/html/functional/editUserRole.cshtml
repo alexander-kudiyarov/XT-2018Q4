@@ -1,0 +1,16 @@
+﻿@using EPAM.Final_Common;
+@{
+    int userId = 0;
+    int newRoleId = 0;
+
+    if (!User.IsInRole("admin") || !int.TryParse(Request.QueryString["userId"], out userId) || !int.TryParse(Request.QueryString["newRoleId"], out newRoleId))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var userLogic = DependencyResolver.UserLogic;
+
+    userLogic.EditRole(userId, newRoleId);
+
+    Response.Redirect("~/html/administration");
+}

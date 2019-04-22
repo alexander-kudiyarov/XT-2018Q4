@@ -1,0 +1,17 @@
+﻿@{
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    if (!(int.TryParse(Request.QueryString["id"], out int id)))
+    {
+        Response.Redirect($"~/html/threads");
+    }
+
+    var userLogic = EPAM.Final_Common.DependencyResolver.UserLogic;
+
+    userLogic.Delete(id);
+
+    Response.Redirect($"~/html/administration");
+}

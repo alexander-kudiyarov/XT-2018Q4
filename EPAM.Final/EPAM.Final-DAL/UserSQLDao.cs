@@ -37,7 +37,7 @@ namespace EPAM.Final_DAL
             }
         }
 
-        public string[] GetRoles(string username)
+        public string GetRole(string username)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -49,14 +49,14 @@ namespace EPAM.Final_DAL
 
                 var reader = cmd.ExecuteReader();
 
-                List<string> roles = new List<string>();
+                string role = null;
 
                 while (reader.Read())
                 {
-                    roles.Add((string)reader["role"]);
+                    role = (string)reader["role"];
                 }
 
-                return roles.ToArray();
+                return role;
             }
         }
 
@@ -154,7 +154,7 @@ namespace EPAM.Final_DAL
 
                 while (reader.Read())
                 {
-                    return new User((int)reader["id"], (string)reader["username"], this.GetRoles((string)reader["username"]));
+                    return new User((int)reader["id"], (string)reader["username"], (string)reader["role"]);
                 }
 
                 return null;
@@ -175,7 +175,7 @@ namespace EPAM.Final_DAL
 
                 while (reader.Read())
                 {
-                    result.Add(new User((int)reader["id"], (string)reader["username"], this.GetRoles((string)reader["username"])));
+                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["role"]));
                 }
 
                 return result;

@@ -1,0 +1,51 @@
+﻿@using EPAM.Final_Common;
+@using EPAM.Final_Entities;
+
+@{
+    Layout = "~/html/partial/_layout.cshtml";
+    var userLogic = DependencyResolver.UserLogic;
+    var threadLogic = DependencyResolver.ThreadLogic;
+    IEnumerable<Thread> threads;
+    bool threadsByUser = false;
+
+    if (int.TryParse(Request.QueryString["userId"], out int id))
+    {
+        threadsByUser = true;
+        var user = userLogic.Get(id);
+        threads = threadLogic.GetAllByUser(id);
+        <h4>Threads by @user.Username</h4>
+    }
+    else
+    {
+        threads = threadLogic.GetAll();
+    }
+
+    if (threads.Count() > 0)
+    {
+        foreach (var t in threads)
+        {
+            <div>
+                <a href="~/html/posts?threadId=@t.Id">@t.Subject</a>
+                <p>last message @($"{t.LastMessage:f}")</p>
+                @if (t.StartedBy.Equals(User.Identity.Name))
+                {
+                    <a href="~/html/editThread?id=@t.Id">Edit</a>
+                }
+                @if (User.IsInRole("admin"))
+                {
+                    <a href="javascript:Confirmation('functional/deleteThread?id=@t.Id');">Delete</a>
+                }
+            </div>
+        }
+    }
+}
+
+@if (User.Identity.IsAuthenticated && !threadsByUser && !User.IsInRole("banned"))
+{
+    <footer>
+        <a href="~/html/newThread">New thread</a>
+    </footer>
+}
+<head>
+    <title>Forum</title>
+</head>

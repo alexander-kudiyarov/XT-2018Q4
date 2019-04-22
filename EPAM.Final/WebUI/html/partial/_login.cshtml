@@ -1,0 +1,39 @@
+﻿@using EPAM.Final_Common;
+@{
+    if (IsPost)
+    {
+        var username = Request["username"];
+        var password = Request["password"];
+        var userLogic = DependencyResolver.UserLogic;
+
+        if (username.Length < 3 || username.Length > 20)
+        {
+            <script>alert("Username must be between 3 and 20 characters")</script>
+        }
+        else
+        {
+            if (password.Length < 6)
+            {
+                <script>alert("Password must be at least 6 characters long")</script>
+            }
+            else
+            {
+                if (userLogic.Authentication(username, password))
+                {
+                    FormsAuthentication.SetAuthCookie(username, createPersistentCookie: true);
+                    Response.Redirect("~/html/threads");
+                }
+                else
+                {
+                    <script>alert("Wrong username or password")</script>
+                }
+            }
+        }
+    }
+}
+<form method="post">
+    <input placeholder="Username (admin)" type="text" name="username" maxlength="20" />
+    <input placeholder="Password (password" type="password" name="password" max="128">
+    <button type="submit">Log In</button>
+    <a href="~/html/registration">Registration</a>
+</form>
