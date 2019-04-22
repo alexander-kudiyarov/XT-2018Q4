@@ -53,15 +53,28 @@
         }
     }
 }
-<form id="newUser" method="post">
-    <label>Username</label>
-    <input placeholder="must be between 3 and 20 characters" value="@u.Username" type="text" name="username" maxlength="20" />
-    <label>Password (leave blank if you don't change)</label>
-    <input placeholder="must be at least 6 characters long" type="password" name="password" max="128">
-    <label>Confirm password</label>
-    <input type="password" name="password" max="128">
-    <button type="submit">Submit</button>
-</form>
+<div>
+    <form id="newUser" method="post">
+        <table>
+            <tr>
+                <td><input placeholder="Username" type="text" name="newUsername" maxlength="20" /></td>
+                <td>must be between 3 and 20 characters</td>
+            </tr>
+            <tr>
+                <td><input placeholder="Password" type="password" name="newPassword" max="128"></td>
+                <td>must be at least 6 characters long (leave blank if you won't change it)</td>
+            </tr>
+            <tr>
+                <td><input placeholder="Confirm Password" type="password" name="confirmation" max="128"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><button class="bright" type="submit">Submit</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</div>
 <head>
     <title>User Editing</title>
 </head>

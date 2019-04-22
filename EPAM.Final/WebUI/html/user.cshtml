@@ -15,14 +15,14 @@
 
     Layout = "~/html/partial/_layout.cshtml";
 }
-<div>
-    <p>@u.Username</p>
-    <a href="~/html/threads?userId=@u.Id">Threads</a>
-    <a href="~/html/posts?userId=@u.Id">Posts</a>
+<div class="bordered">
+    <a class="highlight" href="~/html/user?id=@u.Id"><p>@u.Username</p></a>
+    <a href="~/html/threads?userId=@u.Id">[Threads]</a>
+    <a href="~/html/posts?userId=@u.Id">[Posts]</a>
 
-    @if (u.Username.Equals(User.Identity.Name) & !u.Username.Equals("admin"))
+    @if (u.Username.Equals(User.Identity.Name))
     {
-        <a href="~/html/editUser?id=@u.Id">Edit user</a>
+        <a href="~/html/editUser?id=@u.Id">[Edit user]</a>
     }
 </div>
 <head>

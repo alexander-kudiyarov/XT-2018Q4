@@ -14,7 +14,7 @@
         isThread = true;
         thread = threadLogic.Get(id);
         posts = postLogic.GetAllByThread(id);
-        <h4>@thread.Subject</h4>
+        <div class="heading"><p>@thread.Subject</p></div>
     }
     else
     {
@@ -22,7 +22,7 @@
         {
             var user = userLogic.Get(id);
             posts = postLogic.GetAllByUser(id);
-            <h4>Posts by @user.Username</h4>
+            <div class="heading"><p>Posts by @user.Username</p></div>
         }
         else
         {
@@ -35,21 +35,32 @@
 {
     foreach (var p in posts)
     {
-        <div>
-            <p>@p.Text</p>
-            <p>
-                posted @($"{p.PublishDate:f}") @if (p.EditDate.HasValue)
-                {<text>(edited: @($"{p.EditDate:f}")) </text>}by <a href="~/html/user?id=@p.AuthorId">@p.Author</a>
-            </p>
-            @if (p.Author.Equals(User.Identity.Name))
-            {
-                <a href="~/html/editPost?postId=@p.Id&threadId=@id">Edit</a>
-            }
+        <div class="bordered">
+            <p class="highlight">@p.Text</p>
+            <div class="signature unpadded right">
+                posted @($"{p.PublishDate:f}")
+                @if (isThread)
+                {
+                    <text>by <a href="~/html/user?id=@p.AuthorId">@p.Author</a></text>
+                }
+                else
+                {
+                    <text>in <a href="posts?threadId=@threadLogic.GetId(p.Thread)">@p.Thread</a></text>
+                }
+                @if (p.EditDate.HasValue)
+                {
+                    <text>(edited @($"{p.EditDate:f}"))</text>
+                }
+                @if (p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned"))
+                {
+                    <a href="~/html/editPost?postId=@p.Id&threadId=@id">[Edit]</a>
+                }
 
-            @if (p.Author.Equals(User.Identity.Name) || User.IsInRole("admin") || User.IsInRole("moderator"))
-            {
-                <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">Delete</a>
-            }
+                @if ((p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned")) || User.IsInRole("admin") || User.IsInRole("moderator"))
+                {
+                    <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">[Delete]</a>
+                }
+            </div>
         </div>
     }
 }
@@ -60,7 +71,9 @@ else
 
 @if (isThread && User.Identity.IsAuthenticated && !User.IsInRole("banned"))
 {
-    @RenderPage("~/html/partial/_newPost.cshtml", id)
+    <div class="unpadded">
+        @RenderPage("~/html/partial/_newPost.cshtml", id)
+    </div>
 }
 <head>
     <title>Thread</title>

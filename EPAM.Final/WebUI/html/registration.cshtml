@@ -42,16 +42,28 @@
         }
     }
 }
-
-<form id="newUser" method="post">
-    <label>Username</label>
-    <input placeholder="must be between 3 and 20 characters" type="text" name="username" maxlength="20" />
-    <label>Password</label>
-    <input placeholder="must be at least 6 characters long" type="password" name="password" max="128">
-    <label>Confirm password</label>
-    <input type="password" name="confirmation" max="128">
-    <button type="submit">Submit</button>
-</form>
+<div>
+    <form id="newUser" method="post">
+        <table>
+            <tr>
+                <td><input placeholder="Username" type="text" name="username" maxlength="20" /></td>
+                <td>must be between 3 and 20 characters</td>
+            </tr>
+            <tr>
+                <td><input placeholder="Password" type="password" name="password" max="128"></td>
+                <td>must be at least 6 characters long</td>
+            </tr>
+            <tr>
+                <td><input placeholder="Confirm Password" type="password" name="confirmation" max="128"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><button class="bright" type="submit">Register</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</div>
 <head>
     <title>Registration</title>
     <script src="~/scripts/JavaScript.js"></script>

@@ -7,12 +7,8 @@
 
     var postLogic = DependencyResolver.PostLogic;
     int threadId = Page[0];
-}
-<form method="post">
-    <textarea placeholder="Your message . . ." type="text" name="text" autocomplete="off" maxlength="4000"></textarea>
-    <button type="submit">Submit</button>
 
-    @if (IsPost)
+    if (IsPost)
     {
         string text = Request["text"];
         if (!string.IsNullOrWhiteSpace(text))
@@ -25,4 +21,10 @@
             <script>alert("Post cannot be empty")</script>
         }
     }
+}
+<form method="post">
+    <textarea placeholder="Your message . . ." type="text" name="text" autocomplete="off" maxlength="4000"></textarea>
+    <div>
+        <button class="bright" type="submit">Submit</button>
+    </div>
 </form>

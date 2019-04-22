@@ -18,31 +18,34 @@
     Layout = "~/html/partial/_layout.cshtml";
 }
 
-<form method="post">
-    <input placeholder="New ubject" value="@t.Subject" name="newSubject" autocomplete="off" maxlength="128" />
-    <button type="submit">Submit</button>
-
-    @if (IsPost)
-    {
-        string editedThread = Request["newSubject"];
-
-        if (string.IsNullOrWhiteSpace(editedThread))
+<div class="unpadded">
+    <form method="post">
+        <input class="wide" placeholder="New ubject" value="@t.Subject" name="newSubject" autocomplete="off" maxlength="128" />
+        <div>
+            <button class="bright" type="submit">Submit</button>
+        </div>
+        @if (IsPost)
         {
-            <script>alert("Thread subject cannot be empty")</script>
-        }
-        else
-        {
-            if (threadLogic.Edit(threadId, editedThread) > 0)
+            string editedThread = Request["newSubject"];
+
+            if (string.IsNullOrWhiteSpace(editedThread))
             {
-                Response.Redirect($"~/html/threads");
+                <script>alert("Thread subject cannot be empty")</script>
             }
             else
             {
-                <script>alert("Thread with this subject already exist")</script>
+                if (threadLogic.Edit(threadId, editedThread) > 0)
+                {
+                    Response.Redirect($"~/html/threads");
+                }
+                else
+                {
+                    <script>alert("Thread with this subject already exist")</script>
+                }
             }
         }
-    }
-</form>
+    </form>
+</div>
 <head>
     <title>Thread editing</title>
 </head>

@@ -1,6 +1,5 @@
 ﻿@using EPAM.Final_Common;
 @using EPAM.Final_Entities;
-
 @{
     Layout = "~/html/partial/_layout.cshtml";
     var userLogic = DependencyResolver.UserLogic;
@@ -13,7 +12,7 @@
         threadsByUser = true;
         var user = userLogic.Get(id);
         threads = threadLogic.GetAllByUser(id);
-        <h4>Threads by @user.Username</h4>
+        <div class="heading"><p>Threads by @user.Username</p></div>
     }
     else
     {
@@ -24,17 +23,19 @@
     {
         foreach (var t in threads)
         {
-            <div>
-                <a href="~/html/posts?threadId=@t.Id">@t.Subject</a>
-                <p>last message @($"{t.LastMessage:f}")</p>
-                @if (t.StartedBy.Equals(User.Identity.Name))
-                {
-                    <a href="~/html/editThread?id=@t.Id">Edit</a>
-                }
-                @if (User.IsInRole("admin"))
-                {
-                    <a href="javascript:Confirmation('functional/deleteThread?id=@t.Id');">Delete</a>
-                }
+            <div class="bordered">
+                <a class="highlight" href="~/html/posts?threadId=@t.Id">@t.Subject</a>
+                <div class="signature unpadded right">
+                    <p>last message @($"{t.LastMessage:f}")</p>
+                    @if (t.StartedBy.Equals(User.Identity.Name) && !User.IsInRole("banned"))
+                    {
+                        <a href="~/html/editThread?id=@t.Id">[Edit]</a>
+                    }
+                    @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                    {
+                        <a href="javascript:Confirmation('functional/deleteThread?id=@t.Id');">[Delete]</a>
+                    }
+                </div>
             </div>
         }
     }
@@ -42,10 +43,10 @@
 
 @if (User.Identity.IsAuthenticated && !threadsByUser && !User.IsInRole("banned"))
 {
-    <footer>
-        <a href="~/html/newThread">New thread</a>
-    </footer>
+    <div>
+        <a class="bright" href="~/html/newThread">New thread</a>
+    </div>
 }
 <head>
-    <title>Forum</title>
+    <title>Simple Forum</title>
 </head>

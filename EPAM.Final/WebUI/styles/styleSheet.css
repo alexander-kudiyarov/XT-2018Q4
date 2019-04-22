@@ -2,3 +2,106 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    width: 1080px;
+    margin: auto;
+    min-width: 55%;
+    max-width: 100%;
+    font-family: 'Roboto',sans-serif;
+    font-size: small;
+}
+
+div {
+    margin: .5em 0;
+    padding: 0 .5em;
+    overflow: hidden;
+}
+
+a, body, button {
+    color: #757575;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover, button:hover {
+        text-decoration: underline;
+    }
+
+.highlight {
+    color: #000;
+    font-size: medium;
+}
+
+.bright {
+    background-color: #ff5252;
+    border-radius: .5em;
+    padding: .75em;
+    color: #fff;
+    border: 0;
+    display: inline-block;
+}
+
+input, textarea {
+    outline: 0;
+    box-sizing: border-box;
+    padding: .33em;
+}
+
+textarea {
+    resize: vertical;
+    width: 100%;
+    height: 5em;
+    font-family: 'Roboto',sans-serif;
+    border: 1px solid #757575;
+}
+
+.bordered, input, textarea {
+    border-radius: .5em;
+}
+
+input {
+    border: 1px solid gray;
+}
+
+.wide {
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+button {
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+}
+
+.bordered {
+    border: 1px #757575 solid;
+    padding: .75em;
+}
+
+.unpadded {
+    padding: 0;
+}
+
+.right {
+    float: right;
+}
+
+.unmargined {
+    margin: 0;
+}
+
+.heading {
+    border-radius: .5em;
+    padding: .75em;
+    font-size: medium;
+    background-color: #757575;
+    color: #fff;
+}
+
+.signature {
+    margin: .375em;
+}
