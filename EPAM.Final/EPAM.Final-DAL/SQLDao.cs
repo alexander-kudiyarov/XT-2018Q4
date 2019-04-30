@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -13,9 +8,9 @@ namespace EPAM.Final_DAL
 {
     public abstract class SQLDao
     {
-        protected static int errorCode = -1;
+        protected static int ErrorCode { get; } = -1;
 
-        protected static log4net.ILog log = LogHelper.GetLogger();
+        protected static log4net.ILog Log { get; } = LogHelper.GetLogger();
 
         protected static string ConnectionString { get; } = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
@@ -47,7 +42,7 @@ namespace EPAM.Final_DAL
             }
             catch (SqlException exc)
             {
-                log.Error(exc.Message);
+                Log.Error(exc.Message);
 
                 return false;
             }
@@ -65,7 +60,7 @@ namespace EPAM.Final_DAL
             }
             catch (SqlException exc)
             {
-                log.Error(exc.Message);
+                Log.Error(exc.Message);
 
                 reader = null;
 

@@ -1,17 +1,13 @@
-﻿using EPAM.Final_BLL.Interfaces;
+﻿using System.Collections.Generic;
+using EPAM.Final_BLL.Interfaces;
 using EPAM.Final_DAL.Interfaces;
 using EPAM.Final_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Final_BLL
 {
     public class PostLogic : ForumLogic, IPostLogic
     {
-        private IPostDao postDao;
+        private readonly IPostDao postDao;
 
         public PostLogic(IPostDao postDao)
         {
@@ -22,9 +18,9 @@ namespace EPAM.Final_BLL
         {
             if (threadId > 0 && !string.IsNullOrWhiteSpace(text) && !string.IsNullOrWhiteSpace(username))
             {
-                if(this.postDao.New(text, threadId, username, out int id))
+                if (this.postDao.New(text, threadId, username, out int id))
                 {
-                    log.Info($"New Message, ID: {id}");
+                    Log.Info($"New Message, ID: {id}");
 
                     return true;
                 }
@@ -37,9 +33,9 @@ namespace EPAM.Final_BLL
         {
             if (id > 0 && !string.IsNullOrWhiteSpace(text))
             {
-                if(this.postDao.Edit(id, text))
+                if (this.postDao.Edit(id, text))
                 {
-                    log.Info($"Post with ID = {id} was edited");
+                    Log.Info($"Post with ID = {id} was edited");
 
                     return true;
                 }
@@ -52,9 +48,9 @@ namespace EPAM.Final_BLL
         {
             if (id > 0)
             {
-                if(this.postDao.Delete(id))
+                if (this.postDao.Delete(id))
                 {
-                    log.Info($"Post ID: {id} was deleted");
+                    Log.Info($"Post ID: {id} was deleted");
 
                     return true;
                 }

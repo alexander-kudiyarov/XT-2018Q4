@@ -23,19 +23,19 @@
 
         if (newUsername.Length < 3 || newUsername.Length > 20)
         {
-            <script>alert("Username must be between 3 and 20 characters")</script>
+    <script>alert("Username must be between 3 and 20 characters")</script>
         }
         else
         {
             if (!string.IsNullOrWhiteSpace(newPassword) && newPassword.Length < 6)
             {
-                <script>alert("Password must be at least 6 characters long")</script>
+    <script>alert("Password must be at least 6 characters long")</script>
             }
             else
             {
                 if (!newPassword.Equals(confirmation))
                 {
-                    <script>alert("Wrong password confirmation")</script>
+    <script>alert("Wrong password confirmation")</script>
                 }
                 else
                 {
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        <script>alert("User with this username already exist")</script>
+    <script>alert("User with this username already exist")</script>
                     }
                 }
             }
@@ -57,7 +57,7 @@
     <form id="newUser" method="post">
         <table>
             <tr>
-                <td><input placeholder="Username" value ="@u.Username" type="text" name="newUsername" maxlength="20" /></td>
+                <td><input placeholder="Username" value="@u.Username" type="text" name="newUsername" maxlength="20" /></td>
                 <td>must be between 3 and 20 characters</td>
             </tr>
             <tr>

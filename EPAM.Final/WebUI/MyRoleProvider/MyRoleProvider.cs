@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
 using EPAM.Final_BLL.Interfaces;
 using EPAM.Final_Common;
@@ -14,7 +11,7 @@ namespace WebUI.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            return  new[] { this.userLogic.GetRole(username) };
+            return new[] { this.userLogic.GetRole(username) };
         }
 
         public override bool IsUserInRole(string username, string roleName)
@@ -28,6 +25,7 @@ namespace WebUI.MyRoleProvider
         }
 
         #region NotImplemented
+
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -69,6 +67,7 @@ namespace WebUI.MyRoleProvider
         {
             throw new NotImplementedException();
         }
-        #endregion
+
+        #endregion NotImplemented
     }
 }

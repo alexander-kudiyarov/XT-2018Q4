@@ -12,29 +12,29 @@
 }
 @foreach (var u in users)
 {
-    <div class="bordered">
-        <a class="highlight" href="~/html/user?id=@u.Id"><p>@u.Username</p></a>
-        @if (u.Role.Equals("user"))
+<div class="bordered">
+    <a class="highlight" href="~/html/user?id=@u.Id"><p>@u.Username</p></a>
+    @if (u.Role.Equals("user"))
         {
-            <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=2">[Give moderation rights]</a>
+    <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=2">[Give moderation rights]</a>
         }
-        @if (u.Role.Equals("moderator"))
+    @if (u.Role.Equals("moderator"))
         {
-            <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=3">[Take moderation rights]</a>
+    <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=3">[Take moderation rights]</a>
         }
-        @if (!u.Role.Equals("banned") && !u.Role.Equals("admin"))
+    @if (!u.Role.Equals("banned") && !u.Role.Equals("admin"))
         {
-            <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=4">[Ban user]</a>
+    <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=4">[Ban user]</a>
         }
-        @if (u.Role.Equals("banned"))
+    @if (u.Role.Equals("banned"))
         {
-            <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=3">[Unban user]</a>
+    <a href="~/html/functional/editUserRole?userId=@u.Id&newRoleId=3">[Unban user]</a>
         }
-        @if (!u.Role.Contains("admin"))
+    @if (!u.Role.Contains("admin"))
         {
-            <a href="javascript:Confirmation('functional/deleteUser?id=@u.Id');">[Delete User]</a>
+    <a href="javascript:Confirmation('functional/deleteUser?id=@u.Id');">[Delete User]</a>
         }
-    </div>
+</div>
 }
 <head>
     <title>Administration</title>

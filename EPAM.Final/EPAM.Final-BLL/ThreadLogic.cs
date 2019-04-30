@@ -1,17 +1,13 @@
-﻿using EPAM.Final_BLL.Interfaces;
+﻿using System.Collections.Generic;
+using EPAM.Final_BLL.Interfaces;
 using EPAM.Final_DAL.Interfaces;
 using EPAM.Final_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Final_BLL
 {
     public class ThreadLogic : ForumLogic, IThreadLogic
     {
-        private IThreadDao threadDao;
+        private readonly IThreadDao threadDao;
 
         public ThreadLogic(IThreadDao threadDao)
         {
@@ -24,13 +20,13 @@ namespace EPAM.Final_BLL
             {
                 if (this.threadDao.TryNew(username, subject, out id))
                 {
-                    log.Info($"New thread, ID: {id}, Subject: {subject}");
+                    Log.Info($"New thread, ID: {id}, Subject: {subject}");
 
                     return true;
                 }
             }
 
-            id = errorCode;
+            id = ForumLogic.ErrorCode;
 
             return false;
         }
@@ -39,9 +35,9 @@ namespace EPAM.Final_BLL
         {
             if (id > 0 && !string.IsNullOrWhiteSpace(newSubject))
             {
-                if(this.threadDao.Edit(id, newSubject))
+                if (this.threadDao.Edit(id, newSubject))
                 {
-                    log.Info($"Thread {Get(id).Subject} change subject to {newSubject}");
+                    Log.Info($"Thread {Get(id).Subject} change subject to {newSubject}");
 
                     return true;
                 }
@@ -54,11 +50,11 @@ namespace EPAM.Final_BLL
         {
             if (id > 0)
             {
-                string subject = Get(id).Subject;
+                string subject = this.Get(id).Subject;
 
                 if (this.threadDao.Delete(id))
                 {
-                    log.Info($"Thread {subject} deleted");
+                    Log.Info($"Thread {subject} deleted");
 
                     return true;
                 }
@@ -94,7 +90,7 @@ namespace EPAM.Final_BLL
                 return this.threadDao.GetId(threadName);
             }
 
-            return errorCode;
+            return ForumLogic.ErrorCode;
         }
     }
 }

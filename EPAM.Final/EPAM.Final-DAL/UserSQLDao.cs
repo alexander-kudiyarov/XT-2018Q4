@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EPAM.Final_DAL.Interfaces;
 using EPAM.Final_Entities;
 
@@ -70,7 +66,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@password", password);
 
-                if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
                     while (reader.Read())
                     {
@@ -79,7 +75,7 @@ namespace EPAM.Final_DAL
                     }
                 }
 
-                id = errorCode;
+                id = SQLDao.ErrorCode;
 
                 return false;
             }
@@ -111,7 +107,7 @@ namespace EPAM.Final_DAL
                     this.AddSQLParameter(cmd, "@newPassword", DBNull.Value);
                 }
 
-                if(ExecuteSQLCommand(sqlConnection, cmd))
+                if (this.ExecuteSQLCommand(sqlConnection, cmd))
                 {
                     return true;
                 }
@@ -132,7 +128,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@newRoleId", newRoleId);
 
-                if (ExecuteSQLCommand(sqlConnection, cmd))
+                if (this.ExecuteSQLCommand(sqlConnection, cmd))
                 {
                     return true;
                 }
@@ -151,7 +147,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                if (ExecuteSQLCommand(sqlConnection, cmd))
+                if (this.ExecuteSQLCommand(sqlConnection, cmd))
                 {
                     return true;
                 }
@@ -215,7 +211,7 @@ namespace EPAM.Final_DAL
                 sqlConnection.Open();
                 var reader = cmd.ExecuteReader();
 
-                int id = errorCode;
+                int id = ErrorCode;
 
                 while (reader.Read())
                 {

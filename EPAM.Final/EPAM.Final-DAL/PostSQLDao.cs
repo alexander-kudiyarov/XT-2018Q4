@@ -1,12 +1,8 @@
-﻿using EPAM.Final_DAL.Interfaces;
-using EPAM.Final_Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EPAM.Final_DAL.Interfaces;
+using EPAM.Final_Entities;
 
 namespace EPAM.Final_DAL
 {
@@ -26,9 +22,9 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@publishDate", DateTime.Now);
 
-                id = errorCode;
+                id = SQLDao.ErrorCode;
 
-                if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
                     try
                     {
@@ -39,7 +35,7 @@ namespace EPAM.Final_DAL
                             return true;
                         }
                     }
-                    catch(InvalidCastException)
+                    catch (InvalidCastException)
                     {
                         return false;
                     }
@@ -61,7 +57,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@editDate", DateTime.Now);
 
-                if (ExecuteSQLCommand(sqlConnection, cmd))
+                if (this.ExecuteSQLCommand(sqlConnection, cmd))
                 {
                     return true;
                 }
@@ -80,7 +76,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                if(ExecuteSQLCommand(sqlConnection, cmd))
+                if (this.ExecuteSQLCommand(sqlConnection, cmd))
                 {
                     return true;
                 }

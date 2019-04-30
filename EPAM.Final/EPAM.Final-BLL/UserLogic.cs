@@ -1,23 +1,19 @@
-﻿using EPAM.Final_BLL.Interfaces;
+﻿using System.Collections.Generic;
+using EPAM.Final_BLL.Interfaces;
 using EPAM.Final_DAL.Interfaces;
 using EPAM.Final_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAM.Final_BLL
 {
     public class UserLogic : ForumLogic, IUserLogic
     {
-        private int minUsernameLength = 3;
+        private readonly int minUsernameLength = 3;
 
-        private int maxUsernameLength = 20;
+        private readonly int maxUsernameLength = 20;
 
-        private int minPasswordLength = 6;
+        private readonly int minPasswordLength = 6;
 
-        private IUserDao userDao;
+        private readonly IUserDao userDao;
 
         public UserLogic(IUserDao userDao)
         {
@@ -46,11 +42,11 @@ namespace EPAM.Final_BLL
 
         public bool New(string username, string password)
         {
-            if (username.Length >= minUsernameLength && username.Length <= maxUsernameLength && password.Length >= minPasswordLength)
+            if (username.Length >= this.minUsernameLength && username.Length <= this.maxUsernameLength && password.Length >= this.minPasswordLength)
             {
-                if(this.userDao.TryNew(username, password, out int id))
+                if (this.userDao.TryNew(username, password, out int id))
                 {
-                    log.Info($"New user, ID: {id}, Username: {username}");
+                    Log.Info($"New user, ID: {id}, Username: {username}");
                     return true;
                 }
             }
@@ -60,15 +56,15 @@ namespace EPAM.Final_BLL
 
         public bool Edit(int id, string newUsername, string newPassword)
         {
-            if ((newUsername.Length >= minUsernameLength && newUsername.Length <= maxUsernameLength) || newPassword.Length >= minPasswordLength)
+            if ((newUsername.Length >= this.minUsernameLength && newUsername.Length <= this.maxUsernameLength) || newPassword.Length >= this.minPasswordLength)
             {
-                string oldUsername = Get(id).Username;
+                string oldUsername = this.Get(id).Username;
 
-                if(this.userDao.Edit(id, newUsername, newPassword))
+                if (this.userDao.Edit(id, newUsername, newPassword))
                 {
-                    if(!string.IsNullOrWhiteSpace(newUsername))
+                    if (!string.IsNullOrWhiteSpace(newUsername))
                     {
-                        log.Info($"User {oldUsername} change username to {newUsername}");
+                        Log.Info($"User {oldUsername} change username to {newUsername}");
 
                         return true;
                     }
@@ -82,9 +78,9 @@ namespace EPAM.Final_BLL
         {
             if (id > 1)
             {
-                if(this.userDao.EditRole(id, newRoleId))
+                if (this.userDao.EditRole(id, newRoleId))
                 {
-                    log.Info($"User {Get(id).Username} get {Get(id).Role} role");
+                    Log.Info($"User {Get(id).Username} get {Get(id).Role} role");
 
                     return true;
                 }
@@ -97,11 +93,11 @@ namespace EPAM.Final_BLL
         {
             if (id > 1)
             {
-                string username = Get(id).Username;
+                string username = this.Get(id).Username;
 
                 if (this.userDao.Delete(id))
                 {
-                    log.Info($"User {username} deleted");
+                    Log.Info($"User {username} deleted");
 
                     return true;
                 }
@@ -127,12 +123,12 @@ namespace EPAM.Final_BLL
 
         public int GetId(string username)
         {
-            if(!string.IsNullOrWhiteSpace(username))
+            if (!string.IsNullOrWhiteSpace(username))
             {
                 return this.userDao.GetId(username);
             }
 
-            return errorCode;
+            return ForumLogic.ErrorCode;
         }
     }
 }
