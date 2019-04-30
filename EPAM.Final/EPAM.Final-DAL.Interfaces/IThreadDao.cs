@@ -9,11 +9,11 @@ namespace EPAM.Final_DAL.Interfaces
 {
     public interface IThreadDao
     {
-        int New(string username, string subject);
+        bool TryNew(string username, string subject, out int id);
 
-        int Edit(int id, string newSubject);
+        bool Edit(int id, string newSubject);
 
-        int Delete(int id);
+        bool Delete(int id);
 
         Thread Get(int id);
 

@@ -27,10 +27,10 @@
                     else
                     {
                         var userLogic = DependencyResolver.UserLogic;
-                        if (userLogic.New(username, password) > 0)
+                        if (userLogic.New(username, password))
                         {
                             <script>alert("Successfull")</script>
-                            <script>location.href = "index"</script>
+                            <script>location.href = "threads"</script>
                         }
                         else
                         {

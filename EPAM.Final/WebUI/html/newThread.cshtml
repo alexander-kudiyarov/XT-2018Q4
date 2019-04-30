@@ -26,12 +26,13 @@
             }
             else
             {
-                int threadId = threadLogic.New(User.Identity.Name, subject);
-
-                if (threadId > 0)
+                if (threadLogic.New(User.Identity.Name, subject, out int id))
                 {
-                    postLogic.New(post, threadId, User.Identity.Name);
-                    Response.Redirect($"~/html/posts?threadId={threadId}");
+                    if (id > 0)
+                    {
+                        postLogic.New(post, id, User.Identity.Name);
+                        Response.Redirect($"~/html/posts?threadId={id}");
+                    }
                 }
                 else
                 {

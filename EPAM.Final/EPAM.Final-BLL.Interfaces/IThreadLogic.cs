@@ -9,11 +9,11 @@ namespace EPAM.Final_BLL.Interfaces
 {
     public interface IThreadLogic
     {
-        int New(string username, string subject);
+        bool New(string username, string subject, out int id);
 
-        int Edit(int id, string newSubject);
+        bool Edit(int id, string newSubject);
 
-        int Delete(int id);
+        bool Delete(int id);
 
         Thread Get(int id);
 

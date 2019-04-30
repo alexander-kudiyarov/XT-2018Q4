@@ -12,7 +12,7 @@ namespace EPAM.Final_DAL
 {
     public class PostSQLDao : SQLDao, IPostDao
     {
-        public int New(string text, int threadId, string username)
+        public bool New(string text, int threadId, string username, out int id)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -26,7 +26,7 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@publishDate", DateTime.Now);
 
-                int id = errorCode;
+                id = errorCode;
 
                 if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
@@ -35,20 +35,21 @@ namespace EPAM.Final_DAL
                         while (reader.Read())
                         {
                             id = (int)reader["id"];
+
+                            return true;
                         }
                     }
                     catch(InvalidCastException)
                     {
-                        return id;
+                        return false;
                     }
-                    
                 }
 
-                return id;
+                return false;
             }
         }
 
-        public int Edit(int id, string text)
+        public bool Edit(int id, string text)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -60,11 +61,18 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@editDate", DateTime.Now);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? id : errorCode;
+                if (ExecuteSQLCommand(sqlConnection, cmd))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        public int Delete(int id)
+        public bool Delete(int id)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -72,7 +80,14 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? id : errorCode;
+                if(ExecuteSQLCommand(sqlConnection, cmd))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

@@ -39,7 +39,7 @@
                 }
                 else
                 {
-                    if (userLogic.Edit(id, newUsername, newPassword) > 0)
+                    if (userLogic.Edit(id, newUsername, newPassword))
                     {
                         FormsAuthentication.SetAuthCookie(newUsername, createPersistentCookie: true);
                         Response.Redirect($"~/html/user?id={id}");
@@ -57,7 +57,7 @@
     <form id="newUser" method="post">
         <table>
             <tr>
-                <td><input placeholder="Username" type="text" name="newUsername" maxlength="20" /></td>
+                <td><input placeholder="Username" value ="@u.Username" type="text" name="newUsername" maxlength="20" /></td>
                 <td>must be between 3 and 20 characters</td>
             </tr>
             <tr>

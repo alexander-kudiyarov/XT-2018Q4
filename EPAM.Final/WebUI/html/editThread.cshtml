@@ -34,7 +34,7 @@
             }
             else
             {
-                if (threadLogic.Edit(threadId, editedThread) > 0)
+                if (threadLogic.Edit(threadId, editedThread))
                 {
                     Response.Redirect($"~/html/threads");
                 }

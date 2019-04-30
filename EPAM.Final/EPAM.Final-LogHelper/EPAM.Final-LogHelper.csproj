@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3306482F-AD16-425C-BC20-E4208FEDA28D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleApp1</RootNamespace>
-    <AssemblyName>ConsoleApp1</AssemblyName>
+    <ProjectGuid>{8CAC39E9-0D1E-471E-B62C-F031DF0A12AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EPAM.Final_LogHelper</RootNamespace>
+    <AssemblyName>EPAM.Final-LogHelper</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -46,30 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="LogHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EPAM.Final-BLL.Interfaces\EPAM.Final-BLL.Interfaces.csproj">
-      <Project>{11109b06-635f-4699-9a0b-bdff6a9bd283}</Project>
-      <Name>EPAM.Final-BLL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EPAM.Final-Common\EPAM.Final-Common.csproj">
-      <Project>{8167969f-8b79-47fe-9ba1-13d07a916afd}</Project>
-      <Name>EPAM.Final-Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EPAM.Final-DAL.Interfaces\EPAM.Final-DAL.Interfaces.csproj">
-      <Project>{e0c4fbab-de58-430c-abbc-f5a01d2cfb3a}</Project>
-      <Name>EPAM.Final-DAL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EPAM.Final-Entities\EPAM.Final-Entities.csproj">
-      <Project>{c73764b6-e0e7-4ca9-a9b4-f787d4d8131c}</Project>
-      <Name>EPAM.Final-Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

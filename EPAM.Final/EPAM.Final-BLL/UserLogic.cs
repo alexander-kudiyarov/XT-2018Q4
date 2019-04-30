@@ -44,44 +44,70 @@ namespace EPAM.Final_BLL
             return null;
         }
 
-        public int New(string username, string password)
+        public bool New(string username, string password)
         {
             if (username.Length >= minUsernameLength && username.Length <= maxUsernameLength && password.Length >= minPasswordLength)
             {
-                return this.userDao.New(username, password);
+                if(this.userDao.TryNew(username, password, out int id))
+                {
+                    log.Info($"New user, ID: {id}, Username: {username}");
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int Edit(int id, string newUsername, string newPassword)
+        public bool Edit(int id, string newUsername, string newPassword)
         {
             if ((newUsername.Length >= minUsernameLength && newUsername.Length <= maxUsernameLength) || newPassword.Length >= minPasswordLength)
             {
-                return this.userDao.Edit(id, newUsername, newPassword);
+                string oldUsername = Get(id).Username;
+
+                if(this.userDao.Edit(id, newUsername, newPassword))
+                {
+                    if(!string.IsNullOrWhiteSpace(newUsername))
+                    {
+                        log.Info($"User {oldUsername} change username to {newUsername}");
+
+                        return true;
+                    }
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int EditRole(int id, int newRoleId)
+        public bool EditRole(int id, int newRoleId)
         {
             if (id > 1)
             {
-                return this.userDao.EditRole(id, newRoleId);
+                if(this.userDao.EditRole(id, newRoleId))
+                {
+                    log.Info($"User {Get(id).Username} get {Get(id).Role} role");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int Delete(int id)
+        public bool Delete(int id)
         {
             if (id > 1)
             {
-                return this.userDao.Delete(id);
+                string username = Get(id).Username;
+
+                if (this.userDao.Delete(id))
+                {
+                    log.Info($"User {username} deleted");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
         public User Get(int id)

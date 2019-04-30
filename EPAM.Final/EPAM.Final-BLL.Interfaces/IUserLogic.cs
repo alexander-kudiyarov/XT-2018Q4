@@ -13,13 +13,13 @@ namespace EPAM.Final_BLL.Interfaces
 
         string GetRole(string name);
 
-        int New(string username, string password);
+        bool New(string username, string password);
 
-        int Edit(int id, string newUsername, string newPassword);
+        bool Edit(int id, string newUsername, string newPassword);
 
-        int EditRole(int userId, int newRoleId);
+        bool EditRole(int userId, int newRoleId);
 
-        int Delete(int id);
+        bool Delete(int id);
 
         User Get(int id);
 

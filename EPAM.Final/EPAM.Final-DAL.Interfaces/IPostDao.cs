@@ -9,11 +9,11 @@ namespace EPAM.Final_DAL.Interfaces
 {
     public interface IPostDao
     {
-        int New(string text, int threadId, string username);
+        bool New(string text, int threadId, string username, out int id);
 
-        int Edit(int id, string text);
+        bool Edit(int id, string text);
 
-        int Delete(int id);
+        bool Delete(int id);
 
         Post Get(int id);
 

@@ -12,7 +12,7 @@ namespace EPAM.Final_DAL
 {
     public class ThreadSQLDao : SQLDao, IThreadDao
     {
-        public int New(string username, string subject)
+        public bool TryNew(string username, string subject, out int id)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -24,21 +24,23 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@lastMessage", DateTime.Now);
 
-                int id = errorCode;
-
                 if (ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
                     while (reader.Read())
                     {
                         id = (int)reader["id"];
+
+                        return true;
                     }
                 }
 
-                return id;
+                id = errorCode;
+
+                return false;
             }
         }
 
-        public int Edit(int id, string newSubject)
+        public bool Edit(int id, string newSubject)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -48,11 +50,18 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@newSubject", newSubject);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? id : errorCode;
+                if(ExecuteSQLCommand(sqlConnection, cmd))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        public int Delete(int id)
+        public bool Delete(int id)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -60,7 +69,14 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                return ExecuteSQLCommand(sqlConnection, cmd) ? id : errorCode;
+                if (ExecuteSQLCommand(sqlConnection, cmd))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

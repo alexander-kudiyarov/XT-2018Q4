@@ -39,6 +39,12 @@
             </div>
         }
     }
+    else
+    {
+        <div class="bordered">
+            <p>No threads</p>
+        </div>
+    }
 }
 
 @if (User.Identity.IsAuthenticated && !threadsByUser && !User.IsInRole("banned"))

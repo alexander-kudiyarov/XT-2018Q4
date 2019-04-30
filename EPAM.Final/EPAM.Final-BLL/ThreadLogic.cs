@@ -18,34 +18,53 @@ namespace EPAM.Final_BLL
             this.threadDao = threadDao;
         }
 
-        public int New(string username, string subject)
+        public bool New(string username, string subject, out int id)
         {
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(subject))
             {
-                return this.threadDao.New(username, subject);
+                if (this.threadDao.TryNew(username, subject, out id))
+                {
+                    log.Info($"New thread, ID: {id}, Subject: {subject}");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            id = errorCode;
+
+            return false;
         }
 
-        public int Edit(int id, string newSubject)
+        public bool Edit(int id, string newSubject)
         {
             if (id > 0 && !string.IsNullOrWhiteSpace(newSubject))
             {
-                return this.threadDao.Edit(id, newSubject);
+                if(this.threadDao.Edit(id, newSubject))
+                {
+                    log.Info($"Thread {Get(id).Subject} change subject to {newSubject}");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int Delete(int id)
+        public bool Delete(int id)
         {
             if (id > 0)
             {
-                return this.threadDao.Delete(id);
+                string subject = Get(id).Subject;
+
+                if (this.threadDao.Delete(id))
+                {
+                    log.Info($"Thread {subject} deleted");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
         public Thread Get(int id)

@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace EPAM.Final_DAL
 {
-    public class SQLDao
+    public abstract class SQLDao
     {
         protected static int errorCode = -1;
-        private static string dataSource = @"DESKTOP-89VB63U\SQLEXPRESS";
-        private static string initialCatalog = @"EPAM.Final.Forum";
-        private static bool integratedSecurity = true;
 
-        public static string ConnectionString { get; } = $@"Data Source={dataSource};Initial Catalog={initialCatalog};Integrated Security={integratedSecurity}";
+        protected static log4net.ILog log = LogHelper.GetLogger();
+
+        protected static string ConnectionString { get; } = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
         protected void CreateSQLCommand(SqlConnection sqlConnection, out SqlCommand cmd, string commandText)
         {
             cmd = sqlConnection.CreateCommand();
+
             cmd.CommandText = commandText;
+
             cmd.CommandType = CommandType.StoredProcedure;
         }
 
@@ -36,11 +40,15 @@ namespace EPAM.Final_DAL
             try
             {
                 sqlConnection.Open();
+
                 cmd.ExecuteNonQuery();
+
                 return true;
             }
-            catch (SqlException)
+            catch (SqlException exc)
             {
+                log.Error(exc.Message);
+
                 return false;
             }
         }
@@ -55,8 +63,10 @@ namespace EPAM.Final_DAL
 
                 return true;
             }
-            catch (SqlException)
+            catch (SqlException exc)
             {
+                log.Error(exc.Message);
+
                 reader = null;
 
                 return false;

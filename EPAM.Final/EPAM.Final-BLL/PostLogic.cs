@@ -18,34 +18,49 @@ namespace EPAM.Final_BLL
             this.postDao = postDao;
         }
 
-        public int New(string text, int threadId, string username)
+        public bool New(string text, int threadId, string username)
         {
             if (threadId > 0 && !string.IsNullOrWhiteSpace(text) && !string.IsNullOrWhiteSpace(username))
             {
-                return this.postDao.New(text, threadId, username);
+                if(this.postDao.New(text, threadId, username, out int id))
+                {
+                    log.Info($"New Message, ID: {id}");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int Edit(int id, string text)
+        public bool Edit(int id, string text)
         {
             if (id > 0 && !string.IsNullOrWhiteSpace(text))
             {
-                return this.postDao.Edit(id, text);
+                if(this.postDao.Edit(id, text))
+                {
+                    log.Info($"Post with ID = {id} was edited");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
-        public int Delete(int id)
+        public bool Delete(int id)
         {
             if (id > 0)
             {
-                return this.postDao.Delete(id);
+                if(this.postDao.Delete(id))
+                {
+                    log.Info($"Post ID: {id} was deleted");
+
+                    return true;
+                }
             }
 
-            return errorCode;
+            return false;
         }
 
         public Post Get(int id)
