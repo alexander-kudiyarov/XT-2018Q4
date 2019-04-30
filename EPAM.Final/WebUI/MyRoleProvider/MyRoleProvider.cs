@@ -7,7 +7,7 @@ namespace WebUI.MyRoleProvider
 {
     public class MyRoleProvider : RoleProvider
     {
-        private IUserLogic userLogic = DependencyResolver.UserLogic;
+        private readonly IUserLogic userLogic = DependencyResolver.UserLogic;
 
         public override string[] GetRolesForUser(string username)
         {
