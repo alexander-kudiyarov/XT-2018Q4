@@ -12,46 +12,46 @@
         threadsByUser = true;
         var user = userLogic.Get(id);
         threads = threadLogic.GetAllByUser(id);
-    <div class="heading"><p>Threads by @user.Username</p></div>
+        <div class="heading"><p>Threads by @user.Username</p></div>
     }
     else
     {
         threads = threadLogic.GetAll();
     }
 
-    if (threads.Count() > 0)
+    if (threads != null)
     {
         foreach (var t in threads)
         {
-    <div class="bordered">
-        <a class="highlight" href="~/html/posts?threadId=@t.Id">@t.Subject</a>
-        <div class="signature unpadded right">
-            <p>last message @($"{t.LastMessage:f}")</p>
-            @if (t.StartedBy.Equals(User.Identity.Name) && !User.IsInRole("banned"))
+            <div class="bordered">
+                <a class="highlight" href="~/html/posts?threadId=@t.Id">@t.Subject</a>
+                <div class="signature unpadded right">
+                    <p>last message @($"{t.LastMessage:f}")</p>
+                    @if (t.StartedBy.Equals(User.Identity.Name) && !User.IsInRole("banned"))
                     {
-            <a href="~/html/editThread?id=@t.Id">[Edit]</a>
+                        <a href="~/html/editThread?id=@t.Id">[Edit]</a>
                     }
-            @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                    @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                     {
-            <a href="javascript:Confirmation('functional/deleteThread?id=@t.Id');">[Delete]</a>
+                        <a href="javascript:Confirmation('functional/deleteThread?id=@t.Id');">[Delete]</a>
                     }
-        </div>
-    </div>
+                </div>
+            </div>
         }
     }
     else
     {
-    <div class="bordered">
-        <p>No threads</p>
-    </div>
+        <div class="bordered">
+            <p>No threads</p>
+        </div>
     }
 }
 
 @if (User.Identity.IsAuthenticated && !threadsByUser && !User.IsInRole("banned"))
 {
-<div>
-    <a class="bright" href="~/html/newThread">New thread</a>
-</div>
+    <div>
+        <a class="bright" href="~/html/newThread">New thread</a>
+    </div>
 }
 <head>
     <title>Simple Forum</title>

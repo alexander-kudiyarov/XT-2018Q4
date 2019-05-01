@@ -95,18 +95,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                Post post = null;
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    post = new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?);
+                    while (reader.Read())
+                    {
+                        var post = new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?);
+
+                        return post;
+                    }
                 }
 
-                return post;
+                return null;
             }
         }
 
@@ -118,18 +117,21 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                sqlConnection.Open();
+                
 
-                var reader = cmd.ExecuteReader();
-
-                var result = new List<Post>();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    var result = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    }
+
+                    return result;
                 }
 
-                return result;
+                return null;
             }
         }
 
@@ -141,18 +143,19 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                var result = new List<Post>();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    var result = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
+                    }
+
+                    return result;
                 }
 
-                return result;
+                return null;
             }
         }
     }

@@ -16,16 +16,16 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@username", username);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    string savedPassword = (string)reader["password"];
-                    if (savedPassword.Equals(password))
+                    while (reader.Read())
                     {
-                        return true;
+                        string savedPassword = (string)reader["password"];
+
+                        if (savedPassword.Equals(password))
+                        {
+                            return true;
+                        }
                     }
                 }
 
@@ -41,18 +41,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@username", username);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                string role = null;
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    role = (string)reader["role"];
+                    while (reader.Read())
+                    {
+                        string role = (string)reader["role"];
+
+                        return role;
+                    }
                 }
 
-                return role;
+                return null;
             }
         }
 
@@ -71,6 +70,7 @@ namespace EPAM.Final_DAL
                     while (reader.Read())
                     {
                         id = (int)reader["id"];
+
                         return true;
                     }
                 }
@@ -172,7 +172,9 @@ namespace EPAM.Final_DAL
 
                 while (reader.Read())
                 {
-                    return new User((int)reader["id"], (string)reader["username"], (string)reader["role"]);
+                    var user = new User((int)reader["id"], (string)reader["username"], (string)reader["role"]);
+
+                    return user;
                 }
 
                 return null;
@@ -185,18 +187,19 @@ namespace EPAM.Final_DAL
             {
                 this.CreateSQLCommand(sqlConnection, out SqlCommand cmd, "GetUsers");
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                var result = new List<User>();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["role"]));
+                    var result = new List<User>();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["role"]));
+                    }
+
+                    return result;
                 }
 
-                return result;
+                return null;
             }
         }
 
@@ -208,17 +211,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@username", username);
 
-                sqlConnection.Open();
-                var reader = cmd.ExecuteReader();
-
-                int id = ErrorCode;
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    id = (int)reader["id"];
+                    while (reader.Read())
+                    {
+                        int id = (int)reader["id"];
+
+                        return id;
+                    }   
                 }
 
-                return id;
+                return ErrorCode;
             }
         }
     }

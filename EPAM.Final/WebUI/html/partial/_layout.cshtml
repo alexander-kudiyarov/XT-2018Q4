@@ -13,21 +13,21 @@
         <div class="right unmargined">
             @if (User.IsInRole("admin"))
             {
-            <a href="~/html/administration">[Administration]</a>
+                <a href="~/html/administration">[Administration]</a>
             }
             @if (User.Identity.IsAuthenticated)
             {
                 var userLogic = DependencyResolver.UserLogic;
                 int id = userLogic.GetId(User.Identity.Name);
                 string role = userLogic.GetRole(User.Identity.Name);
-            <a href="~/html/user?id=@id">[@User.Identity.Name (@role)]</a>
-            <a href="~/html/functional/logout">[Log Out]</a>
+                <a href="~/html/user?id=@id">[@User.Identity.Name (@role)]</a>
+                <a href="~/html/functional/logout">[Log Out]</a>
             }
             else
             {
                 if (!HttpContext.Current.Request.Url.AbsolutePath.Equals("/html/registration"))
                 {
-            @RenderPage("/html/partial/_login.cshtml")
+                    @RenderPage("/html/partial/_login.cshtml")
                 }
             }
         </div>

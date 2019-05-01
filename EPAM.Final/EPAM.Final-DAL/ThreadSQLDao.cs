@@ -84,18 +84,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                Thread thread = null;
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    thread = new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]);
+                    while (reader.Read())
+                    {
+                        var thread = new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]);
+
+                        return thread;
+                    }
                 }
 
-                return thread;
+                return null;
             }
         }
 
@@ -105,18 +104,19 @@ namespace EPAM.Final_DAL
             {
                 this.CreateSQLCommand(sqlConnection, out SqlCommand cmd, "GetThreads");
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                var result = new List<Thread>();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
+                    var result = new List<Thread>();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
+                    }
+
+                    return result;
                 }
 
-                return result;
+                return null;
             }
         }
 
@@ -128,18 +128,19 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@id", id);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                var result = new List<Thread>();
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
+                    var result = new List<Thread>();
+
+                    while (reader.Read())
+                    {
+                        result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
+                    }
+
+                    return result;
                 }
 
-                return result;
+                return null;
             }
         }
 
@@ -151,18 +152,17 @@ namespace EPAM.Final_DAL
 
                 this.AddSQLParameter(cmd, "@subject", subject);
 
-                sqlConnection.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                int id = ErrorCode;
-
-                while (reader.Read())
+                if (this.ReadSQLResult(sqlConnection, cmd, out SqlDataReader reader))
                 {
-                    id = (int)reader["id"];
+                    while (reader.Read())
+                    {
+                        int id = (int)reader["id"];
+
+                        return id;
+                    }
                 }
 
-                return id;
+                return ErrorCode;
             }
         }
     }

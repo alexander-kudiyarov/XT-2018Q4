@@ -9,32 +9,32 @@
 
         if (username.Length < 3 || username.Length > 20)
         {
-    <script>alert("Username must be between 3 and 20 characters")</script>
+            <script>alert("Username must be between 3 and 20 characters")</script>
         }
         else
         {
             if (password.Length < 6)
             {
-    <script>alert("Password must be at least 6 characters long")</script>
+                <script>alert("Password must be at least 6 characters long")</script>
             }
             else
             {
                 {
                     if (!password.Equals(confirmation))
                     {
-    <script>alert("Wrong password confirmation")</script>
+                        <script>alert("Wrong password confirmation")</script>
                     }
                     else
                     {
                         var userLogic = DependencyResolver.UserLogic;
                         if (userLogic.New(username, password))
                         {
-    <script>alert("Successfull")</script>
-    <script>location.href = "threads"</script>
+                            <script>alert("Successfull")</script>
+                            <script>location.href = "threads"</script>
                         }
                         else
                         {
-    <script>alert("User with this username already exist")</script>
+                            <script>alert("User with this username already exist")</script>
                         }
                     }
                 }

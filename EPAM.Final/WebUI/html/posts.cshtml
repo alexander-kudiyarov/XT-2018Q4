@@ -14,7 +14,7 @@
         isThread = true;
         thread = threadLogic.Get(id);
         posts = postLogic.GetAllByThread(id);
-    <div class="heading"><p>@thread.Subject</p></div>
+        <div class="heading"><p>@thread.Subject</p></div>
     }
     else
     {
@@ -22,7 +22,7 @@
         {
             var user = userLogic.Get(id);
             posts = postLogic.GetAllByUser(id);
-    <div class="heading"><p>Posts by @user.Username</p></div>
+            <div class="heading"><p>Posts by @user.Username</p></div>
         }
         else
         {
@@ -31,49 +31,128 @@
     }
 }
 
-@if (posts.Count() > 0)
+@if (posts != null)
 {
     foreach (var p in posts)
     {
-<div class="bordered">
-    <p class="highlight">@p.Text</p>
-    <div class="signature unpadded right">
-        posted @($"{p.PublishDate:f}")
-        @if (isThread)
+        <div class="bordered">
+            <p class="highlight">@p.Text</p>
+            <div class="signature unpadded right">
+                posted @($"{p.PublishDate:f}")
+                @if (isThread)
                 {
-        <text>by <a href="~/html/user?id=@p.AuthorId">@p.Author</a></text>
+                    <text>by <a href="~/html/user?id=@p.AuthorId">@p.Author</a></text>
                 }
                 else
                 {
-        <text>in <a href="posts?threadId=@threadLogic.GetId(p.Thread)">@p.Thread</a></text>
+                    <text>in <a href="posts?threadId=@threadLogic.GetId(p.Thread)">@p.Thread</a></text>
                 }
-        @if (p.EditDate.HasValue)
+                @if (p.EditDate.HasValue)
                 {
-        <text>(edited @($"{p.EditDate:f}"))</text>
+                    <text>(edited @($"{p.EditDate:f}"))</text>
                 }
-        @if (p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned"))
+                @if (p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned"))
                 {
-        <a href="~/html/editPost?postId=@p.Id&threadId=@id">[Edit]</a>
+                    <a href="~/html/editPost?postId=@p.Id&threadId=@id">[Edit]</a>
                 }
 
-        @if ((p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned")) || User.IsInRole("admin") || User.IsInRole("moderator"))
+                @if ((p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned")) || User.IsInRole("admin") || User.IsInRole("moderator"))
                 {
-        <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">[Delete]</a>
+                    <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">[Delete]</a>
                 }
-    </div>
-</div>
+            </div>
+        </div>
     }
 }
 else
 {
-<p>No posts</p>
+    <p>No posts</p>
 }
 
 @if (isThread && User.Identity.IsAuthenticated && !User.IsInRole("banned"))
 {
-<div class="unpadded">
-    @RenderPage("~/html/partial/_newPost.cshtml", id)
-</div>
+    <div class="unpadded">
+        @RenderPage("~/html/partial/_newPost.cshtml", id)
+    </div>
+}
+<head>
+    <title>Thread</title>
+</head>@using EPAM.Final_Common;
+@using EPAM.Final_Entities;
+@{
+    Layout = "~/html/partial/_layout.cshtml";
+    var userLogic = DependencyResolver.UserLogic;
+    var threadLogic = DependencyResolver.ThreadLogic;
+    var postLogic = DependencyResolver.PostLogic;
+    IEnumerable<Post> posts = null;
+    Thread thread = null;
+    bool isThread = false;
+
+    if (int.TryParse(Request.QueryString["threadId"], out int id) && id > 0)
+    {
+        isThread = true;
+        thread = threadLogic.Get(id);
+        posts = postLogic.GetAllByThread(id);
+        <div class="heading"><p>@thread.Subject</p></div>
+    }
+    else
+    {
+        if (int.TryParse(Request.QueryString["userId"], out id) && id > 0)
+        {
+            var user = userLogic.Get(id);
+            posts = postLogic.GetAllByUser(id);
+            <div class="heading"><p>Posts by @user.Username</p></div>
+        }
+        else
+        {
+            Response.Redirect("~/html/threads");
+        }
+    }
+}
+
+@if (posts != null)
+{
+    foreach (var p in posts)
+    {
+        <div class="bordered">
+            <p class="highlight">@p.Text</p>
+            <div class="signature unpadded right">
+                posted @($"{p.PublishDate:f}")
+                @if (isThread)
+                {
+                    <text>by <a href="~/html/user?id=@p.AuthorId">@p.Author</a></text>
+                }
+                else
+                {
+                    <text>in <a href="posts?threadId=@threadLogic.GetId(p.Thread)">@p.Thread</a></text>
+                }
+                @if (p.EditDate.HasValue)
+                {
+                    <text>(edited @($"{p.EditDate:f}"))</text>
+                }
+                @if (p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned"))
+                {
+                    <a href="~/html/editPost?postId=@p.Id&threadId=@id">[Edit]</a>
+                }
+
+                @if ((p.Author.Equals(User.Identity.Name) && !User.IsInRole("banned")) || User.IsInRole("admin") || User.IsInRole("moderator"))
+                {
+                    <a href="javascript:Confirmation('functional/deletePost?postId=@p.Id&threadId=@id');">[Delete]</a>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No posts</p>
+}
+
+@if (isThread && User.Identity.IsAuthenticated && !User.IsInRole("banned"))
+{
+    <div class="unpadded">
+        @RenderPage("~/html/partial/_newPost.cshtml", id)
+    </div>
 }
 <head>
     <title>Thread</title>
