@@ -196,7 +196,10 @@ namespace EPAM.Final_DAL
                         result.Add(new User((int)reader["id"], (string)reader["username"], (string)reader["role"]));
                     }
 
-                    return result;
+                    if (result.Count > 0)
+                    {
+                        return result;
+                    }
                 }
 
                 return null;

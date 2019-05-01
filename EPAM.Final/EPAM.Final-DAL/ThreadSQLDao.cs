@@ -113,7 +113,10 @@ namespace EPAM.Final_DAL
                         result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
                     }
 
-                    return result;
+                    if (result.Count > 0)
+                    {
+                        return result;
+                    }
                 }
 
                 return null;
@@ -137,7 +140,10 @@ namespace EPAM.Final_DAL
                         result.Add(new Thread((int)reader["threadId"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["lastMessage"]));
                     }
 
-                    return result;
+                    if(result.Count > 0)
+                    {
+                        return result;
+                    }
                 }
 
                 return null;

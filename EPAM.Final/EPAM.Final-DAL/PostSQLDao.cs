@@ -128,7 +128,10 @@ namespace EPAM.Final_DAL
                         result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
                     }
 
-                    return result;
+                    if (result.Count > 0)
+                    {
+                        return result;
+                    }
                 }
 
                 return null;
@@ -152,7 +155,10 @@ namespace EPAM.Final_DAL
                         result.Add(new Post((int)reader["postId"], (string)reader["text"], (string)reader["subject"], (string)reader["username"], (int)reader["userId"], (DateTime)reader["publishDate"], reader["editDate"] as DateTime?));
                     }
 
-                    return result;
+                    if (result.Count > 0)
+                    {
+                        return result;
+                    }
                 }
 
                 return null;
